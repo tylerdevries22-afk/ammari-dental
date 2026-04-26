@@ -1,18 +1,18 @@
 "use client";
-import { m, useScroll, useTransform, useSpring } from "framer-motion";
+import { m, useScroll, useTransform } from "framer-motion";
 
 export function ScrollHueBackground() {
   const { scrollYProgress } = useScroll();
-  const y = useSpring(useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]), {
-    stiffness: 50,
-    damping: 22,
+  const y = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const filter = useTransform(scrollYProgress, [0, 1], [0, 30], {
+    clamp: true,
   });
-  const hueRotate = useTransform(scrollYProgress, [0, 1], [0, 30]);
+  const filterStr = useTransform(filter, (h) => `hue-rotate(${h}deg)`);
 
   return (
     <m.div
       aria-hidden
-      style={{ y, filter: useTransform(hueRotate, (h) => `hue-rotate(${h}deg)`) }}
+      style={{ y, filter: filterStr }}
       className="fixed inset-0 -z-20 pointer-events-none aurora-gradient opacity-50 mask-fade-b"
     />
   );

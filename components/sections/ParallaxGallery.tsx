@@ -1,7 +1,7 @@
 "use client";
 import { useRef } from "react";
 import Image from "next/image";
-import { m, useScroll, useTransform, useSpring } from "framer-motion";
+import { m, useScroll, useTransform } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { fadeUp, reveal } from "@/lib/motion";
@@ -87,10 +87,8 @@ function ParallaxTile({
   progress: ReturnType<typeof useScroll>["scrollYProgress"];
   index: number;
 }) {
-  const yRaw = useTransform(progress, [0, 1], [0, rate * 320]);
-  const y = useSpring(yRaw, { stiffness: 60, damping: 22 });
-  const scaleRaw = useTransform(progress, [0, 0.5, 1], [1.06, 1, 1.04]);
-  const scale = useSpring(scaleRaw, { stiffness: 80, damping: 24 });
+  const y = useTransform(progress, [0, 1], [0, rate * 320]);
+  const scale = useTransform(progress, [0, 0.5, 1], [1.06, 1, 1.04]);
 
   return (
     <m.div

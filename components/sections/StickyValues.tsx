@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { m, useScroll, useTransform, useSpring } from "framer-motion";
+import { m, useScroll, useTransform } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 
@@ -42,6 +42,15 @@ export function StickyValues() {
     offset: ["start start", "end end"],
   });
 
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, -160]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.4, 0.7, 0.5]);
+  const blobX = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+  const headingOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.05, 0.95, 1],
+    [0, 1, 1, 0],
+  );
+
   return (
     <section
       ref={ref}
@@ -51,27 +60,18 @@ export function StickyValues() {
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         <div aria-hidden className="absolute inset-0">
           <m.div
-            style={{
-              y: useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]),
-              opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0.4, 0.7, 0.5]),
-            }}
+            style={{ y: bgY, opacity: bgOpacity }}
             className="absolute -top-1/4 -left-1/4 w-[120%] h-[140%] aurora-gradient"
           />
           <m.div
-            style={{
-              x: useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]),
-            }}
+            style={{ x: blobX }}
             className="absolute top-1/4 right-0 w-[460px] h-[460px] rounded-full bg-[--color-accent]/10 blur-3xl"
           />
         </div>
 
         <Container className="relative grid lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-5">
-            <m.div
-              style={{
-                opacity: useTransform(scrollYProgress, [0, 0.05, 0.95, 1], [0, 1, 1, 0]),
-              }}
-            >
+            <m.div style={{ opacity: headingOpacity }}>
               <div className="eyebrow !text-[--color-brand-200]">How we work</div>
               <h2 className="mt-3 text-4xl lg:text-6xl font-display tracking-tight leading-[1.05]">
                 Four ideas behind every visit.
@@ -122,24 +122,16 @@ function ValueCard({
   const segment = 1 / total;
   const start = index * segment;
   const end = (index + 1) * segment;
-  const cushion = segment * 0.2;
+  const cushion = segment * 0.25;
 
-  const opacity = useTransform(
-    progress,
-    [start - cushion, start + cushion, end - cushion, end + cushion],
-    [0, 1, 1, 0],
-  );
-  const yRaw = useTransform(
-    progress,
-    [start - cushion, start + cushion, end - cushion, end + cushion],
-    [60, 0, 0, -60],
-  );
-  const y = useSpring(yRaw, { stiffness: 80, damping: 22 });
-  const scale = useTransform(
-    progress,
-    [start - cushion, start + cushion, end - cushion, end + cushion],
-    [0.94, 1, 1, 0.94],
-  );
+  const a = Math.max(0, start - cushion);
+  const b = start + cushion;
+  const c = end - cushion;
+  const d = Math.min(1, end + cushion);
+
+  const opacity = useTransform(progress, [a, b, c, d], [0, 1, 1, 0]);
+  const y = useTransform(progress, [a, b, c, d], [40, 0, 0, -40]);
+  const scale = useTransform(progress, [a, b, c, d], [0.96, 1, 1, 0.96]);
 
   return (
     <m.div
@@ -187,18 +179,16 @@ function ScrollPip({
   count: number;
   progress: ReturnType<typeof useScroll>["scrollYProgress"];
 }) {
-  const start = index / count;
-  const end = (index + 1) / count;
-  const opacity = useTransform(
-    progress,
-    [start - 0.05, start, end, end + 0.05],
-    [0.25, 1, 1, 0.25],
-  );
-  const width = useTransform(
-    progress,
-    [start - 0.05, start, end, end + 0.05],
-    [12, 36, 36, 12],
-  );
+  const segment = 1 / count;
+  const start = index * segment;
+  const end = (index + 1) * segment;
+  const a = Math.max(0, start - 0.05);
+  const b = start;
+  const c = end;
+  const d = Math.min(1, end + 0.05);
+
+  const opacity = useTransform(progress, [a, b, c, d], [0.25, 1, 1, 0.25]);
+  const width = useTransform(progress, [a, b, c, d], [12, 36, 36, 12]);
   return (
     <m.div
       style={{ opacity, width }}
