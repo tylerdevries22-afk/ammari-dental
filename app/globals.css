@@ -1,44 +1,63 @@
 @import "tailwindcss";
 
 @theme {
-  /* Surface */
-  --color-bg: #FBFCFE;
+  /* Surface — soft warm canvas */
+  --color-bg: #FAFAF7;
   --color-surface: #FFFFFF;
-  --color-surface-muted: #F2F6FB;
+  --color-surface-muted: #F1EFEA;
+  --color-surface-warm: #F7F2EC;
 
-  /* Brand — soft clinical blue */
-  --color-brand-50: #EAF3FB;
-  --color-brand-100: #D2E5F4;
-  --color-brand-200: #A6CBE8;
-  --color-brand-400: #4F94C9;
-  --color-brand-600: #1F6FAE;
-  --color-brand-700: #155483;
+  /* Brand — deep teal-mineral with aurora green undertones */
+  --color-brand-50:  #ECF5F4;
+  --color-brand-100: #D5EAE8;
+  --color-brand-200: #A6D2CD;
+  --color-brand-300: #74B6AF;
+  --color-brand-400: #3F948C;
+  --color-brand-500: #2C7973;
+  --color-brand-600: #1F635E;
+  --color-brand-700: #154944;
+  --color-brand-800: #0F3633;
+  --color-brand-900: #0A2624;
 
-  /* Accent */
-  --color-accent: #C9A36B;
+  /* Accent — rose-gold / champagne for cosmetic warmth */
+  --color-accent:    #C8956D;
+  --color-accent-50: #FAF1E9;
+  --color-accent-100:#F2DCC4;
+  --color-accent-300:#DDB48B;
+  --color-accent-500:#B07A4A;
+  --color-accent-600:#925F33;
 
-  /* Ink */
-  --color-ink-900: #0E1A2B;
-  --color-ink-700: #33445C;
-  --color-ink-500: #6B7A90;
-  --color-ink-300: #A9B4C2;
+  /* Tertiary — soft sage for variety */
+  --color-sage-100:  #E8EDE0;
+  --color-sage-300:  #B8C7A1;
+  --color-sage-500:  #7E9462;
+
+  /* Ink — warm cooled neutrals */
+  --color-ink-900: #121A1F;
+  --color-ink-800: #1F2C32;
+  --color-ink-700: #2F3F47;
+  --color-ink-500: #5F7180;
+  --color-ink-400: #8A99A6;
+  --color-ink-300: #B5BFC8;
+  --color-ink-200: #DAE0E5;
 
   /* Semantic */
   --color-success: #1F8A5C;
   --color-warning: #D58A12;
-  --color-danger: #C0392B;
+  --color-danger:  #B83A2C;
 
   /* Radii */
   --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
   --radius-pill: 9999px;
 
-  /* Shadows */
-  --shadow-soft-sm: 0 1px 2px rgba(14, 26, 43, 0.06);
-  --shadow-soft-md: 0 6px 16px -4px rgba(14, 26, 43, 0.10);
-  --shadow-soft-lg: 0 24px 48px -16px rgba(14, 26, 43, 0.18);
+  /* Shadows — warm, sculpted */
+  --shadow-soft-sm: 0 1px 2px rgba(15, 54, 51, 0.06);
+  --shadow-soft-md: 0 8px 22px -8px rgba(15, 54, 51, 0.14);
+  --shadow-soft-lg: 0 32px 64px -22px rgba(15, 54, 51, 0.22);
+  --shadow-glow:    0 0 0 1px rgba(31, 99, 94, 0.12), 0 24px 60px -24px rgba(31, 99, 94, 0.32);
 
   /* Fonts (provided by next/font in layout) */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -64,17 +83,17 @@
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     color: var(--color-ink-900);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     font-weight: 500;
   }
 
   ::selection {
     background: var(--color-brand-200);
-    color: var(--color-ink-900);
+    color: var(--color-brand-900);
   }
 
   *:focus-visible {
-    outline: 2px solid var(--color-brand-400);
+    outline: 2px solid var(--color-brand-500);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -101,9 +120,9 @@
 
   .eyebrow {
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 12px;
-    font-weight: 600;
+    letter-spacing: 0.14em;
+    font-size: 11px;
+    font-weight: 700;
     color: var(--color-brand-600);
   }
 
@@ -138,8 +157,38 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background-image: radial-gradient(rgba(14,26,43,0.025) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(15,54,51,0.025) 1px, transparent 1px);
     background-size: 3px 3px;
     mix-blend-mode: multiply;
+  }
+
+  /* Aurora gradient — used as scroll-driven background */
+  .aurora-gradient {
+    background:
+      radial-gradient(60% 50% at 20% 20%, rgba(63,148,140,0.25) 0%, transparent 60%),
+      radial-gradient(50% 60% at 80% 30%, rgba(200,149,109,0.18) 0%, transparent 60%),
+      radial-gradient(70% 50% at 60% 80%, rgba(166,210,205,0.30) 0%, transparent 70%);
+  }
+
+  /* Soft gradient text for hero accents */
+  .text-aurora {
+    background: linear-gradient(120deg, var(--color-brand-600), var(--color-brand-400) 40%, var(--color-accent-500));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Glass surfaces */
+  .glass {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  /* Mask reveals via scroll */
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
   }
 }

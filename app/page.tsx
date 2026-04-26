@@ -10,6 +10,10 @@ import { StaffStrip } from "@/components/sections/StaffStrip";
 import { ArticlesGrid } from "@/components/sections/ArticlesGrid";
 import { LocationHours } from "@/components/sections/LocationHours";
 import { CTABanner } from "@/components/sections/CTABanner";
+import { ParallaxGallery } from "@/components/sections/ParallaxGallery";
+import { StickyValues } from "@/components/sections/StickyValues";
+import { ScrollHueBackground } from "@/components/sections/ScrollHueBackground";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { Container } from "@/components/ui/Container";
 import { AppointmentForm } from "@/components/sections/AppointmentForm";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -20,18 +24,26 @@ export const metadata: Metadata = metaFor("/");
 export default function HomePage() {
   return (
     <>
+      <ScrollProgress />
+      <ScrollHueBackground />
+
       <Hero />
       <TrustStrip />
+      <ParallaxGallery />
       <ServiceGrid />
-      <EmergencyBand />
+      <StickyValues />
       <AboutSplit />
+      <EmergencyBand />
+      <Testimonials />
       <InsuranceMarquee />
+      <StaffStrip />
+      <ArticlesGrid />
 
-      <section className="py-24 lg:py-32 bg-[--color-surface-muted]/40">
+      <section className="py-24 lg:py-32 bg-[--color-surface-warm]">
         <Container className="grid lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5">
             <SectionHeader
-              eyebrow="Send Us An Email Today"
+              eyebrow="Send us a note"
               title="Appointment Request"
               description="Request a visit and we'll follow up to confirm your time. For urgent care, please call."
               align="left"
@@ -43,9 +55,6 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <StaffStrip />
-      <Testimonials />
-      <ArticlesGrid />
       <LocationHours />
       <CTABanner title="Welcoming new patients" description="Book an appointment in minutes." />
     </>

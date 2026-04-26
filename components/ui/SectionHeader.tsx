@@ -1,4 +1,5 @@
 "use client";
+import type { ReactNode } from "react";
 import { m } from "framer-motion";
 import { fadeUp, stagger, reveal } from "@/lib/motion";
 import { cn } from "@/lib/cn";
@@ -12,7 +13,7 @@ export function SectionHeader({
   className,
 }: {
   eyebrow?: string;
-  title: string;
+  title: ReactNode;
   description?: string;
   align?: "left" | "center";
   level?: 1 | 2 | 3;
