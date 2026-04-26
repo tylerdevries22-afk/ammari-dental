@@ -6,8 +6,46 @@ import { services } from "@/lib/services";
 import { site } from "@/lib/site";
 import { Button } from "@/components/ui/Button";
 
+type Section = {
+  label: string;
+  href?: string;
+  items?: { label: string; href: string }[];
+};
+
+const sections: Section[] = [
+  { label: "Home", href: "/" },
+  { label: "Meet the Doctor", href: "/dental-staff" },
+  {
+    label: "Our Practice",
+    items: [
+      { label: "Improving Your Smile", href: "/-improving-your-smile" },
+      { label: "Comfortable Dentistry", href: "/comfortable-dentistry" },
+      { label: "Financing", href: "/financing" },
+      { label: "Office Location", href: "/our-dental-office-location" },
+    ],
+  },
+  {
+    label: "Services",
+    items: services.map((s) => ({ label: s.name, href: `/${s.slug}` })),
+  },
+  { label: "Appointment", href: "/appointment" },
+  { label: "Contact", href: "/contact" },
+  {
+    label: "Patient Resources",
+    items: [
+      { label: "New Patient Forms", href: "/-new-patient-forms" },
+      { label: "Q & A", href: "/-q---a" },
+      { label: "Links", href: "/links" },
+      { label: "Post-Op Instructions", href: "/post-op-instructions" },
+      { label: "Surgical Instructions", href: "/surgical-instructions" },
+    ],
+  },
+  { label: "Patient Education", href: "/articles/general" },
+  { label: "Blog", href: "/articles/general" },
+];
+
 export function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const [showServices, setShowServices] = useState(false);
+  const [openLabel, setOpenLabel] = useState<string | null>(null);
 
   return (
     <AnimatePresence>
@@ -17,7 +55,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[60] lg:hidden"
+          className="fixed inset-0 z-[60] xl:hidden"
         >
           <div className="absolute inset-0 bg-[--color-ink-900]/40" onClick={onClose} />
           <m.div
@@ -37,64 +75,63 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
             </div>
 
             <nav className="flex-1 overflow-y-auto p-4">
-              <button
-                onClick={() => setShowServices(!showServices)}
-                className="w-full flex items-center justify-between px-3 py-3 text-base font-medium text-[--color-ink-900]"
-              >
-                Services
-                <svg
-                  viewBox="0 0 24 24"
-                  width="18"
-                  height="18"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  fill="none"
-                  style={{ transform: showServices ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s" }}
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </button>
-              <AnimatePresence>
-                {showServices && (
-                  <m.ul
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden pl-3 border-l-2 border-[--color-brand-100] ml-3"
-                  >
-                    {services.map((s) => (
-                      <li key={s.slug}>
-                        <Link
-                          href={`/${s.slug}`}
-                          onClick={onClose}
-                          className="block py-2 text-sm text-[--color-ink-700]"
+              {sections.map((s) =>
+                s.items ? (
+                  <div key={s.label}>
+                    <button
+                      onClick={() => setOpenLabel(openLabel === s.label ? null : s.label)}
+                      className="w-full flex items-center justify-between px-3 py-3 text-base font-medium text-[--color-ink-900]"
+                    >
+                      {s.label}
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="18"
+                        height="18"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        fill="none"
+                        style={{
+                          transform: openLabel === s.label ? "rotate(180deg)" : "rotate(0)",
+                          transition: "transform 0.2s",
+                        }}
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </button>
+                    <AnimatePresence>
+                      {openLabel === s.label && (
+                        <m.ul
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="overflow-hidden pl-3 border-l-2 border-[--color-brand-100] ml-3"
                         >
-                          {s.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </m.ul>
-                )}
-              </AnimatePresence>
-
-              {[
-                { label: "Meet the Doctor", href: "/dental-staff" },
-                { label: "New Patients", href: "/new-patients" },
-                { label: "Reviews", href: "/reviews" },
-                { label: "Testimonials", href: "/testimonials" },
-                { label: "Gallery", href: "/gallery" },
-                { label: "Financing", href: "/financing" },
-                { label: "Contact", href: "/contact" },
-              ].map((l) => (
-                <Link
-                  key={l.label}
-                  href={l.href}
-                  onClick={onClose}
-                  className="block px-3 py-3 text-base font-medium text-[--color-ink-900] hover:bg-[--color-brand-50] rounded-lg"
-                >
-                  {l.label}
-                </Link>
-              ))}
+                          {s.items.map((sub) => (
+                            <li key={sub.href}>
+                              <Link
+                                href={sub.href}
+                                onClick={onClose}
+                                className="block py-2 text-sm text-[--color-ink-700]"
+                              >
+                                {sub.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </m.ul>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <Link
+                    key={s.label}
+                    href={s.href!}
+                    onClick={onClose}
+                    className="block px-3 py-3 text-base font-medium text-[--color-ink-900] hover:bg-[--color-brand-50] rounded-lg"
+                  >
+                    {s.label}
+                  </Link>
+                ),
+              )}
             </nav>
 
             <div className="p-4 border-t border-[--color-brand-100] grid gap-3">

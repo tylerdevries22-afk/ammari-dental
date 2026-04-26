@@ -5,21 +5,15 @@ import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Icon } from "@/components/ui/Icon";
+import { site } from "@/lib/site";
 import { fadeUp, stagger, reveal } from "@/lib/motion";
 
-const staff: { name: string; role: string; image?: string }[] = [
-  { name: "Dr. Raed Ammari", role: "Dentist, Owner", image: "/images/staff/dr-ammari.webp" },
-  { name: "Front Office Team", role: "Scheduling & Insurance" },
-  { name: "Dental Hygienists", role: "Cleanings & Prevention" },
-  { name: "Dental Assistants", role: "Chairside Support" },
-];
-
-export function StaffStrip() {
+export function StaffStrip({ showBio = false }: { showBio?: boolean }) {
   return (
     <section className="py-24 lg:py-32">
       <Container>
         <SectionHeader
-          eyebrow="Learn who we are"
+          eyebrow="Our team"
           title="Meet Our Staff"
           description="A welcoming, experienced team committed to making every visit comfortable."
         />
@@ -30,11 +24,11 @@ export function StaffStrip() {
           viewport={reveal.viewport}
           className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
         >
-          {staff.map((s) => (
+          {site.staff.map((s) => (
             <m.li
               key={s.name}
               variants={fadeUp}
-              className="rounded-2xl overflow-hidden bg-white border border-[--color-brand-100]"
+              className="rounded-2xl overflow-hidden bg-white border border-[--color-brand-100] flex flex-col"
             >
               <div className="relative aspect-[4/5] bg-gradient-to-br from-[--color-brand-100] via-white to-[--color-brand-50] grid place-items-center overflow-hidden">
                 {s.image ? (
@@ -51,21 +45,26 @@ export function StaffStrip() {
                   </div>
                 )}
               </div>
-              <div className="p-5">
-                <div className="font-display text-lg">{s.name}</div>
+              <div className="p-5 flex-1">
+                <div className="font-display text-lg leading-tight">{s.name}</div>
                 <div className="text-xs text-[--color-ink-500] mt-1">{s.role}</div>
+                {showBio && (
+                  <p className="mt-3 text-sm text-[--color-ink-700] leading-relaxed">{s.bio}</p>
+                )}
               </div>
             </m.li>
           ))}
         </m.ul>
-        <div className="mt-10 text-center">
-          <Link
-            href="/dental-staff"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[--color-brand-700] hover:text-[--color-brand-600]"
-          >
-            See the full team <Icon name="arrow" className="w-3.5 h-3.5" />
-          </Link>
-        </div>
+        {!showBio && (
+          <div className="mt-10 text-center">
+            <Link
+              href="/dental-staff"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[--color-brand-700] hover:text-[--color-brand-600]"
+            >
+              See the full team <Icon name="arrow" className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        )}
       </Container>
     </section>
   );

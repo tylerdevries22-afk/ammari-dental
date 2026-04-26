@@ -34,6 +34,18 @@ export function Footer() {
             <Icon name="phone" className="w-4 h-4" />
             {site.phone}
           </a>
+          <div className="mt-3 space-y-1 text-xs text-white/60">
+            <div>
+              <span className="text-white/50">Emergency: </span>
+              <a href={`tel:${site.emergencyTel}`} className="hover:text-white">
+                {site.emergencyPhone}
+              </a>
+            </div>
+            <div>
+              <span className="text-white/50">Fax: </span>
+              {site.fax}
+            </div>
+          </div>
         </div>
 
         <div>
