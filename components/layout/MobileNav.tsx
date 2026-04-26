@@ -14,7 +14,6 @@ type Section = {
 
 const sections: Section[] = [
   { label: "Home", href: "/" },
-  { label: "Meet the Doctor", href: "/dental-staff" },
   {
     label: "Our Practice",
     items: [
@@ -28,8 +27,6 @@ const sections: Section[] = [
     label: "Services",
     items: services.map((s) => ({ label: s.name, href: `/${s.slug}` })),
   },
-  { label: "Appointment", href: "/appointment" },
-  { label: "Contact", href: "/contact" },
   {
     label: "Patient Resources",
     items: [
@@ -42,6 +39,8 @@ const sections: Section[] = [
   },
   { label: "Patient Education", href: "/articles/general" },
   { label: "Blog", href: "/articles/general" },
+  { label: "About Us", href: "/dental-staff" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {

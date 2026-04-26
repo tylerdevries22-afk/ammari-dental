@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { site } from "@/lib/site";
@@ -18,7 +17,6 @@ type NavItem =
 
 const primary: NavItem[] = [
   { label: "Home", href: "/", kind: "link" },
-  { label: "Meet the Doctor", href: "/dental-staff", kind: "link" },
   {
     label: "Our Practice",
     href: "/our-dental-office-location",
@@ -31,8 +29,6 @@ const primary: NavItem[] = [
     ],
   },
   { label: "Services", href: "/dental-services", kind: "mega" },
-  { label: "Appointment", href: "/appointment", kind: "link" },
-  { label: "Contact", href: "/contact", kind: "link" },
   {
     label: "Patient Resources",
     href: "/new-patients",
@@ -47,6 +43,8 @@ const primary: NavItem[] = [
   },
   { label: "Patient Education", href: "/articles/general", kind: "link" },
   { label: "Blog", href: "/articles/general", kind: "link" },
+  { label: "About Us", href: "/dental-staff", kind: "link" },
+  { label: "Contact Us", href: "/contact", kind: "link" },
 ];
 
 export function Header() {
@@ -82,14 +80,14 @@ export function Header() {
             aria-label="Ammari Dental — home"
           >
             <Image
-              src="/images/practice/logo.webp"
+              src="/images/practice/ammaridentallogo.png"
               alt=""
-              width={40}
-              height={40}
+              width={48}
+              height={48}
               priority
-              className="w-10 h-10 object-contain"
+              className="w-11 h-11 object-contain"
             />
-            <span className="hidden sm:inline">Ammari Dental</span>
+            <span className="hidden sm:inline text-[#1FA672]">Ammari Dental</span>
           </Link>
 
           <nav aria-label="Primary" className="hidden xl:flex items-center gap-0.5">
@@ -202,7 +200,6 @@ export function Header() {
             >
               {site.phone}
             </a>
-            <Button href="/appointment" size="sm">Book</Button>
           </div>
 
           <button
