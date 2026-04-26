@@ -23,21 +23,20 @@ export default function Page() {
           patients. Outside the office he enjoys spending time with family and
           giving back to the local community.
         </p>
-        <h2>Dr. Sarah Green, DDS</h2>
+        <h2>Our Associate Dentist</h2>
         <p>
-          Dr. Green brings warmth, precision, and a calm chairside manner to
-          every visit. She treats both general and cosmetic cases — from a
-          first cleaning for a young patient to full smile makeovers — and
-          patients consistently mention how thoroughly she explains every
-          option before treatment begins.
+          Our associate dentist brings warmth, precision, and a calm chairside
+          manner to every visit, treating both general and cosmetic cases —
+          from a first cleaning for a young patient to full smile makeovers —
+          and is known for thoroughly explaining every option before treatment
+          begins.
         </p>
         <h2>The Team</h2>
         <p>
-          Behind every comfortable visit is a team that genuinely cares.
-          Danielle Harris keeps the office running as our Office Manager,
-          handling insurance, scheduling, and treatment coordination so you
-          never have to wonder where things stand. Lisa Dawson, our
-          Administrative Assistant, is often the first friendly voice
+          Behind every comfortable visit is a team that genuinely cares. Our
+          office manager handles insurance, scheduling, and treatment
+          coordination so you never have to wonder where things stand. Our
+          administrative assistant is often the first friendly voice
           you&rsquo;ll hear and helps every new patient get started smoothly.
           Together with our hygienists and dental assistants, they make
           Ammari Dental feel less like a dental office and more like a

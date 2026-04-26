@@ -24,9 +24,9 @@ export function StaffStrip({ showBio = false }: { showBio?: boolean }) {
           viewport={reveal.viewport}
           className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
         >
-          {site.staff.map((s) => (
+          {site.staff.map((s, i) => (
             <m.li
-              key={s.name}
+              key={s.name || `staff-${i}`}
               variants={fadeUp}
               className="rounded-2xl overflow-hidden bg-white border border-(--color-brand-100) flex flex-col"
             >
@@ -34,7 +34,7 @@ export function StaffStrip({ showBio = false }: { showBio?: boolean }) {
                 {s.image ? (
                   <Image
                     src={s.image}
-                    alt={`${s.name} — ${s.role}`}
+                    alt={s.name ? `${s.name} — ${s.role}` : `${s.role} — Ammari Dental`}
                     fill
                     sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 22vw"
                     className="object-cover"

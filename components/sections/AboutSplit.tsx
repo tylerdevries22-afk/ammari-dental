@@ -111,7 +111,7 @@ export function AboutSplit() {
               className="absolute inset-0 will-change-transform"
             >
               <Image
-                src="/images/staff/dr-ammari.webp"
+                src="/images/staff/dr-ammari.jpg"
                 alt="Dr. Raed Ammari, DDS — Ammari Dental, Aurora, CO"
                 fill
                 sizes="(max-width: 1024px) 90vw, 45vw"
