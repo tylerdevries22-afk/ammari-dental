@@ -1,0 +1,51 @@
+import type { Metadata } from "next";
+import { Inter, Fraunces } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import "./globals.css";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { FloatingCallButton } from "@/components/layout/FloatingCallButton";
+import { LocalBusinessSchema } from "@/components/schema/Schema";
+import { MotionProvider } from "@/components/MotionProvider";
+import { metaFor } from "@/lib/metadata";
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600"],
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://www.auroragentledentist.com"),
+  ...metaFor("/"),
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
+      <body className="min-h-screen flex flex-col antialiased">
+        <MotionProvider>
+          <Header />
+          <main id="main" className="flex-1">{children}</main>
+          <Footer />
+          <FloatingCallButton />
+        </MotionProvider>
+        <LocalBusinessSchema />
+        <Analytics />
+        <SpeedInsights />
+      </body>
+    </html>
+  );
+}

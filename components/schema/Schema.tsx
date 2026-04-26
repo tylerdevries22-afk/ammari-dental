@@ -1,0 +1,114 @@
+import { site } from "@/lib/site";
+
+const dayMap: Record<string, string> = {
+  Monday: "Mo",
+  Tuesday: "Tu",
+  Wednesday: "We",
+  Thursday: "Th",
+  Friday: "Fr",
+  Saturday: "Sa",
+  Sunday: "Su",
+};
+
+export function LocalBusinessSchema() {
+  const openingHours = site.hours
+    .filter((h) => !("closed" in h && h.closed))
+    .map((h) => `${dayMap[h.day]} ${"open" in h ? h.open : ""}-${"close" in h ? h.close : ""}`);
+
+  const data = {
+    "@context": "https://schema.org",
+    "@type": ["Dentist", "LocalBusiness", "MedicalBusiness"],
+    name: site.name,
+    url: site.url,
+    telephone: site.phone,
+    faxNumber: site.fax,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.address.street,
+      addressLocality: site.address.city,
+      addressRegion: site.address.state,
+      postalCode: site.address.zip,
+      addressCountry: site.address.country,
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: site.geo.lat,
+      longitude: site.geo.lng,
+    },
+    openingHours,
+    priceRange: "$$",
+    image: `${site.url}/og.jpg`,
+    sameAs: Object.values(site.social),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+       
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
+export function BreadcrumbSchema({ items }: { items: { name: string; url: string }[] }) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.name,
+      item: it.url.startsWith("http") ? it.url : `${site.url}${it.url}`,
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
+export function FAQPageSchema({ faqs }: { faqs: { q: string; a: string }[] }) {
+  if (!faqs.length) return null;
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
+export function MedicalProcedureSchema({
+  name,
+  description,
+  url,
+}: {
+  name: string;
+  description: string;
+  url: string;
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "MedicalProcedure",
+    name,
+    description,
+    url: url.startsWith("http") ? url : `${site.url}${url}`,
+    procedureType: "https://schema.org/TherapeuticProcedure",
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
