@@ -1,7 +1,7 @@
 "use client";
 import { m } from "framer-motion";
 import { Container } from "@/components/ui/Container";
-import { Marquee } from "@/components/ui/Marquee";
+import { VelocityMarquee } from "@/components/ui/VelocityMarquee";
 import { site } from "@/lib/site";
 import { fadeUp, reveal } from "@/lib/motion";
 
@@ -20,7 +20,7 @@ export function InsuranceMarquee() {
           <h3 className="mt-2 font-display text-2xl">Most major insurance accepted</h3>
         </m.div>
       </Container>
-      <Marquee>
+      <VelocityMarquee baseSpeed={0.5}>
         {site.insurances.map((name) => (
           <div
             key={name}
@@ -29,7 +29,7 @@ export function InsuranceMarquee() {
             {name}
           </div>
         ))}
-      </Marquee>
+      </VelocityMarquee>
     </section>
   );
 }
