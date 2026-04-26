@@ -36,7 +36,7 @@ export const services: Service[] = [
     category: "general",
     blurb:
       "Routine exams, cleanings, and preventive care to keep your smile healthy for life.",
-    icon: "tooth",
+    icon: "tooth-check",
     featured: true,
   },
   {
@@ -46,7 +46,7 @@ export const services: Service[] = [
     category: "general",
     blurb:
       "Gentle, anxiety-aware care designed for patients who want a calm, relaxed experience.",
-    icon: "heart",
+    icon: "tooth-heart",
   },
   {
     slug: "dental-emergencies",
@@ -55,7 +55,7 @@ export const services: Service[] = [
     category: "emergency",
     blurb:
       "Same-day urgent care for broken teeth, pain, swelling, and trauma.",
-    icon: "alert",
+    icon: "tooth-crack",
     featured: true,
   },
   {
@@ -65,7 +65,7 @@ export const services: Service[] = [
     category: "cosmetic",
     blurb:
       "Professional whitening that delivers a brighter, natural-looking smile.",
-    icon: "sparkle",
+    icon: "tooth-sparkle",
     featured: true,
   },
   {
@@ -75,7 +75,7 @@ export const services: Service[] = [
     category: "cosmetic",
     blurb:
       "Reshape chips, gaps, and discoloration with tooth-colored composite resin.",
-    icon: "brush",
+    icon: "tooth-brush",
   },
   {
     slug: "tooth-colored-fillings",
@@ -84,7 +84,7 @@ export const services: Service[] = [
     category: "restorative",
     blurb:
       "Mercury-free, natural-looking composite fillings that blend with your enamel.",
-    icon: "shield",
+    icon: "tooth-fill",
   },
   {
     slug: "dental-crowns",
@@ -111,7 +111,7 @@ export const services: Service[] = [
     category: "cosmetic",
     blurb:
       "Thin porcelain shells that transform your smile in just a few visits.",
-    icon: "layers",
+    icon: "tooth-shell",
   },
   {
     slug: "root-canal",
@@ -120,7 +120,7 @@ export const services: Service[] = [
     category: "restorative",
     blurb:
       "Save infected teeth and end the pain with modern, gentle endodontic care.",
-    icon: "pulse",
+    icon: "tooth-root",
     featured: true,
   },
   {
@@ -130,7 +130,7 @@ export const services: Service[] = [
     category: "general",
     blurb:
       "Scaling and root planing to treat early gum disease and restore gum health.",
-    icon: "droplet",
+    icon: "tooth-water",
   },
   {
     slug: "preventative-periodontics",
@@ -139,7 +139,7 @@ export const services: Service[] = [
     category: "general",
     blurb:
       "Specialized care to prevent and manage gum disease at every stage.",
-    icon: "leaf",
+    icon: "tooth-shield",
   },
   {
     slug: "night-guards",
@@ -148,7 +148,7 @@ export const services: Service[] = [
     category: "general",
     blurb:
       "Custom-fit guards that protect your teeth from grinding and clenching.",
-    icon: "moon",
+    icon: "tooth-moon",
   },
   {
     slug: "dental-implants",
@@ -157,7 +157,7 @@ export const services: Service[] = [
     category: "surgical",
     blurb:
       "Permanent titanium tooth replacements that look, feel, and function like natural teeth.",
-    icon: "anchor",
+    icon: "implant",
     featured: true,
   },
   {
@@ -167,7 +167,7 @@ export const services: Service[] = [
     category: "surgical",
     blurb:
       "Stable, secure dentures anchored on dental implants — no slipping, no adhesives.",
-    icon: "link",
+    icon: "implant-row",
   },
   {
     slug: "dentures",
@@ -176,7 +176,7 @@ export const services: Service[] = [
     category: "restorative",
     blurb:
       "Comfortable, custom dentures that restore your smile and confidence.",
-    icon: "smile",
+    icon: "dentures",
     featured: true,
   },
   {
@@ -186,7 +186,7 @@ export const services: Service[] = [
     category: "surgical",
     blurb:
       "Gentle tooth removal with thorough aftercare for a smooth recovery.",
-    icon: "scissors",
+    icon: "forceps",
   },
   {
     slug: "multiple-tooth-extractions",
@@ -195,7 +195,7 @@ export const services: Service[] = [
     category: "surgical",
     blurb:
       "Coordinated care for patients needing several extractions safely and comfortably.",
-    icon: "scissors-stack",
+    icon: "forceps-multi",
   },
 ];
 
