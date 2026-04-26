@@ -13,6 +13,7 @@ import { CTABanner } from "@/components/sections/CTABanner";
 import { ParallaxGallery } from "@/components/sections/ParallaxGallery";
 import { StickyValues } from "@/components/sections/StickyValues";
 import { ScrollHueBackground } from "@/components/sections/ScrollHueBackground";
+import { FlossThread } from "@/components/sections/FlossThread";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { Container } from "@/components/ui/Container";
 import { AppointmentForm } from "@/components/sections/AppointmentForm";
@@ -27,36 +28,38 @@ export default function HomePage() {
       <ScrollProgress />
       <ScrollHueBackground />
 
-      <Hero />
-      <TrustStrip />
-      <ParallaxGallery />
-      <ServiceGrid />
-      <StickyValues />
-      <AboutSplit />
-      <EmergencyBand />
-      <Testimonials />
-      <InsuranceMarquee />
-      <StaffStrip />
-      <ArticlesGrid />
+      <FlossThread>
+        <Hero />
+        <TrustStrip />
+        <ParallaxGallery />
+        <ServiceGrid />
+        <StickyValues />
+        <AboutSplit />
+        <EmergencyBand />
+        <Testimonials />
+        <InsuranceMarquee />
+        <StaffStrip />
+        <ArticlesGrid />
 
-      <section className="py-24 lg:py-32 bg-(--color-surface-warm)">
-        <Container className="grid lg:grid-cols-12 gap-12 items-start">
-          <div className="lg:col-span-5">
-            <SectionHeader
-              eyebrow="Send us a note"
-              title="Appointment Request"
-              description="Request a visit and we'll follow up to confirm your time. For urgent care, please call."
-              align="left"
-            />
-          </div>
-          <div className="lg:col-span-7">
-            <AppointmentForm />
-          </div>
-        </Container>
-      </section>
+        <section className="py-24 lg:py-32 bg-(--color-surface-warm)">
+          <Container className="grid lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-5">
+              <SectionHeader
+                eyebrow="Send us a note"
+                title="Appointment Request"
+                description="Request a visit and we'll follow up to confirm your time. For urgent care, please call."
+                align="left"
+              />
+            </div>
+            <div className="lg:col-span-7">
+              <AppointmentForm />
+            </div>
+          </Container>
+        </section>
 
-      <LocationHours />
-      <CTABanner title="Welcoming new patients" description="Book an appointment in minutes." />
+        <LocationHours />
+        <CTABanner title="Welcoming new patients" description="Book an appointment in minutes." />
+      </FlossThread>
     </>
   );
 }
