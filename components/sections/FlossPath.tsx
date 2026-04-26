@@ -1,18 +1,20 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { m, useTransform, type MotionValue } from "framer-motion";
-import { buildFlossPath } from "@/lib/floss-path";
+import { buildFlossPath, type SectionBounds } from "@/lib/floss-path";
 
 export function FlossPath({
   height,
+  sections,
   progress,
 }: {
   height: number;
+  sections: SectionBounds[];
   progress: MotionValue<number>;
 }) {
   const pathRef = useRef<SVGPathElement>(null);
   const [length, setLength] = useState(0);
-  const d = buildFlossPath(height);
+  const d = buildFlossPath(sections);
 
   useEffect(() => {
     if (pathRef.current) setLength(pathRef.current.getTotalLength());

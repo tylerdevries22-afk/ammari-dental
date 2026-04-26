@@ -1,42 +1,42 @@
-type Waypoint = [x: number, t: number];
+export type SectionBounds = { top: number; bottom: number };
 
-const waypoints: Waypoint[] = [
-  [1320, 0.015],
-  [1340, 0.04],
-  [1100, 0.06],
-  [880, 0.085],
-  [1080, 0.115],
-  [1300, 0.145],
-  [1080, 0.18],
-  [780, 0.22],
-  [1140, 0.27],
-  [1300, 0.31],
-  [820, 0.36],
-  [320, 0.41],
-  [820, 0.46],
-  [1180, 0.5],
-  [720, 0.55],
-  [240, 0.59],
-  [720, 0.63],
-  [1200, 0.67],
-  [820, 0.71],
-  [340, 0.755],
-  [900, 0.8],
-  [1300, 0.84],
-  [800, 0.88],
-  [320, 0.915],
-  [720, 0.96],
-  [720, 0.995],
-];
+const VIEW_W = 1440;
+const MARGIN_X = 28;
+const LEFT_X = MARGIN_X;
+const RIGHT_X = VIEW_W - MARGIN_X;
 
-export function buildFlossPath(height: number): string {
-  const pts = waypoints.map<[number, number]>(([x, t]) => [x, t * height]);
-  let d = `M ${pts[0][0].toFixed(2)} ${pts[0][1].toFixed(2)}`;
-  for (let i = 1; i < pts.length; i++) {
-    const [px, py] = pts[i - 1];
-    const [cx, cy] = pts[i];
-    const midY = (py + cy) / 2;
-    d += ` C ${px.toFixed(2)} ${midY.toFixed(2)}, ${cx.toFixed(2)} ${midY.toFixed(2)}, ${cx.toFixed(2)} ${cy.toFixed(2)}`;
+export function buildFlossPath(sections: SectionBounds[]): string {
+  if (!sections.length) return "";
+
+  const sideX = (i: number) => (i % 2 === 0 ? RIGHT_X : LEFT_X);
+  const insetFor = (s: SectionBounds) =>
+    Math.min(80, Math.max(20, (s.bottom - s.top) * 0.18));
+
+  let d = "";
+
+  for (let i = 0; i < sections.length; i++) {
+    const sec = sections[i];
+    const x = sideX(i);
+    const inset = insetFor(sec);
+    const enterY = sec.top + inset;
+    const exitY = sec.bottom - inset;
+
+    if (i === 0) {
+      d = `M ${x.toFixed(2)} ${enterY.toFixed(2)}`;
+    }
+    d += ` L ${x.toFixed(2)} ${exitY.toFixed(2)}`;
+
+    if (i < sections.length - 1) {
+      const nextX = sideX(i + 1);
+      const nextSec = sections[i + 1];
+      const nextInset = insetFor(nextSec);
+      const nextEnterY = nextSec.top + nextInset;
+      const cpY = (exitY + nextEnterY) / 2;
+      d += ` C ${x.toFixed(2)} ${cpY.toFixed(2)}, ${nextX.toFixed(
+        2,
+      )} ${cpY.toFixed(2)}, ${nextX.toFixed(2)} ${nextEnterY.toFixed(2)}`;
+    }
   }
+
   return d;
 }
