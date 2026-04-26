@@ -7,7 +7,7 @@ import { services } from "@/lib/services";
 
 export function Footer() {
   return (
-    <footer className="bg-[--color-ink-900] text-white mt-24">
+    <footer className="bg-(--color-ink-900) text-white mt-24">
       <Container className="py-16 grid lg:grid-cols-4 gap-10">
         <div className="lg:col-span-1">
           <Link href="/" className="flex items-center gap-3 font-display text-xl">
@@ -29,7 +29,7 @@ export function Footer() {
           </p>
           <a
             href={`tel:${site.phoneTel}`}
-            className="mt-6 inline-flex items-center gap-2 text-lg font-semibold hover:text-[--color-brand-200]"
+            className="mt-6 inline-flex items-center gap-2 text-lg font-semibold hover:text-(--color-brand-200)"
           >
             <Icon name="phone" className="w-4 h-4" />
             {site.phone}

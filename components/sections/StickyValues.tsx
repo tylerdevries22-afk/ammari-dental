@@ -54,7 +54,7 @@ export function StickyValues() {
   return (
     <section
       ref={ref}
-      className="relative bg-[--color-brand-900] text-white"
+      className="relative bg-(--color-brand-900) text-white"
       style={{ height: `${values.length * 100}vh` }}
     >
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
@@ -65,14 +65,14 @@ export function StickyValues() {
           />
           <m.div
             style={{ x: blobX }}
-            className="absolute top-1/4 right-0 w-[460px] h-[460px] rounded-full bg-[--color-accent]/10 blur-3xl"
+            className="absolute top-1/4 right-0 w-[460px] h-[460px] rounded-full bg-(--color-accent)/10 blur-3xl"
           />
         </div>
 
         <Container className="relative grid lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-5">
             <m.div style={{ opacity: headingOpacity }}>
-              <div className="eyebrow !text-[--color-brand-200]">How we work</div>
+              <div className="eyebrow text-(--color-brand-200)!">How we work</div>
               <h2 className="mt-3 text-4xl lg:text-6xl font-display tracking-tight leading-[1.05]">
                 Four ideas behind every visit.
               </h2>
@@ -138,11 +138,11 @@ function ValueCard({
       style={{ opacity, y, scale }}
       className="absolute inset-0 grid place-items-center"
     >
-      <div className="w-full max-w-xl rounded-[28px] glass !bg-white/8 !border-white/15 p-10 lg:p-12 backdrop-blur-xl">
-        <span className="grid place-items-center w-14 h-14 rounded-2xl bg-[--color-brand-600]/40 text-[--color-brand-100]">
+      <div className="w-full max-w-xl rounded-[28px] glass bg-white/8! border-white/15! p-10 lg:p-12 backdrop-blur-xl">
+        <span className="grid place-items-center w-14 h-14 rounded-2xl bg-(--color-brand-600)/40 text-(--color-brand-100)">
           <Icon name={icon} className="w-6 h-6" />
         </span>
-        <div className="mt-6 text-xs font-semibold tracking-[0.18em] uppercase text-[--color-brand-200]">
+        <div className="mt-6 text-xs font-semibold tracking-[0.18em] uppercase text-(--color-brand-200)">
           {eyebrow}
         </div>
         <h3 className="mt-3 text-3xl lg:text-4xl font-display tracking-tight leading-tight">
@@ -192,7 +192,7 @@ function ScrollPip({
   return (
     <m.div
       style={{ opacity, width }}
-      className="h-[2px] bg-[--color-brand-200] rounded-full"
+      className="h-[2px] bg-(--color-brand-200) rounded-full"
     />
   );
 }

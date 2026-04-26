@@ -19,7 +19,7 @@ export function PageHero({
 }) {
   return (
     <section className="relative pt-[88px] pb-12 lg:pt-32 lg:pb-16 overflow-hidden">
-      <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[--color-brand-100] to-transparent blur-3xl opacity-60 -z-10" />
+      <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-(--color-brand-100) to-transparent blur-3xl opacity-60 -z-10" />
       <Container>
         {breadcrumbs && (
           <div className="mb-6">
@@ -37,7 +37,7 @@ export function PageHero({
             {title}
           </h1>
           {description && (
-            <p className="mt-6 text-lg text-[--color-ink-700] leading-relaxed">{description}</p>
+            <p className="mt-6 text-lg text-(--color-ink-700) leading-relaxed">{description}</p>
           )}
           {actions && <div className="mt-8 flex flex-wrap gap-3">{actions}</div>}
         </m.div>

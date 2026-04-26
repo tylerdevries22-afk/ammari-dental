@@ -24,7 +24,7 @@ export default function Page() {
             {items.map((i) => (
               <li
                 key={i}
-                className="aspect-square rounded-2xl bg-gradient-to-br from-[--color-brand-100] to-[--color-brand-50] grid place-items-center text-[--color-brand-700]"
+                className="aspect-square rounded-2xl bg-gradient-to-br from-(--color-brand-100) to-(--color-brand-50) grid place-items-center text-(--color-brand-700)"
               >
                 <Icon name="smile" className="w-12 h-12 opacity-50" />
               </li>

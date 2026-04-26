@@ -39,7 +39,7 @@ export default function HomePage() {
       <StaffStrip />
       <ArticlesGrid />
 
-      <section className="py-24 lg:py-32 bg-[--color-surface-warm]">
+      <section className="py-24 lg:py-32 bg-(--color-surface-warm)">
         <Container className="grid lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5">
             <SectionHeader

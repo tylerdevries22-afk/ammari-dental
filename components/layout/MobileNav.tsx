@@ -57,15 +57,15 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
           transition={{ duration: 0.2 }}
           className="fixed inset-0 z-[60] xl:hidden"
         >
-          <div className="absolute inset-0 bg-[--color-ink-900]/40" onClick={onClose} />
+          <div className="absolute inset-0 bg-(--color-ink-900)/40" onClick={onClose} />
           <m.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 280, damping: 30 }}
-            className="absolute right-0 top-0 h-full w-full max-w-sm bg-white shadow-[--shadow-soft-lg] flex flex-col"
+            className="absolute right-0 top-0 h-full w-full max-w-sm bg-white shadow-(--shadow-soft-lg) flex flex-col"
           >
-            <div className="flex items-center justify-between p-5 border-b border-[--color-brand-100]">
+            <div className="flex items-center justify-between p-5 border-b border-(--color-brand-100)">
               <span className="font-display text-lg">Menu</span>
               <button onClick={onClose} aria-label="Close menu" className="p-2 -mr-2">
                 <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" strokeWidth="1.6" fill="none">
@@ -80,7 +80,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
                   <div key={s.label}>
                     <button
                       onClick={() => setOpenLabel(openLabel === s.label ? null : s.label)}
-                      className="w-full flex items-center justify-between px-3 py-3 text-base font-medium text-[--color-ink-900]"
+                      className="w-full flex items-center justify-between px-3 py-3 text-base font-medium text-(--color-ink-900)"
                     >
                       {s.label}
                       <svg
@@ -104,14 +104,14 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          className="overflow-hidden pl-3 border-l-2 border-[--color-brand-100] ml-3"
+                          className="overflow-hidden pl-3 border-l-2 border-(--color-brand-100) ml-3"
                         >
                           {s.items.map((sub) => (
                             <li key={sub.href}>
                               <Link
                                 href={sub.href}
                                 onClick={onClose}
-                                className="block py-2 text-sm text-[--color-ink-700]"
+                                className="block py-2 text-sm text-(--color-ink-700)"
                               >
                                 {sub.label}
                               </Link>
@@ -126,7 +126,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
                     key={s.label}
                     href={s.href!}
                     onClick={onClose}
-                    className="block px-3 py-3 text-base font-medium text-[--color-ink-900] hover:bg-[--color-brand-50] rounded-lg"
+                    className="block px-3 py-3 text-base font-medium text-(--color-ink-900) hover:bg-(--color-brand-50) rounded-lg"
                   >
                     {s.label}
                   </Link>
@@ -134,7 +134,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
               )}
             </nav>
 
-            <div className="p-4 border-t border-[--color-brand-100] grid gap-3">
+            <div className="p-4 border-t border-(--color-brand-100) grid gap-3">
               <Button href={`tel:${site.phoneTel}`} variant="secondary" size="md">
                 Call {site.phone}
               </Button>

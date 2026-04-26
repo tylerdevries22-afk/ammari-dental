@@ -8,7 +8,7 @@ import { fadeUp, stagger, reveal } from "@/lib/motion";
 
 export function LocationHours() {
   return (
-    <section className="py-24 lg:py-32 bg-[--color-surface-muted]/50">
+    <section className="py-24 lg:py-32 bg-(--color-surface-muted)/50">
       <Container>
         <m.div
           variants={stagger(0.08)}
@@ -23,12 +23,12 @@ export function LocationHours() {
 
             <div className="mt-8 grid gap-6">
               <div className="flex gap-4">
-                <span className="grid place-items-center w-10 h-10 rounded-lg bg-white border border-[--color-brand-100] text-[--color-brand-600] shrink-0">
+                <span className="grid place-items-center w-10 h-10 rounded-lg bg-white border border-(--color-brand-100) text-(--color-brand-600) shrink-0">
                   <Icon name="anchor" className="w-5 h-5" />
                 </span>
                 <div>
-                  <div className="text-sm font-semibold text-[--color-ink-900]">Our Location</div>
-                  <div className="text-[--color-ink-700] text-sm">
+                  <div className="text-sm font-semibold text-(--color-ink-900)">Our Location</div>
+                  <div className="text-(--color-ink-700) text-sm">
                     {site.address.street}<br />
                     {site.address.city}, {site.address.state} {site.address.zip}
                   </div>
@@ -36,28 +36,28 @@ export function LocationHours() {
               </div>
 
               <div className="flex gap-4">
-                <span className="grid place-items-center w-10 h-10 rounded-lg bg-white border border-[--color-brand-100] text-[--color-brand-600] shrink-0">
+                <span className="grid place-items-center w-10 h-10 rounded-lg bg-white border border-(--color-brand-100) text-(--color-brand-600) shrink-0">
                   <Icon name="phone" className="w-5 h-5" />
                 </span>
                 <div>
-                  <div className="text-sm font-semibold text-[--color-ink-900]">Phone</div>
-                  <a href={`tel:${site.phoneTel}`} className="text-[--color-ink-700] text-sm hover:text-[--color-brand-700]">
+                  <div className="text-sm font-semibold text-(--color-ink-900)">Phone</div>
+                  <a href={`tel:${site.phoneTel}`} className="text-(--color-ink-700) text-sm hover:text-(--color-brand-700)">
                     {site.phone}
                   </a>
                 </div>
               </div>
 
               <div className="flex gap-4">
-                <span className="grid place-items-center w-10 h-10 rounded-lg bg-white border border-[--color-brand-100] text-[--color-brand-600] shrink-0">
+                <span className="grid place-items-center w-10 h-10 rounded-lg bg-white border border-(--color-brand-100) text-(--color-brand-600) shrink-0">
                   <Icon name="calendar" className="w-5 h-5" />
                 </span>
                 <div className="flex-1">
-                  <div className="text-sm font-semibold text-[--color-ink-900]">Hours of Operation</div>
-                  <ul className="mt-2 grid gap-1 text-sm text-[--color-ink-700]">
+                  <div className="text-sm font-semibold text-(--color-ink-900)">Hours of Operation</div>
+                  <ul className="mt-2 grid gap-1 text-sm text-(--color-ink-700)">
                     {site.hours.map((h) => (
                       <li key={h.day} className="flex justify-between gap-6 max-w-xs">
                         <span>{h.day}</span>
-                        <span className="text-[--color-ink-500]">
+                        <span className="text-(--color-ink-500)">
                           {"closed" in h && h.closed
                             ? "Closed"
                             : `${"open" in h ? h.open : ""} – ${"close" in h ? h.close : ""}`}
@@ -76,7 +76,7 @@ export function LocationHours() {
             </div>
           </m.div>
 
-          <m.div variants={fadeUp} className="relative aspect-square lg:aspect-auto rounded-3xl overflow-hidden bg-[--color-brand-100] shadow-[--shadow-soft-lg]">
+          <m.div variants={fadeUp} className="relative aspect-square lg:aspect-auto rounded-3xl overflow-hidden bg-(--color-brand-100) shadow-(--shadow-soft-lg)">
             <iframe
               loading="lazy"
               title="Ammari Dental Location"

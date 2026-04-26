@@ -28,9 +28,9 @@ export function StaffStrip({ showBio = false }: { showBio?: boolean }) {
             <m.li
               key={s.name}
               variants={fadeUp}
-              className="rounded-2xl overflow-hidden bg-white border border-[--color-brand-100] flex flex-col"
+              className="rounded-2xl overflow-hidden bg-white border border-(--color-brand-100) flex flex-col"
             >
-              <div className="relative aspect-[4/5] bg-gradient-to-br from-[--color-brand-100] via-white to-[--color-brand-50] grid place-items-center overflow-hidden">
+              <div className="relative aspect-[4/5] bg-gradient-to-br from-(--color-brand-100) via-white to-(--color-brand-50) grid place-items-center overflow-hidden">
                 {s.image ? (
                   <Image
                     src={s.image}
@@ -40,16 +40,16 @@ export function StaffStrip({ showBio = false }: { showBio?: boolean }) {
                     className="object-cover"
                   />
                 ) : (
-                  <div className="grid place-items-center w-20 h-20 rounded-full bg-white shadow-[--shadow-soft-md] text-[--color-brand-700]">
+                  <div className="grid place-items-center w-20 h-20 rounded-full bg-white shadow-(--shadow-soft-md) text-(--color-brand-700)">
                     <Icon name="smile" className="w-10 h-10" />
                   </div>
                 )}
               </div>
               <div className="p-5 flex-1">
                 <div className="font-display text-lg leading-tight">{s.name}</div>
-                <div className="text-xs text-[--color-ink-500] mt-1">{s.role}</div>
+                <div className="text-xs text-(--color-ink-500) mt-1">{s.role}</div>
                 {showBio && (
-                  <p className="mt-3 text-sm text-[--color-ink-700] leading-relaxed">{s.bio}</p>
+                  <p className="mt-3 text-sm text-(--color-ink-700) leading-relaxed">{s.bio}</p>
                 )}
               </div>
             </m.li>
@@ -59,7 +59,7 @@ export function StaffStrip({ showBio = false }: { showBio?: boolean }) {
           <div className="mt-10 text-center">
             <Link
               href="/dental-staff"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[--color-brand-700] hover:text-[--color-brand-600]"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-(--color-brand-700) hover:text-(--color-brand-600)"
             >
               See the full team <Icon name="arrow" className="w-3.5 h-3.5" />
             </Link>

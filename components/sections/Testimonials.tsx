@@ -11,28 +11,28 @@ const reviews = [
       "Dr. Ammari and his team are incredible. The office is welcoming, and the staff truly cares. I have never had a better dental experience.",
     name: "Linda O.",
     rating: 5,
-    accent: "from-[--color-brand-100] to-[--color-brand-50]",
+    accent: "from-(--color-brand-100) to-(--color-brand-50)",
   },
   {
     quote:
       "I've been going here for years. They're always professional, gentle, and they explain everything clearly. Highly recommend.",
     name: "Andy",
     rating: 5,
-    accent: "from-[--color-brand-50] to-white",
+    accent: "from-(--color-brand-50) to-white",
   },
   {
     quote:
       "Got me in same-day for an emergency and fixed everything painlessly. Best dental office in Aurora.",
     name: "Maria S.",
     rating: 5,
-    accent: "from-[--color-accent]/15 to-[--color-brand-50]",
+    accent: "from-(--color-accent)/15 to-(--color-brand-50)",
   },
   {
     quote:
       "The cosmetic work transformed my smile and my confidence. Worth every visit.",
     name: "Devon T.",
     rating: 5,
-    accent: "from-[--color-brand-100] to-white",
+    accent: "from-(--color-brand-100) to-white",
   },
 ];
 
@@ -78,9 +78,9 @@ export function Testimonials() {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: -direction * 80, scale: 0.96 }}
               transition={{ type: "spring", stiffness: 220, damping: 30 }}
-              className={`absolute inset-0 cursor-grab active:cursor-grabbing rounded-[28px] bg-gradient-to-br ${r.accent} border border-white/60 shadow-[--shadow-soft-lg] p-8 md:p-12 flex flex-col`}
+              className={`absolute inset-0 cursor-grab active:cursor-grabbing rounded-[28px] bg-gradient-to-br ${r.accent} border border-white/60 shadow-(--shadow-soft-lg) p-8 md:p-12 flex flex-col`}
             >
-              <div className="flex gap-1 text-[--color-accent]">
+              <div className="flex gap-1 text-(--color-accent)">
                 {Array.from({ length: r.rating }).map((_, i) => (
                   <m.span
                     key={i}
@@ -92,10 +92,10 @@ export function Testimonials() {
                   </m.span>
                 ))}
               </div>
-              <p className="mt-6 flex-1 font-display text-2xl md:text-3xl leading-snug text-[--color-ink-900]">
+              <p className="mt-6 flex-1 font-display text-2xl md:text-3xl leading-snug text-(--color-ink-900)">
                 &ldquo;{r.quote}&rdquo;
               </p>
-              <footer className="mt-8 pt-6 border-t border-[--color-brand-200]/40 text-sm font-semibold text-[--color-ink-700]">
+              <footer className="mt-8 pt-6 border-t border-(--color-brand-200)/40 text-sm font-semibold text-(--color-ink-700)">
                 — {r.name}, Aurora patient
               </footer>
             </m.blockquote>
@@ -107,7 +107,7 @@ export function Testimonials() {
             type="button"
             onClick={() => paginate(-1)}
             aria-label="Previous testimonial"
-            className="w-11 h-11 grid place-items-center rounded-full border border-[--color-brand-200] hover:bg-[--color-brand-50] hover:border-[--color-brand-400] transition-colors"
+            className="w-11 h-11 grid place-items-center rounded-full border border-(--color-brand-200) hover:bg-(--color-brand-50) hover:border-(--color-brand-400) transition-colors"
           >
             <Icon name="arrow" className="w-4 h-4 rotate-180" />
           </button>
@@ -122,13 +122,13 @@ export function Testimonials() {
                   setDirection(i > index ? 1 : -1);
                   setIndex(i);
                 }}
-                className="relative h-2 rounded-full overflow-hidden bg-[--color-brand-100] transition-all"
+                className="relative h-2 rounded-full overflow-hidden bg-(--color-brand-100) transition-all"
                 style={{ width: i === index ? 32 : 8 }}
               >
                 {i === index && (
                   <m.span
                     layoutId="testimonial-pip"
-                    className="absolute inset-0 bg-[--color-brand-600]"
+                    className="absolute inset-0 bg-(--color-brand-600)"
                     transition={{ type: "spring", stiffness: 240, damping: 26 }}
                   />
                 )}
@@ -140,7 +140,7 @@ export function Testimonials() {
             type="button"
             onClick={() => paginate(1)}
             aria-label="Next testimonial"
-            className="w-11 h-11 grid place-items-center rounded-full border border-[--color-brand-200] hover:bg-[--color-brand-50] hover:border-[--color-brand-400] transition-colors"
+            className="w-11 h-11 grid place-items-center rounded-full border border-(--color-brand-200) hover:bg-(--color-brand-50) hover:border-(--color-brand-400) transition-colors"
           >
             <Icon name="arrow" className="w-4 h-4" />
           </button>

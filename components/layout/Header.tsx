@@ -71,7 +71,7 @@ export function Header() {
         className={cn(
           "fixed top-0 inset-x-0 z-50 transition-all duration-300",
           scrolled
-            ? "bg-white/85 backdrop-blur-lg shadow-[--shadow-soft-sm] border-b border-[--color-brand-100]"
+            ? "bg-white/85 backdrop-blur-lg shadow-(--shadow-soft-sm) border-b border-(--color-brand-100)"
             : "bg-transparent",
         )}
       >
@@ -104,7 +104,7 @@ export function Header() {
                   >
                     <Link
                       href={item.href}
-                      className="px-3 py-2 text-[13px] font-medium text-[--color-ink-700] hover:text-[--color-brand-700] transition-colors"
+                      className="px-3 py-2 text-[13px] font-medium text-(--color-ink-700) hover:text-(--color-brand-700) transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -117,19 +117,19 @@ export function Header() {
                           transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                           className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[680px]"
                         >
-                          <div className="bg-white rounded-2xl shadow-[--shadow-soft-lg] border border-[--color-brand-100] p-6 grid grid-cols-2 gap-x-6 gap-y-2">
+                          <div className="bg-white rounded-2xl shadow-(--shadow-soft-lg) border border-(--color-brand-100) p-6 grid grid-cols-2 gap-x-6 gap-y-2">
                             {services.map((s) => (
                               <Link
                                 key={s.slug}
                                 href={`/${s.slug}`}
-                                className="group flex items-start gap-3 p-2 rounded-lg hover:bg-[--color-brand-50] transition-colors"
+                                className="group flex items-start gap-3 p-2 rounded-lg hover:bg-(--color-brand-50) transition-colors"
                               >
-                                <span className="grid place-items-center w-9 h-9 rounded-md bg-[--color-brand-50] text-[--color-brand-600] group-hover:bg-[--color-brand-600] group-hover:text-white transition-colors">
+                                <span className="grid place-items-center w-9 h-9 rounded-md bg-(--color-brand-50) text-(--color-brand-600) group-hover:bg-(--color-brand-600) group-hover:text-white transition-colors">
                                   <Icon name={s.icon} className="w-4 h-4" />
                                 </span>
                                 <span>
-                                  <span className="block text-sm font-medium text-[--color-ink-900]">{s.name}</span>
-                                  <span className="block text-xs text-[--color-ink-500] line-clamp-1">{s.blurb}</span>
+                                  <span className="block text-sm font-medium text-(--color-ink-900)">{s.name}</span>
+                                  <span className="block text-xs text-(--color-ink-500) line-clamp-1">{s.blurb}</span>
                                 </span>
                               </Link>
                             ))}
@@ -150,7 +150,7 @@ export function Header() {
                   >
                     <Link
                       href={item.href}
-                      className="px-3 py-2 text-[13px] font-medium text-[--color-ink-700] hover:text-[--color-brand-700] transition-colors inline-flex items-center gap-1"
+                      className="px-3 py-2 text-[13px] font-medium text-(--color-ink-700) hover:text-(--color-brand-700) transition-colors inline-flex items-center gap-1"
                     >
                       {item.label}
                       <svg viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" strokeWidth="2" fill="none">
@@ -166,12 +166,12 @@ export function Header() {
                           transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                           className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[260px]"
                         >
-                          <div className="bg-white rounded-2xl shadow-[--shadow-soft-lg] border border-[--color-brand-100] p-2">
+                          <div className="bg-white rounded-2xl shadow-(--shadow-soft-lg) border border-(--color-brand-100) p-2">
                             {item.items.map((sub) => (
                               <Link
                                 key={sub.href}
                                 href={sub.href}
-                                className="block px-3 py-2 text-sm text-[--color-ink-700] hover:bg-[--color-brand-50] hover:text-[--color-brand-700] rounded-lg transition-colors"
+                                className="block px-3 py-2 text-sm text-(--color-ink-700) hover:bg-(--color-brand-50) hover:text-(--color-brand-700) rounded-lg transition-colors"
                               >
                                 {sub.label}
                               </Link>
@@ -187,7 +187,7 @@ export function Header() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="px-3 py-2 text-[13px] font-medium text-[--color-ink-700] hover:text-[--color-brand-700] transition-colors"
+                  className="px-3 py-2 text-[13px] font-medium text-(--color-ink-700) hover:text-(--color-brand-700) transition-colors"
                 >
                   {item.label}
                 </Link>
@@ -198,7 +198,7 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-3 shrink-0">
             <a
               href={`tel:${site.phoneTel}`}
-              className="text-sm font-semibold text-[--color-ink-700] hover:text-[--color-brand-700]"
+              className="text-sm font-semibold text-(--color-ink-700) hover:text-(--color-brand-700)"
             >
               {site.phone}
             </a>
@@ -207,7 +207,7 @@ export function Header() {
 
           <button
             onClick={() => setMobileOpen(true)}
-            className="xl:hidden p-2 -mr-2 text-[--color-ink-900]"
+            className="xl:hidden p-2 -mr-2 text-(--color-ink-900)"
             aria-label="Open menu"
           >
             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="1.6" fill="none">

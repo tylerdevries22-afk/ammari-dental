@@ -59,15 +59,15 @@ export function ServicePageTemplate({ service, intro, benefits, process, faq }: 
                     <m.li
                       key={b.title}
                       variants={fadeUp}
-                      className="p-6 rounded-2xl bg-white border border-[--color-brand-100]"
+                      className="p-6 rounded-2xl bg-white border border-(--color-brand-100)"
                     >
-                      <div className="grid place-items-center w-10 h-10 rounded-lg bg-[--color-brand-50] text-[--color-brand-600] mb-4">
+                      <div className="grid place-items-center w-10 h-10 rounded-lg bg-(--color-brand-50) text-(--color-brand-600) mb-4">
                         <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
                           <path d="m5 12 5 5L20 7" />
                         </svg>
                       </div>
                       <div className="font-display text-lg">{b.title}</div>
-                      <p className="mt-2 text-sm text-[--color-ink-700]">{b.body}</p>
+                      <p className="mt-2 text-sm text-(--color-ink-700)">{b.body}</p>
                     </m.li>
                   ))}
                 </m.ul>
@@ -89,14 +89,14 @@ export function ServicePageTemplate({ service, intro, benefits, process, faq }: 
 
           <aside className="lg:col-span-4">
             <div className="lg:sticky lg:top-28 grid gap-5">
-              <div className="rounded-2xl bg-[--color-brand-600] text-white p-6 shadow-[--shadow-soft-md]">
+              <div className="rounded-2xl bg-(--color-brand-600) text-white p-6 shadow-(--shadow-soft-md)">
                 <div className="text-xs uppercase tracking-widest opacity-80 mb-2">Ready to start?</div>
                 <div className="font-display text-2xl leading-tight">Book your visit</div>
                 <p className="mt-2 text-sm text-white/85">
                   New and returning patients welcome.
                 </p>
                 <div className="mt-5 grid gap-2">
-                  <Button href="/appointment" size="md" className="!bg-white !text-[--color-brand-700]">
+                  <Button href="/appointment" size="md" className="bg-white! text-(--color-brand-700)!">
                     Book Online
                   </Button>
                   <a
@@ -108,13 +108,13 @@ export function ServicePageTemplate({ service, intro, benefits, process, faq }: 
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-white border border-[--color-brand-100] p-6">
-                <div className="text-xs uppercase tracking-widest text-[--color-brand-600] font-semibold mb-3">Hours</div>
+              <div className="rounded-2xl bg-white border border-(--color-brand-100) p-6">
+                <div className="text-xs uppercase tracking-widest text-(--color-brand-600) font-semibold mb-3">Hours</div>
                 <ul className="text-sm grid gap-1">
                   {site.hours.slice(0, 5).map((h) => (
-                    <li key={h.day} className="flex justify-between text-[--color-ink-700]">
+                    <li key={h.day} className="flex justify-between text-(--color-ink-700)">
                       <span>{h.day}</span>
-                      <span className="text-[--color-ink-500]">
+                      <span className="text-(--color-ink-500)">
                         {"closed" in h && h.closed
                           ? "Closed"
                           : `${"open" in h ? h.open : ""}–${"close" in h ? h.close : ""}`}

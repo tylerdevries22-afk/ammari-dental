@@ -23,7 +23,7 @@ export default function Page() {
             <AppointmentForm />
           </div>
           <aside className="lg:col-span-5 space-y-6">
-            <div className="rounded-3xl bg-[--color-brand-600] text-white p-8">
+            <div className="rounded-3xl bg-(--color-brand-600) text-white p-8">
               <div className="text-xs uppercase tracking-widest opacity-80">Phone</div>
               <a href="tel:+13032838009" className="block text-2xl font-display mt-1">(303) 283-8009</a>
               <div className="mt-4 text-xs uppercase tracking-widest opacity-80">After-hours emergency</div>
@@ -31,8 +31,8 @@ export default function Page() {
               <div className="mt-4 text-xs uppercase tracking-widest opacity-80">Fax</div>
               <div className="text-sm mt-1">(303) 337-7809</div>
             </div>
-            <div className="rounded-3xl bg-white border border-[--color-brand-100] p-8">
-              <div className="text-xs uppercase tracking-widest text-[--color-brand-600] font-semibold">Address</div>
+            <div className="rounded-3xl bg-white border border-(--color-brand-100) p-8">
+              <div className="text-xs uppercase tracking-widest text-(--color-brand-600) font-semibold">Address</div>
               <div className="mt-2 font-display text-lg leading-snug">
                 1344 S Chambers Road, Suite 203<br />Aurora, CO 80017
               </div>

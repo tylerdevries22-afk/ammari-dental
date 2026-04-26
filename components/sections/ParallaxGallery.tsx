@@ -53,7 +53,7 @@ export function ParallaxGallery() {
           initial={reveal.initial}
           whileInView={reveal.whileInView}
           viewport={reveal.viewport}
-          className="mt-16 max-w-2xl mx-auto text-center text-[--color-ink-700] text-lg leading-relaxed"
+          className="mt-16 max-w-2xl mx-auto text-center text-(--color-ink-700) text-lg leading-relaxed"
         >
           From a child&rsquo;s first cleaning to a full-mouth restoration,
           you&rsquo;ll find the same calm space, the same friendly faces, and the
@@ -96,7 +96,7 @@ function ParallaxTile({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ delay: index * 0.08, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className={`${sizeClass[size]} relative rounded-[28px] overflow-hidden shadow-[--shadow-soft-md] bg-[--color-brand-50]`}
+      className={`${sizeClass[size]} relative rounded-[28px] overflow-hidden shadow-(--shadow-soft-md) bg-(--color-brand-50)`}
     >
       <m.div style={{ y, scale }} className="absolute inset-0 will-change-transform">
         <Image
@@ -107,7 +107,7 @@ function ParallaxTile({
           className="object-cover"
         />
       </m.div>
-      <div className="absolute inset-0 bg-gradient-to-t from-[--color-brand-900]/30 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-(--color-brand-900)/30 via-transparent to-transparent pointer-events-none" />
     </m.div>
   );
 }

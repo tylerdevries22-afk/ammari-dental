@@ -51,7 +51,7 @@ export function AppointmentForm({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <div className={cn("rounded-3xl bg-white shadow-[--shadow-soft-md] border border-[--color-brand-100]", compact ? "p-6" : "p-8 lg:p-12")}>
+    <div className={cn("rounded-3xl bg-white shadow-(--shadow-soft-md) border border-(--color-brand-100)", compact ? "p-6" : "p-8 lg:p-12")}>
       <AnimatePresence mode="wait">
         {submitted ? (
           <m.div
@@ -66,7 +66,7 @@ export function AppointmentForm({ compact = false }: { compact?: boolean }) {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", stiffness: 220, damping: 14, delay: 0.1 }}
-              className="mx-auto grid place-items-center w-16 h-16 rounded-full bg-[--color-success]/15 text-[--color-success]"
+              className="mx-auto grid place-items-center w-16 h-16 rounded-full bg-(--color-success)/15 text-(--color-success)"
             >
               <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
                 <m.path
@@ -78,10 +78,10 @@ export function AppointmentForm({ compact = false }: { compact?: boolean }) {
               </svg>
             </m.div>
             <h3 className="mt-6 text-2xl font-display">Thank you!</h3>
-            <p className="mt-3 text-[--color-ink-700] max-w-md mx-auto">
+            <p className="mt-3 text-(--color-ink-700) max-w-md mx-auto">
               We&rsquo;ve received your request. Our team will reach out shortly to
               confirm your appointment. For urgent needs please call{" "}
-              <a href={`tel:${site.phoneTel}`} className="text-[--color-brand-700] font-semibold">
+              <a href={`tel:${site.phoneTel}`} className="text-(--color-brand-700) font-semibold">
                 {site.phone}
               </a>
               .
@@ -137,26 +137,26 @@ export function AppointmentForm({ compact = false }: { compact?: boolean }) {
             </Field>
             <input type="text" tabIndex={-1} aria-hidden className="hidden" {...register("website")} />
 
-            <label className="flex items-start gap-3 text-sm text-[--color-ink-700]">
+            <label className="flex items-start gap-3 text-sm text-(--color-ink-700)">
               <input
                 {...register("hipaa")}
                 type="checkbox"
-                className="mt-1 w-4 h-4 accent-[--color-brand-600]"
+                className="mt-1 w-4 h-4 accent-(--color-brand-600)"
               />
               <span>
                 I understand this form is for appointment requests only and is not for sharing protected health information. View our{" "}
-                <a href="/privacy" className="underline text-[--color-brand-700]">privacy policy</a>.
+                <a href="/privacy" className="underline text-(--color-brand-700)">privacy policy</a>.
               </span>
             </label>
-            {errors.hipaa && <p className="text-xs text-[--color-danger]">{errors.hipaa.message}</p>}
+            {errors.hipaa && <p className="text-xs text-(--color-danger)">{errors.hipaa.message}</p>}
 
             <Button size="lg" iconEnd={<Icon name="arrow" className="w-4 h-4" />} disabled={submitting}>
               {submitting ? "Sending…" : "Request Appointment"}
             </Button>
 
-            <p className="text-xs text-[--color-ink-500] text-center">
+            <p className="text-xs text-(--color-ink-500) text-center">
               Or call us directly at{" "}
-              <a href={`tel:${site.phoneTel}`} className="text-[--color-brand-700] font-semibold">
+              <a href={`tel:${site.phoneTel}`} className="text-(--color-brand-700) font-semibold">
                 {site.phone}
               </a>
             </p>
@@ -180,13 +180,13 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="block text-xs font-semibold text-[--color-ink-700] mb-1.5">
-        {label} {optional && <span className="text-[--color-ink-500] font-normal">(optional)</span>}
+      <span className="block text-xs font-semibold text-(--color-ink-700) mb-1.5">
+        {label} {optional && <span className="text-(--color-ink-500) font-normal">(optional)</span>}
       </span>
-      <div className="[&_input]:w-full [&_select]:w-full [&_textarea]:w-full [&_input]:h-11 [&_select]:h-11 [&_input]:px-4 [&_select]:px-4 [&_textarea]:px-4 [&_textarea]:py-3 [&_input]:rounded-xl [&_select]:rounded-xl [&_textarea]:rounded-xl [&_input]:bg-[--color-surface-muted] [&_select]:bg-[--color-surface-muted] [&_textarea]:bg-[--color-surface-muted] [&_input]:border [&_select]:border [&_textarea]:border [&_input]:border-transparent [&_select]:border-transparent [&_textarea]:border-transparent focus-within:[&_input]:border-[--color-brand-400] focus-within:[&_select]:border-[--color-brand-400] focus-within:[&_textarea]:border-[--color-brand-400] [&_input]:transition-colors [&_select]:transition-colors [&_textarea]:transition-colors">
+      <div className="[&_input]:w-full [&_select]:w-full [&_textarea]:w-full [&_input]:h-11 [&_select]:h-11 [&_input]:px-4 [&_select]:px-4 [&_textarea]:px-4 [&_textarea]:py-3 [&_input]:rounded-xl [&_select]:rounded-xl [&_textarea]:rounded-xl [&_input]:bg-(--color-surface-muted) [&_select]:bg-(--color-surface-muted) [&_textarea]:bg-(--color-surface-muted) [&_input]:border [&_select]:border [&_textarea]:border [&_input]:border-transparent [&_select]:border-transparent [&_textarea]:border-transparent focus-within:[&_input]:border-(--color-brand-400) focus-within:[&_select]:border-(--color-brand-400) focus-within:[&_textarea]:border-(--color-brand-400) [&_input]:transition-colors [&_select]:transition-colors [&_textarea]:transition-colors">
         {children}
       </div>
-      {error && <span className="block text-xs text-[--color-danger] mt-1">{error}</span>}
+      {error && <span className="block text-xs text-(--color-danger) mt-1">{error}</span>}
     </label>
   );
 }

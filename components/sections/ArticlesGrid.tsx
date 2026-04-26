@@ -19,7 +19,7 @@ const articles = [
 
 export function ArticlesGrid() {
   return (
-    <section className="py-24 lg:py-32 bg-[--color-surface-muted]/40">
+    <section className="py-24 lg:py-32 bg-(--color-surface-muted)/40">
       <Container>
         <SectionHeader
           eyebrow="Patient education"
@@ -37,15 +37,15 @@ export function ArticlesGrid() {
             <m.li key={a.slug} variants={fadeUp}>
               <Link
                 href={a.slug}
-                className="group block h-full p-6 rounded-2xl bg-white border border-[--color-brand-100] hover:border-[--color-brand-400] transition-all hover:-translate-y-1 hover:shadow-[--shadow-soft-md]"
+                className="group block h-full p-6 rounded-2xl bg-white border border-(--color-brand-100) hover:border-(--color-brand-400) transition-all hover:-translate-y-1 hover:shadow-(--shadow-soft-md)"
               >
-                <div className="text-xs uppercase tracking-widest font-semibold text-[--color-brand-600]">
+                <div className="text-xs uppercase tracking-widest font-semibold text-(--color-brand-600)">
                   {a.topic}
                 </div>
-                <div className="mt-3 font-display text-lg leading-snug text-[--color-ink-900]">
+                <div className="mt-3 font-display text-lg leading-snug text-(--color-ink-900)">
                   {a.title}
                 </div>
-                <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-[--color-brand-700] opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-(--color-brand-700) opacity-0 group-hover:opacity-100 transition-opacity">
                   Read more
                   <Icon name="arrow" className="w-3.5 h-3.5" />
                 </div>

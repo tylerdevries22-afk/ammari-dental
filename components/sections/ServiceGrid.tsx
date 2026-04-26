@@ -43,14 +43,14 @@ export function ServiceGrid({
               <TiltCard className="h-full group rounded-2xl">
                 <Link
                   href={`/${s.slug}`}
-                  className="relative block h-full p-6 rounded-2xl bg-white border border-[--color-brand-100] group-hover:border-[--color-brand-400] transition-colors hover:shadow-[--shadow-soft-lg] overflow-hidden"
+                  className="relative block h-full p-6 rounded-2xl bg-white border border-(--color-brand-100) group-hover:border-(--color-brand-400) transition-colors hover:shadow-(--shadow-soft-lg) overflow-hidden"
                 >
                   <span
                     aria-hidden
-                    className="absolute -top-20 -right-20 w-44 h-44 rounded-full bg-gradient-to-br from-[--color-brand-100] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl"
+                    className="absolute -top-20 -right-20 w-44 h-44 rounded-full bg-gradient-to-br from-(--color-brand-100) to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl"
                   />
                   <div
-                    className="grid place-items-center w-12 h-12 rounded-xl bg-[--color-brand-50] text-[--color-brand-600] group-hover:bg-[--color-brand-600] group-hover:text-white transition-colors"
+                    className="grid place-items-center w-12 h-12 rounded-xl bg-(--color-brand-50) text-(--color-brand-600) group-hover:bg-(--color-brand-600) group-hover:text-white transition-colors"
                     style={{ transform: "translateZ(40px)" }}
                   >
                     <Icon name={s.icon} className="w-5 h-5" />
@@ -61,10 +61,10 @@ export function ServiceGrid({
                   >
                     {s.name}
                   </h3>
-                  <p className="mt-2 text-sm text-[--color-ink-700] leading-relaxed line-clamp-3">
+                  <p className="mt-2 text-sm text-(--color-ink-700) leading-relaxed line-clamp-3">
                     {s.blurb}
                   </p>
-                  <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-[--color-brand-700]">
+                  <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-(--color-brand-700)">
                     Learn more
                     <m.span
                       initial={false}

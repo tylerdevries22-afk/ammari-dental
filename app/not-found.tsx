@@ -8,7 +8,7 @@ export default function NotFound() {
       <Container className="text-center">
         <div className="eyebrow">404</div>
         <h1 className="mt-3 text-5xl lg:text-6xl font-display tracking-tight">Page not found</h1>
-        <p className="mt-5 text-lg text-[--color-ink-700] max-w-xl mx-auto">
+        <p className="mt-5 text-lg text-(--color-ink-700) max-w-xl mx-auto">
           The page you&rsquo;re looking for doesn&rsquo;t exist. Try one of these instead.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -24,7 +24,7 @@ export default function NotFound() {
             { label: "Q & A", href: "/-q---a" },
           ].map((l) => (
             <li key={l.label}>
-              <Link href={l.href} className="text-[--color-brand-700] hover:underline">{l.label}</Link>
+              <Link href={l.href} className="text-(--color-brand-700) hover:underline">{l.label}</Link>
             </li>
           ))}
         </ul>

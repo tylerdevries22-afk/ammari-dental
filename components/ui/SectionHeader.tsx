@@ -43,7 +43,7 @@ export function SectionHeader({
       {description && (
         <m.p
           variants={fadeUp}
-          className="mt-5 text-lg text-[--color-ink-700] leading-relaxed"
+          className="mt-5 text-lg text-(--color-ink-700) leading-relaxed"
         >
           {description}
         </m.p>

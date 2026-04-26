@@ -54,11 +54,11 @@ export function Hero() {
     >
       <m.div
         style={{ y: ySlow, x: flairX }}
-        className="absolute -top-40 -right-40 w-[640px] h-[640px] rounded-full bg-gradient-to-br from-[--color-brand-200] via-[--color-brand-100] to-transparent blur-3xl opacity-70 -z-10"
+        className="absolute -top-40 -right-40 w-[640px] h-[640px] rounded-full bg-gradient-to-br from-(--color-brand-200) via-(--color-brand-100) to-transparent blur-3xl opacity-70 -z-10"
       />
       <m.div
         style={{ y: yFast, x: flairY }}
-        className="absolute top-40 -left-40 w-[520px] h-[520px] rounded-full bg-gradient-to-tr from-[--color-accent]/20 via-[--color-brand-50] to-transparent blur-3xl opacity-70 -z-10"
+        className="absolute top-40 -left-40 w-[520px] h-[520px] rounded-full bg-gradient-to-tr from-(--color-accent)/20 via-(--color-brand-50) to-transparent blur-3xl opacity-70 -z-10"
       />
 
       <svg
@@ -72,7 +72,7 @@ export function Hero() {
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
-          className="text-[--color-brand-300]"
+          className="text-(--color-brand-300)"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 0.6 }}
           transition={{ delay: 1.2, duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
@@ -91,7 +91,7 @@ export function Hero() {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="w-8 h-px bg-[--color-brand-600] origin-left"
+              className="w-8 h-px bg-(--color-brand-600) origin-left"
             />
             Aurora, Colorado · Since 2003
           </m.div>
@@ -128,7 +128,7 @@ export function Hero() {
                           initial={{ scaleX: 0 }}
                           animate={{ scaleX: 1 }}
                           transition={{ delay: 1.4, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                          className="absolute left-0 right-0 bottom-1 h-[14%] bg-[--color-brand-200]/70 origin-left -z-0"
+                          className="absolute left-0 right-0 bottom-1 h-[14%] bg-(--color-brand-200)/70 origin-left -z-0"
                         />
                       </span>
                     ) : (
@@ -145,7 +145,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
-            className="mt-7 text-lg lg:text-xl text-[--color-ink-700] max-w-xl leading-relaxed"
+            className="mt-7 text-lg lg:text-xl text-(--color-ink-700) max-w-xl leading-relaxed"
           >
             Comprehensive family, cosmetic, and emergency dentistry led by
             Dr. Raed Ammari. Same-day visits available, most insurance accepted.
@@ -188,7 +188,7 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="lg:col-span-5 relative"
         >
-          <div className="relative aspect-[4/5] rounded-[28px] overflow-hidden bg-gradient-to-br from-[--color-brand-100] to-[--color-brand-50] shadow-[--shadow-soft-lg]">
+          <div className="relative aspect-[4/5] rounded-[28px] overflow-hidden bg-gradient-to-br from-(--color-brand-100) to-(--color-brand-50) shadow-(--shadow-soft-lg)">
             <m.div style={{ y: imageY }} className="absolute inset-0 will-change-transform">
               <Image
                 src="/images/practice/hero-1.webp"
@@ -204,20 +204,20 @@ export function Hero() {
               initial={{ y: "0%" }}
               animate={{ y: "-100%" }}
               transition={{ delay: 0.4, duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
-              className="absolute inset-0 bg-[--color-brand-700] origin-bottom"
+              className="absolute inset-0 bg-(--color-brand-700) origin-bottom"
               aria-hidden
             />
 
             <m.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-8 left-8 w-20 h-20 rounded-full bg-[--color-brand-200]/40 blur-md pointer-events-none"
+              className="absolute top-8 left-8 w-20 h-20 rounded-full bg-(--color-brand-200)/40 blur-md pointer-events-none"
               aria-hidden
             />
             <m.div
               animate={{ y: [0, 6, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-12 right-10 w-16 h-16 rounded-full bg-[--color-accent]/30 blur-md pointer-events-none"
+              className="absolute bottom-12 right-10 w-16 h-16 rounded-full bg-(--color-accent)/30 blur-md pointer-events-none"
               aria-hidden
             />
           </div>
@@ -226,17 +226,17 @@ export function Hero() {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 1.4, type: "spring", stiffness: 200, damping: 22 }}
-            className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-[--shadow-soft-lg] p-4 flex items-center gap-3 max-w-[260px]"
+            className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-(--shadow-soft-lg) p-4 flex items-center gap-3 max-w-[260px]"
           >
             <m.span
               animate={{ scale: [1, 1.18, 1] }}
               transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-              className="grid place-items-center w-10 h-10 rounded-full bg-[--color-success]/15 text-[--color-success]"
+              className="grid place-items-center w-10 h-10 rounded-full bg-(--color-success)/15 text-(--color-success)"
             >
               <Icon name="calendar" className="w-5 h-5" />
             </m.span>
             <div>
-              <div className="text-xs text-[--color-ink-500]">Now booking</div>
+              <div className="text-xs text-(--color-ink-500)">Now booking</div>
               <div className="text-sm font-semibold">Same-week openings</div>
             </div>
           </m.div>
@@ -245,14 +245,14 @@ export function Hero() {
             initial={{ opacity: 0, x: 20, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ delay: 1.7, type: "spring", stiffness: 200, damping: 22 }}
-            className="absolute top-6 -right-4 lg:-right-8 bg-white/90 backdrop-blur rounded-2xl shadow-[--shadow-soft-md] px-4 py-3 hidden md:flex items-center gap-2"
+            className="absolute top-6 -right-4 lg:-right-8 bg-white/90 backdrop-blur rounded-2xl shadow-(--shadow-soft-md) px-4 py-3 hidden md:flex items-center gap-2"
           >
-            <span className="flex gap-0.5 text-[--color-accent]">
+            <span className="flex gap-0.5 text-(--color-accent)">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Icon key={i} name="star" className="w-3 h-3 fill-current" />
               ))}
             </span>
-            <span className="text-xs font-semibold text-[--color-ink-700]">5.0 patient rated</span>
+            <span className="text-xs font-semibold text-(--color-ink-700)">5.0 patient rated</span>
           </m.div>
         </m.div>
       </Container>
@@ -261,7 +261,7 @@ export function Hero() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2, duration: 0.6 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 text-[--color-ink-500] text-[11px] uppercase tracking-widest"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 text-(--color-ink-500) text-[11px] uppercase tracking-widest"
         aria-hidden
       >
         Scroll
@@ -269,7 +269,7 @@ export function Hero() {
           <m.span
             animate={{ y: ["-100%", "100%"] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0 bg-[--color-brand-600]"
+            className="absolute inset-0 bg-(--color-brand-600)"
           />
         </span>
       </m.div>
@@ -280,10 +280,10 @@ export function Hero() {
 function Stat({ value, suffix, label }: { value: number; suffix?: string; label: string }) {
   return (
     <div>
-      <div className="text-3xl font-display text-[--color-ink-900]">
+      <div className="text-3xl font-display text-(--color-ink-900)">
         <AnimatedNumber value={value} suffix={suffix} />
       </div>
-      <div className="text-xs text-[--color-ink-500] mt-1 leading-tight">{label}</div>
+      <div className="text-xs text-(--color-ink-500) mt-1 leading-tight">{label}</div>
     </div>
   );
 }

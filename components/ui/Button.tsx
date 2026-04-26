@@ -9,13 +9,13 @@ type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-[--color-brand-600] text-white hover:bg-[--color-brand-700] shadow-[--shadow-soft-md]",
+    "bg-(--color-brand-600) text-white hover:bg-(--color-brand-700) shadow-(--shadow-soft-md)",
   secondary:
-    "bg-white text-[--color-ink-900] border border-[--color-ink-300] hover:border-[--color-brand-400] hover:text-[--color-brand-700]",
+    "bg-white text-(--color-ink-900) border border-(--color-ink-300) hover:border-(--color-brand-400) hover:text-(--color-brand-700)",
   ghost:
-    "bg-transparent text-[--color-ink-900] hover:bg-[--color-brand-50]",
+    "bg-transparent text-(--color-ink-900) hover:bg-(--color-brand-50)",
   danger:
-    "bg-[--color-danger] text-white hover:opacity-90",
+    "bg-(--color-danger) text-white hover:opacity-90",
 };
 
 const sizes: Record<Size, string> = {
@@ -41,7 +41,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
 ) {
   const classes = cn(
     "inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-tight transition-all",
-    "focus-visible:ring-2 focus-visible:ring-[--color-brand-400] focus-visible:ring-offset-2",
+    "focus-visible:ring-2 focus-visible:ring-(--color-brand-400) focus-visible:ring-offset-2",
     variants[variant],
     sizes[size],
     className,

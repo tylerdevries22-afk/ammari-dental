@@ -7,7 +7,7 @@ import { fadeUp, reveal } from "@/lib/motion";
 
 export function InsuranceMarquee() {
   return (
-    <section className="py-16 border-y border-[--color-brand-100] bg-white">
+    <section className="py-16 border-y border-(--color-brand-100) bg-white">
       <Container>
         <m.div
           variants={fadeUp}
@@ -24,7 +24,7 @@ export function InsuranceMarquee() {
         {site.insurances.map((name) => (
           <div
             key={name}
-            className="px-7 py-4 rounded-xl bg-[--color-surface-muted] text-[--color-ink-700] font-semibold whitespace-nowrap text-sm tracking-tight"
+            className="px-7 py-4 rounded-xl bg-(--color-surface-muted) text-(--color-ink-700) font-semibold whitespace-nowrap text-sm tracking-tight"
           >
             {name}
           </div>

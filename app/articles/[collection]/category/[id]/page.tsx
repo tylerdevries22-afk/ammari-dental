@@ -54,13 +54,13 @@ export default async function Page({ params }: { params: Promise<Params> }) {
               <li key={a.url}>
                 <Link
                   href={a.url}
-                  className="group block h-full p-5 rounded-2xl bg-white border border-[--color-brand-100] hover:border-[--color-brand-400] transition-all hover:-translate-y-1 hover:shadow-[--shadow-soft-sm]"
+                  className="group block h-full p-5 rounded-2xl bg-white border border-(--color-brand-100) hover:border-(--color-brand-400) transition-all hover:-translate-y-1 hover:shadow-(--shadow-soft-sm)"
                 >
-                  <div className="text-xs uppercase tracking-widest font-semibold text-[--color-brand-600]">
+                  <div className="text-xs uppercase tracking-widest font-semibold text-(--color-brand-600)">
                     {a.topic}
                   </div>
                   <div className="mt-2 font-display text-base leading-snug">{a.title}</div>
-                  <div className="mt-3 text-xs font-semibold text-[--color-brand-700] flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="mt-3 text-xs font-semibold text-(--color-brand-700) flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     Read <Icon name="arrow" className="w-3 h-3" />
                   </div>
                 </Link>

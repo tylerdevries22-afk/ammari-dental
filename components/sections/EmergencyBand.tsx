@@ -15,7 +15,7 @@ export function EmergencyBand() {
           initial={reveal.initial}
           whileInView={reveal.whileInView}
           viewport={reveal.viewport}
-          className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[--color-brand-700] via-[--color-brand-600] to-[--color-brand-400] text-white p-10 lg:p-14"
+          className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-(--color-brand-700) via-(--color-brand-600) to-(--color-brand-400) text-white p-10 lg:p-14"
         >
           <m.div
             animate={{ rotate: 360 }}
@@ -38,7 +38,7 @@ export function EmergencyBand() {
               </p>
             </div>
             <div className="lg:col-span-5 flex flex-col gap-3">
-              <Button href={`tel:${site.phoneTel}`} variant="secondary" size="lg" className="!bg-white !text-[--color-brand-700] !border-white">
+              <Button href={`tel:${site.phoneTel}`} variant="secondary" size="lg" className="bg-white! text-(--color-brand-700)! border-white!">
                 Call {site.phone}
               </Button>
               <a

@@ -27,7 +27,7 @@ export function AboutSplit() {
   const imgScale = useTransform(scrollYProgress, [0, 1], [1.1, 0.98]);
 
   return (
-    <section ref={sectionRef} className="py-24 lg:py-32 bg-[--color-surface-muted]/50 relative">
+    <section ref={sectionRef} className="py-24 lg:py-32 bg-(--color-surface-muted)/50 relative">
       <Container className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <m.div
           variants={stagger(0.08)}
@@ -41,7 +41,7 @@ export function AboutSplit() {
             text="We'll Provide You With That Winning Smile!"
             className="mt-3 text-4xl lg:text-5xl font-display tracking-tight leading-[1.05]"
           />
-          <m.p variants={fadeUp} className="mt-6 text-lg text-[--color-ink-700] leading-relaxed">
+          <m.p variants={fadeUp} className="mt-6 text-lg text-(--color-ink-700) leading-relaxed">
             For over two decades, Dr. Raed Ammari and our team have cared for
             Aurora families with gentle, modern dentistry. Whether you&rsquo;re
             here for a cleaning, a smile makeover, or a same-day emergency, we
@@ -63,7 +63,7 @@ export function AboutSplit() {
                 transition={{ delay: 0.2 + i * 0.08, duration: 0.5 }}
                 className="flex items-center gap-3 text-sm"
               >
-                <span className="grid place-items-center w-6 h-6 rounded-full bg-[--color-brand-600] text-white">
+                <span className="grid place-items-center w-6 h-6 rounded-full bg-(--color-brand-600) text-white">
                   <m.svg
                     viewBox="0 0 24 24"
                     width="14"
@@ -105,7 +105,7 @@ export function AboutSplit() {
           viewport={reveal.viewport}
           className="relative"
         >
-          <div className="relative aspect-[4/5] rounded-[28px] shadow-[--shadow-soft-lg] overflow-hidden">
+          <div className="relative aspect-[4/5] rounded-[28px] shadow-(--shadow-soft-lg) overflow-hidden">
             <m.div
               style={{ y: imgY, scale: imgScale }}
               className="absolute inset-0 will-change-transform"
@@ -121,7 +121,7 @@ export function AboutSplit() {
 
             <m.div
               style={{ y: curtainY }}
-              className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[--color-brand-700] via-[--color-brand-600] to-[--color-brand-400] origin-top"
+              className="pointer-events-none absolute inset-0 bg-gradient-to-b from-(--color-brand-700) via-(--color-brand-600) to-(--color-brand-400) origin-top"
               aria-hidden
             />
             <m.div
@@ -169,10 +169,10 @@ export function AboutSplit() {
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ delay: 0.9, type: "spring", stiffness: 200, damping: 22 }}
-            className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-[--shadow-soft-lg] px-5 py-4"
+            className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-(--shadow-soft-lg) px-5 py-4"
           >
-            <div className="text-3xl font-display text-[--color-brand-700]">20+</div>
-            <div className="text-xs text-[--color-ink-500]">years caring for Aurora</div>
+            <div className="text-3xl font-display text-(--color-brand-700)">20+</div>
+            <div className="text-xs text-(--color-ink-500)">years caring for Aurora</div>
           </m.div>
         </m.div>
       </Container>

@@ -55,16 +55,16 @@ export function CTABanner({
           initial={reveal.initial}
           whileInView={reveal.whileInView}
           viewport={reveal.viewport}
-          className="rounded-[28px] bg-[--color-ink-900] text-white p-10 lg:p-20 text-center relative overflow-hidden isolate"
+          className="rounded-[28px] bg-(--color-ink-900) text-white p-10 lg:p-20 text-center relative overflow-hidden isolate"
         >
           <m.div
             style={{ left: blobX, top: blobY }}
-            className="pointer-events-none absolute w-[520px] h-[520px] rounded-full bg-[--color-brand-600]/40 blur-3xl -translate-x-1/2 -translate-y-1/2"
+            className="pointer-events-none absolute w-[520px] h-[520px] rounded-full bg-(--color-brand-600)/40 blur-3xl -translate-x-1/2 -translate-y-1/2"
             aria-hidden
           />
           <m.div
             style={{ left: blobX2, top: blobY2 }}
-            className="pointer-events-none absolute w-[420px] h-[420px] rounded-full bg-[--color-accent]/25 blur-3xl -translate-x-1/2 -translate-y-1/2"
+            className="pointer-events-none absolute w-[420px] h-[420px] rounded-full bg-(--color-accent)/25 blur-3xl -translate-x-1/2 -translate-y-1/2"
             aria-hidden
           />
           <m.div
@@ -117,7 +117,7 @@ export function CTABanner({
                 <Button
                   href="/appointment"
                   size="lg"
-                  className="!bg-white !text-[--color-ink-900]"
+                  className="bg-white! text-(--color-ink-900)!"
                 >
                   Book Appointment
                 </Button>
@@ -127,7 +127,7 @@ export function CTABanner({
                   href={`tel:${site.phoneTel}`}
                   variant="ghost"
                   size="lg"
-                  className="!text-white !border !border-white/30 hover:!bg-white/10"
+                  className="text-white! border! border-white/30! hover:bg-white/10!"
                 >
                   Call {site.phone}
                 </Button>

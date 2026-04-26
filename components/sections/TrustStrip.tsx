@@ -13,8 +13,8 @@ const items = [
 
 export function TrustStrip() {
   return (
-    <section className="py-6 border-y border-[--color-brand-100] bg-[--color-surface-muted]/40">
-      <Container className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm text-[--color-ink-700]">
+    <section className="py-6 border-y border-(--color-brand-100) bg-(--color-surface-muted)/40">
+      <Container className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm text-(--color-ink-700)">
         {items.map((it, i) => (
           <m.div
             key={it.text}
@@ -24,7 +24,7 @@ export function TrustStrip() {
             transition={{ delay: i * 0.05, duration: 0.4 }}
             className="flex items-center gap-2"
           >
-            <Icon name={it.icon} className="w-4 h-4 text-[--color-brand-600]" />
+            <Icon name={it.icon} className="w-4 h-4 text-(--color-brand-600)" />
             <span>{it.text}</span>
           </m.div>
         ))}
