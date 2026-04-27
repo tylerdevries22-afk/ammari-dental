@@ -43,7 +43,6 @@ export function ServiceGrid({
               <TiltCard className="h-full group rounded-2xl">
                 <Link
                   href={`/${s.slug}`}
-                  data-floss-anchor="card"
                   className="relative block h-full p-6 rounded-2xl bg-white border border-(--color-brand-100) group-hover:border-(--color-brand-400) transition-colors hover:shadow-(--shadow-soft-lg) overflow-hidden"
                 >
                   <span
