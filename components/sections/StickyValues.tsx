@@ -326,10 +326,10 @@ function ScrollPip({
   const seg = 1 / count;
   const start = index * seg;
   const end = (index + 1) * seg;
+  const a = Math.max(0, start - 0.04);
+  const b = start;
+  const c = end;
   const d = Math.min(1, end + 0.04);
-  const c = Math.min(end, d - 0.001);
-  const b = Math.min(start, c - 0.001);
-  const a = Math.max(0, Math.min(start - 0.04, b - 0.001));
 
   const opacity = useTransform(progress, [a, b, c, d], [0.25, 1, 1, 0.25]);
   const width = useTransform(progress, [a, b, c, d], [16, 40, 40, 16]);
