@@ -115,7 +115,7 @@ export function AppointmentForm({ compact = false }: { compact?: boolean }) {
                 <select {...register("insurance")} defaultValue="">
                   <option value="">Select…</option>
                   {site.insurances.map((i) => (
-                    <option key={i} value={i}>{i}</option>
+                    <option key={i.slug} value={i.name}>{i.name}</option>
                   ))}
                   <option value="other">Other / Self-pay</option>
                 </select>
