@@ -107,15 +107,10 @@ export function StickyValues() {
               <h2 className="mt-4 text-4xl lg:text-6xl font-display tracking-tight leading-[1.05] text-white">
                 Four ideas behind every visit.
               </h2>
-              <p className="mt-5 text-white/85 max-w-xl text-base lg:text-lg leading-relaxed">
-                Two decades of practice in Aurora has taught us that great
-                dentistry is mostly about the details — and how you make people
-                feel along the way.
-              </p>
             </m.div>
           </header>
 
-          <div className="mt-10 lg:mt-14 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div className="mt-12 lg:mt-16 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             <Timeline progress={smooth} />
 
             <div className="lg:col-span-7 relative">
@@ -361,7 +356,7 @@ function NumberStack({ progress }: { progress: MotionValue<number> }) {
   return (
     <div
       aria-hidden
-      className="absolute -top-10 -left-2 lg:-left-6 pointer-events-none select-none"
+      className="absolute -top-10 -left-2 lg:-left-6 pointer-events-none select-none hidden lg:block"
     >
       {steps.map((s, i) => (
         <BigNumber
