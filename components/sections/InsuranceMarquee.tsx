@@ -1,10 +1,11 @@
 "use client";
-import Image from "next/image";
 import { m } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SmoothMarquee } from "@/components/ui/SmoothMarquee";
 import { site } from "@/lib/site";
 import { fadeUp, reveal } from "@/lib/motion";
+
+type Insurance = (typeof site.insurances)[number];
 
 export function InsuranceMarquee() {
   return (
@@ -23,18 +24,18 @@ export function InsuranceMarquee() {
       </Container>
 
       <div className="relative">
-        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-32 z-10 bg-gradient-to-r from-white to-transparent" />
-        <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-32 z-10 bg-gradient-to-l from-white to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-40 z-10 bg-gradient-to-r from-white to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-40 z-10 bg-gradient-to-l from-white to-transparent" />
 
         <SmoothMarquee durationSec={70}>
           {site.insurances.map((ins) => (
-            <InsuranceChip key={ins.slug} name={ins.name} slug={ins.slug} />
+            <InsuranceTile key={ins.slug} ins={ins} />
           ))}
         </SmoothMarquee>
 
-        <SmoothMarquee durationSec={90} reverse className="mt-5">
+        <SmoothMarquee durationSec={90} reverse className="mt-6">
           {[...site.insurances].reverse().map((ins) => (
-            <InsuranceChip key={`r-${ins.slug}`} name={ins.name} slug={ins.slug} />
+            <InsuranceTile key={`r-${ins.slug}`} ins={ins} />
           ))}
         </SmoothMarquee>
       </div>
@@ -42,20 +43,15 @@ export function InsuranceMarquee() {
   );
 }
 
-function InsuranceChip({ name, slug }: { name: string; slug: string }) {
+function InsuranceTile({ ins }: { ins: Insurance }) {
   return (
-    <div className="flex items-center gap-3 px-5 py-3 rounded-full bg-(--color-surface-muted) border border-(--color-brand-100)/60 shadow-[0_1px_0_rgba(0,0,0,0.02)] whitespace-nowrap">
-      <Image
-        src={`/images/insurance/${slug}.svg`}
-        alt=""
-        width={28}
-        height={28}
-        className="w-7 h-7 shrink-0 rounded-full"
+    <div className="group flex items-center justify-center h-20 w-44 px-6 rounded-2xl bg-white border border-(--color-brand-100) shadow-[0_1px_0_rgba(0,0,0,0.02)] hover:shadow-[0_8px_24px_-12px_rgba(15,55,50,0.18)] transition-shadow">
+      <img
+        src={ins.logo}
+        alt={ins.name}
+        className="max-h-10 max-w-full w-auto object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition duration-500"
         loading="lazy"
       />
-      <span className="text-sm font-semibold tracking-tight text-(--color-ink-700)">
-        {name}
-      </span>
     </div>
   );
 }
