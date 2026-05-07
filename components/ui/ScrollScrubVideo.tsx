@@ -13,6 +13,13 @@ type Props = {
   parallax?: number;
   /** Optional pre-existing scroll progress (e.g. from a parent useScroll). */
   progress?: MotionValue<number>;
+  /**
+   * Fraction of section scroll-progress at which the video should reach its
+   * last frame (0–1). After this point the video holds on its final frame
+   * while the section continues to scroll out — so the end frame is visible
+   * before the hero leaves the viewport. Default 0.65.
+   */
+  endAt?: number;
 };
 
 export function ScrollScrubVideo({
@@ -23,6 +30,7 @@ export function ScrollScrubVideo({
   scrollTarget,
   parallax = 60,
   progress,
+  endAt = 0.65,
 }: Props) {
   const reduced = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -73,8 +81,11 @@ export function ScrollScrubVideo({
       if (total <= 0) return;
       // Match framer's ["start start", "end start"]: 0 when section top hits
       // viewport top, 1 when section bottom hits viewport top.
-      const p = Math.min(1, Math.max(0, -rect.top / total));
-      targetTimeRef.current = p * dur;
+      const sectionP = Math.min(1, Math.max(0, -rect.top / total));
+      // Re-map so the video reaches its last frame at `endAt` of the scroll
+      // and then holds on the final frame for the remainder.
+      const videoP = Math.min(1, sectionP / endAt);
+      targetTimeRef.current = videoP * dur;
       if (rafRef.current == null) rafRef.current = requestAnimationFrame(flush);
     }
 
@@ -88,7 +99,8 @@ export function ScrollScrubVideo({
       if (!v) return;
       const dur = v.duration;
       if (!Number.isFinite(dur) || dur <= 0) return;
-      targetTimeRef.current = Math.min(dur, Math.max(0, p * dur));
+      const videoP = Math.min(1, Math.max(0, p) / endAt);
+      targetTimeRef.current = Math.min(1, videoP) * dur;
       if (rafRef.current == null) rafRef.current = requestAnimationFrame(flush);
     }
     const unsub = scrollYProgress.on("change", fromMotion);
@@ -99,7 +111,7 @@ export function ScrollScrubVideo({
       unsub();
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
     };
-  }, [scrollTarget, scrollYProgress, reduced]);
+  }, [scrollTarget, scrollYProgress, reduced, endAt]);
 
   if (reduced && poster) {
     return (

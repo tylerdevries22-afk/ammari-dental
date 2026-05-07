@@ -195,6 +195,7 @@ export function Hero() {
               scrollTarget={ref}
               progress={scrollYProgress}
               parallax={40}
+              endAt={0.85}
             />
 
             <m.div
