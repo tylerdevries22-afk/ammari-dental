@@ -8,12 +8,14 @@ import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/cn";
+import { BookingCalendar, type BookingValue } from "@/components/booking/BookingCalendar";
 
 const schema = z.object({
   name: z.string().min(2, "Please enter your name"),
   phone: z.string().min(10, "Please enter a valid phone number"),
   email: z.string().email("Please enter a valid email"),
   preferredDate: z.string().optional(),
+  preferredTime: z.string().optional(),
   insurance: z.string().optional(),
   reason: z.string().optional(),
   notes: z.string().optional(),
@@ -27,11 +29,19 @@ type FormData = z.infer<typeof schema>;
 export function AppointmentForm({ compact = false }: { compact?: boolean }) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [booking, setBooking] = useState<BookingValue>(null);
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
+
+  function handleBooking(v: BookingValue) {
+    setBooking(v);
+    setValue("preferredDate", v?.date ?? "");
+    setValue("preferredTime", v?.time ?? "");
+  }
 
   async function onSubmit(data: FormData) {
     setSubmitting(true);
@@ -107,20 +117,28 @@ export function AppointmentForm({ compact = false }: { compact?: boolean }) {
             <Field label="Email" error={errors.email?.message}>
               <input {...register("email")} type="email" autoComplete="email" />
             </Field>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <Field label="Preferred date" optional>
-                <input {...register("preferredDate")} type="date" />
-              </Field>
-              <Field label="Insurance carrier" optional>
-                <select {...register("insurance")} defaultValue="">
-                  <option value="">Select…</option>
-                  {site.insurances.map((i) => (
-                    <option key={i.slug} value={i.name}>{i.name}</option>
-                  ))}
-                  <option value="other">Other / Self-pay</option>
-                </select>
-              </Field>
+            <div>
+              <span className="block text-xs font-semibold text-(--color-ink-700) mb-1.5">
+                Pick a day &amp; time <span className="text-(--color-ink-500) font-normal">(optional)</span>
+              </span>
+              <BookingCalendar value={booking} onChange={handleBooking} />
+              <input type="hidden" {...register("preferredDate")} />
+              <input type="hidden" {...register("preferredTime")} />
+              {booking?.time && (
+                <p className="mt-2 text-xs text-(--color-brand-700)">
+                  Requesting {formatBookingLabel(booking)} — we&rsquo;ll confirm by phone or email.
+                </p>
+              )}
             </div>
+            <Field label="Insurance carrier" optional>
+              <select {...register("insurance")} defaultValue="">
+                <option value="">Select…</option>
+                {site.insurances.map((i) => (
+                  <option key={i.slug} value={i.name}>{i.name}</option>
+                ))}
+                <option value="other">Other / Self-pay</option>
+              </select>
+            </Field>
             <Field label="Reason for visit" optional>
               <select {...register("reason")} defaultValue="">
                 <option value="">Select…</option>
@@ -165,6 +183,16 @@ export function AppointmentForm({ compact = false }: { compact?: boolean }) {
       </AnimatePresence>
     </div>
   );
+}
+
+function formatBookingLabel(b: NonNullable<BookingValue>): string {
+  const d = new Date(`${b.date}T00:00:00`);
+  const day = d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
+  if (!b.time) return day;
+  const [h, m] = b.time.split(":").map((n) => parseInt(n, 10));
+  const period = h >= 12 ? "PM" : "AM";
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  return `${day} at ${h12}:${String(m).padStart(2, "0")} ${period}`;
 }
 
 function Field({

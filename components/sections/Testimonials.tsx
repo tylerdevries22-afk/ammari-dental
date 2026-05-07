@@ -1,6 +1,6 @@
 "use client";
-import { useState, useRef } from "react";
-import { m, AnimatePresence, useReducedMotion, type PanInfo } from "framer-motion";
+import { useState } from "react";
+import { m, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Icon } from "@/components/ui/Icon";
@@ -36,22 +36,13 @@ const reviews = [
   },
 ];
 
-const swipeThreshold = 60;
-
 export function Testimonials() {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
-  const reduced = useReducedMotion();
-  const dragRef = useRef<HTMLDivElement>(null);
 
   function paginate(d: 1 | -1) {
     setDirection(d);
     setIndex((i) => (i + d + reviews.length) % reviews.length);
-  }
-
-  function onDragEnd(_: unknown, info: PanInfo) {
-    if (info.offset.x < -swipeThreshold) paginate(1);
-    else if (info.offset.x > swipeThreshold) paginate(-1);
   }
 
   const r = reviews[index];
@@ -65,20 +56,16 @@ export function Testimonials() {
           description="Real words from real patients who trust Ammari Dental with their smiles."
         />
 
-        <div ref={dragRef} className="mt-16 relative max-w-3xl mx-auto h-[360px] md:h-[320px]">
+        <div className="mt-16 relative max-w-3xl mx-auto h-[360px] md:h-[320px]">
           <AnimatePresence initial={false} custom={direction} mode="popLayout">
             <m.blockquote
               key={index}
               custom={direction}
-              drag={reduced ? false : "x"}
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.18}
-              onDragEnd={onDragEnd}
               initial={{ opacity: 0, x: direction * 80, scale: 0.96 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: -direction * 80, scale: 0.96 }}
               transition={{ type: "spring", stiffness: 220, damping: 30 }}
-              className={`absolute inset-0 cursor-grab active:cursor-grabbing rounded-[28px] bg-gradient-to-br ${r.accent} border border-white/60 shadow-(--shadow-soft-lg) p-8 md:p-12 flex flex-col`}
+              className={`absolute inset-0 rounded-[28px] bg-gradient-to-br ${r.accent} border border-white/60 shadow-(--shadow-soft-lg) p-8 md:p-12 flex flex-col`}
             >
               <div className="flex gap-1 text-(--color-accent)">
                 {Array.from({ length: r.rating }).map((_, i) => (

@@ -7,10 +7,12 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { fadeUp, reveal } from "@/lib/motion";
 
 const tiles = [
-  { src: "/images/practice/hero-1.webp", alt: "Treatment room", size: "tall", rate: 0.18 },
-  { src: "/images/practice/hero-2.webp", alt: "Modern operatory", size: "wide", rate: -0.12 },
-  { src: "/images/practice/hero-3.webp", alt: "Reception area", size: "square", rate: 0.24 },
-  { src: "/images/practice/hero-4.webp", alt: "Comfortable lobby", size: "tall", rate: -0.20 },
+  { src: "/images/practice/operatory.webp", alt: "Modern dental operatory with new equipment", size: "tall", rate: 0.18 },
+  { src: "/images/practice/clinic-bright.webp", alt: "Bright treatment room with calm lighting", size: "wide", rate: -0.12 },
+  { src: "/images/practice/dentist-patient.webp", alt: "Dentist reviewing care plan with a patient", size: "square", rate: 0.24 },
+  { src: "/images/practice/smile-checkup.webp", alt: "Patient receiving a gentle checkup", size: "tall", rate: -0.20 },
+  { src: "/images/practice/dental-tools.webp", alt: "Sterilized dental instruments", size: "square", rate: 0.16 },
+  { src: "/images/practice/modern-chair.webp", alt: "Comfortable patient chair detail", size: "wide", rate: -0.18 },
 ];
 
 export function ParallaxGallery() {

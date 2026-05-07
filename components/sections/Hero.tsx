@@ -191,7 +191,7 @@ export function Hero() {
           <div className="relative aspect-[4/5] rounded-[28px] overflow-hidden bg-gradient-to-br from-(--color-brand-100) to-(--color-brand-50) shadow-(--shadow-soft-lg)">
             <m.div style={{ y: imageY }} className="absolute inset-0 will-change-transform">
               <Image
-                src="/images/practice/hero-1.webp"
+                src="/images/practice/operatory.webp"
                 alt="Ammari Dental treatment room in Aurora, CO"
                 fill
                 priority

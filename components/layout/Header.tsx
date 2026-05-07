@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
+import { LogoVideo } from "@/components/ui/LogoVideo";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
@@ -79,15 +79,9 @@ export function Header() {
             className="flex items-center gap-3 font-display text-xl font-medium tracking-tight shrink-0"
             aria-label="Ammari Dental — home"
           >
-            <Image
-              src="/images/practice/ammaridentallogo.png"
-              alt=""
-              width={128}
-              height={128}
-              priority
-              unoptimized
-              className="w-11 h-11 object-contain"
-            />
+            <span className="block w-11 h-11 overflow-hidden">
+              <LogoVideo />
+            </span>
             <span className="hidden sm:inline text-[#1FA672]">Ammari Dental</span>
           </Link>
 
