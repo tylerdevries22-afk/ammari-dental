@@ -1,6 +1,6 @@
 "use client";
-import { m, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { m, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { useRef, useState } from "react";
 import { useMotion } from "@/lib/useMotion";
 import { cn } from "@/lib/cn";
 
@@ -72,8 +72,16 @@ export function SectionDivider({
     offset: ["start end", "end start"],
   });
   const spec = variants[variant];
-  // Interpolate the path d-attribute between the two morph keyframes
-  const d = useTransform(scrollYProgress, [0, 0.5, 1], [spec.from, spec.to, spec.from]);
+
+  // Morph by interpolating a NUMERIC weight (0..1..0 across scroll), then
+  // sample a discrete d each tick. Framer's useTransform on string keyframes
+  // doesn't interpolate SVG paths reliably across all environments, so we
+  // run the interpolation ourselves with a state setter.
+  const weight = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
+  const [d, setD] = useState(spec.from);
+  useMotionValueEvent(weight, "change", (w) => {
+    setD(interpolatePath(spec.from, spec.to, w));
+  });
 
   const flip = position === "top" ? "rotate-180" : "";
 
@@ -99,4 +107,24 @@ export function SectionDivider({
       </svg>
     </div>
   );
+}
+
+/**
+ * Interpolate between two SVG path d-strings that share an identical command
+ * sequence — every numeric coordinate is linearly mixed. Falls back to the
+ * "from" string if the two paths diverge structurally.
+ */
+function interpolatePath(from: string, to: string, t: number): string {
+  // Tokenize: keep letters as anchors, parse numbers between.
+  const reNum = /-?\d+(?:\.\d+)?/g;
+  const fromNums = from.match(reNum);
+  const toNums = to.match(reNum);
+  if (!fromNums || !toNums || fromNums.length !== toNums.length) return from;
+  let i = 0;
+  return from.replace(reNum, () => {
+    const a = parseFloat(fromNums[i]);
+    const b = parseFloat(toNums[i]);
+    i++;
+    return String(+(a + (b - a) * t).toFixed(2));
+  });
 }
