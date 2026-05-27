@@ -119,17 +119,21 @@ function AnimatedBeat({
   range: { start: number; mid: number; end: number };
   progress: ReturnType<typeof useScroll>["scrollYProgress"];
 }) {
-  // Smooth fade in/out: 0 at edges, 1 at mid
-  const opacity = useTransform(
-    progress,
-    [range.start - 0.05, range.mid - 0.05, range.mid + 0.05, range.end + 0.05],
-    [0, 1, 1, 0],
-  );
-  const y = useTransform(
-    progress,
-    [range.start, range.mid, range.end],
-    [40, 0, -40],
-  );
+  // Clamp all input offsets to [0, 1] — framer-motion v12 forwards these as
+  // WAAPI keyframe offsets when accelerating scroll-driven transforms, and
+  // WAAPI rejects values outside that range with "Offsets must be
+  // monotonically non-decreasing." Pad by 0.001 to keep strict monotonicity
+  // when adjacent stops coincide after clamping.
+  const c = (v: number) => Math.min(1, Math.max(0, v));
+  const t0 = c(range.start - 0.05);
+  const t1 = c(range.mid - 0.05);
+  const t2 = c(range.mid + 0.05);
+  const t3 = c(range.end + 0.05);
+  // Ensure strict monotonicity after clamp
+  const times = [t0, Math.max(t0 + 0.001, t1), Math.max(t1 + 0.001, t2), Math.max(t2 + 0.001, t3)];
+
+  const opacity = useTransform(progress, times, [0, 1, 1, 0]);
+  const y = useTransform(progress, [times[0], times[1], times[3]], [40, 0, -40]);
 
   return (
     <m.div
@@ -200,14 +204,20 @@ function ChapterDot({
   progress: ReturnType<typeof useScroll>["scrollYProgress"];
 }) {
   const center = (index + 0.5) / count;
+  // Clamp to [0,1] — see AnimatedBeat for the WAAPI-offset rationale.
+  const c = (v: number) => Math.min(1, Math.max(0, v));
+  const oLo = c(center - 0.2);
+  const oHi = c(center + 0.2);
+  const sLo = c(center - 0.15);
+  const sHi = c(center + 0.15);
   const opacity = useTransform(
     progress,
-    [center - 0.2, center, center + 0.2],
+    [oLo, Math.max(oLo + 0.001, center), Math.max(center + 0.001, oHi)],
     [0.35, 1, 0.35],
   );
   const scale = useTransform(
     progress,
-    [center - 0.15, center, center + 0.15],
+    [sLo, Math.max(sLo + 0.001, center), Math.max(center + 0.001, sHi)],
     [1, 1.5, 1],
   );
   return (
