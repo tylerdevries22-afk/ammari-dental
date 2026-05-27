@@ -249,11 +249,26 @@ const icons: Record<string, ReactNode> = {
   ),
 };
 
+type Variant = "line" | "duotone";
+
+/**
+ * Duotone rendering layers a soft brand-100 fill at low opacity behind the
+ * existing stroke geometry. Effect: the icon reads as a flat brand-coloured
+ * shape with a darker outline — same vocabulary across the whole library
+ * without redrawing each path.
+ *
+ * Pass `variant="line"` for the original outline-only behavior.
+ */
 export function DentalIcon({
   name,
   className,
+  variant = "duotone",
   ...props
-}: { name: string; className?: string } & SVGProps<SVGSVGElement>) {
+}: {
+  name: string;
+  className?: string;
+  variant?: Variant;
+} & SVGProps<SVGSVGElement>) {
   const node = icons[name] ?? icons.tooth;
   return (
     <svg
@@ -267,6 +282,16 @@ export function DentalIcon({
       aria-hidden="true"
       {...props}
     >
+      {variant === "duotone" && (
+        <g
+          fill="var(--color-brand-100)"
+          stroke="none"
+          opacity="0.85"
+          style={{ mixBlendMode: "multiply" }}
+        >
+          {node}
+        </g>
+      )}
       {node}
     </svg>
   );

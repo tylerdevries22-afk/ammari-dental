@@ -16,6 +16,8 @@ import { ParallaxGallery } from "@/components/sections/ParallaxGallery";
 import { StickyValues } from "@/components/sections/StickyValues";
 import { ScrollHueBackground } from "@/components/sections/ScrollHueBackground";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { SectionDivider } from "@/components/ui/SectionDivider";
+import { ScrollHueShift } from "@/components/effects/ScrollHueShift";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { metaFor } from "@/lib/metadata";
@@ -38,13 +40,18 @@ export default function HomePage() {
     <>
       <ScrollProgress />
       <ScrollHueBackground />
+      <ScrollHueShift />
 
       <Hero />
+      <SectionDivider variant="wave" fillToken="--surface-data" />
       <ByTheNumbers />
       <TrustStrip />
+      <SectionDivider variant="arc" fillToken="--color-bg" />
       <ParallaxGallery />
       <ServiceGrid />
+      <SectionDivider variant="blob" fillToken="--color-bg" />
       <StickyValues />
+      <SectionDivider variant="scallop" fillToken="--color-surface-muted" position="top" />
       <AboutSplit />
       <EmergencyBand />
       <Testimonials />
