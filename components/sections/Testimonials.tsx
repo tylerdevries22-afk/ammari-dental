@@ -57,7 +57,7 @@ export function Testimonials() {
   const r = reviews[index];
 
   return (
-    <section className="py-24 lg:py-32 relative overflow-hidden">
+    <section id="reviews" data-chapter="Reviews" className="py-24 lg:py-32 relative overflow-hidden anchor-offset">
       <Container>
         <SectionHeader
           eyebrow="What patients say"

@@ -27,7 +27,7 @@ export function AboutSplit() {
   const imgScale = useTransform(scrollYProgress, [0, 1], [1.1, 0.98]);
 
   return (
-    <section ref={sectionRef} className="py-24 lg:py-32 bg-(--color-surface-muted)/50 relative">
+    <section id="about" data-chapter="About" ref={sectionRef} className="py-24 lg:py-32 bg-(--color-surface-muted)/50 relative anchor-offset">
       <Container className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <m.div
           variants={stagger(0.08)}

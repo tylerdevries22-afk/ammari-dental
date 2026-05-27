@@ -47,6 +47,8 @@ export function Hero() {
 
   return (
     <section
+      id="welcome"
+      data-chapter="Welcome"
       ref={ref}
       onMouseMove={onMove}
       className="relative pt-[72px] overflow-hidden"

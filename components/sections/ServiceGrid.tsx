@@ -22,7 +22,7 @@ export function ServiceGrid({
 }) {
   const items = showAll ? services : services.filter((s) => s.featured);
   return (
-    <section className="py-24 lg:py-32">
+    <section id="services" data-chapter="Services" className="py-24 lg:py-32 anchor-offset">
       <Container>
         <SectionHeader eyebrow={eyebrow} title={heading} description={description} />
 

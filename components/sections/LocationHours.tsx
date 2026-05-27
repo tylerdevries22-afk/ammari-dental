@@ -8,7 +8,7 @@ import { fadeUp, stagger, reveal } from "@/lib/motion";
 
 export function LocationHours() {
   return (
-    <section className="py-24 lg:py-32 bg-(--color-surface-muted)/50">
+    <section id="visit" data-chapter="Visit" className="py-24 lg:py-32 bg-(--color-surface-muted)/50 anchor-offset">
       <Container>
         <m.div
           variants={stagger(0.08)}
