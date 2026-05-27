@@ -4,7 +4,7 @@ import { m } from "framer-motion";
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "secondary" | "ghost" | "danger";
+type Variant = "primary" | "secondary" | "ghost" | "danger" | "glass" | "data";
 type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
@@ -16,6 +16,12 @@ const variants: Record<Variant, string> = {
     "bg-transparent text-(--color-ink-900) hover:bg-(--color-brand-50)",
   danger:
     "bg-(--color-danger) text-white hover:opacity-90",
+  // Glass: meant for use on video / dark backgrounds. Frosted surface + brand border.
+  glass:
+    "bg-(--surface-glass) text-(--color-brand-700) border border-(--color-brand-300)/40 backdrop-blur-md hover:bg-(--color-surface) hover:border-(--color-brand-500) shadow-(--shadow-soft-sm)",
+  // Data: monospace credibility CTA — used near stats/credentials.
+  data:
+    "bg-(--color-brand-700) text-(--color-brand-50) data-mono uppercase text-[11px] tracking-widest border border-(--color-brand-500) hover:bg-(--color-brand-800)",
 };
 
 const sizes: Record<Size, string> = {

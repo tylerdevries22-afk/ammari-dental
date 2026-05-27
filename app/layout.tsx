@@ -8,9 +8,7 @@ import { Footer } from "@/components/layout/Footer";
 import { FloatingCallButton } from "@/components/layout/FloatingCallButton";
 import { LocalBusinessSchema } from "@/components/schema/Schema";
 import { MotionProvider } from "@/components/MotionProvider";
-import { SmoothScroll } from "@/components/providers/SmoothScroll";
-import { AmbientCursor } from "@/components/effects/AmbientCursor";
-import { SectionScrollIndicator } from "@/components/effects/SectionScrollIndicator";
+import { ClientEnhancements } from "@/components/providers/ClientEnhancements";
 import { metaFor } from "@/lib/metadata";
 
 const inter = Inter({
@@ -40,13 +38,17 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
       <body className="min-h-screen flex flex-col antialiased">
         <MotionProvider>
-          <SmoothScroll />
-          <AmbientCursor />
-          <SectionScrollIndicator />
           <Header />
           <main id="main" className="flex-1">{children}</main>
           <Footer />
           <FloatingCallButton />
+          {/*
+            ClientEnhancements is rendered AFTER Header/main/Footer so the
+            skip link (first focusable in Header) is hit first by Tab. The
+            SectionScrollIndicator renders anchor links that would otherwise
+            steal initial focus from the skip link.
+          */}
+          <ClientEnhancements />
         </MotionProvider>
         <LocalBusinessSchema />
         <Analytics />
