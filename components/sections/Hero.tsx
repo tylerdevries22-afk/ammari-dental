@@ -1,6 +1,5 @@
 "use client";
 import { useRef } from "react";
-import Image from "next/image";
 import {
   m,
   useScroll,
@@ -14,6 +13,7 @@ import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
 import { Magnetic } from "@/components/ui/MagneticButton";
+import { ScrollScrubVideo } from "@/components/ui/ScrollScrubVideo";
 import { site } from "@/lib/site";
 
 const headlineWords = ["Friendly", "Staff.", "Beautiful", "Smiles.", "Welcoming", "Environment."];
@@ -30,7 +30,6 @@ export function Hero() {
   const yFast = useSpring(useTransform(scrollYProgress, [0, 1], [0, -60]), { stiffness: 80, damping: 20 });
   const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
-  const imageY = useSpring(useTransform(scrollYProgress, [0, 1], [0, -40]), { stiffness: 80, damping: 22 });
 
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
@@ -188,23 +187,21 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="lg:col-span-5 relative"
         >
-          <div className="relative aspect-[4/5] rounded-[28px] overflow-hidden bg-gradient-to-br from-(--color-brand-100) to-(--color-brand-50) shadow-(--shadow-soft-lg)">
-            <m.div style={{ y: imageY }} className="absolute inset-0 will-change-transform">
-              <Image
-                src="/images/practice/hero-1.webp"
-                alt="Ammari Dental treatment room in Aurora, CO"
-                fill
-                priority
-                sizes="(max-width: 1024px) 90vw, 40vw"
-                className="object-cover"
-              />
-            </m.div>
+          <div className="relative aspect-[4/5] rounded-[28px] overflow-hidden bg-gradient-to-br from-(--color-brand-100) to-(--color-brand-50) shadow-(--shadow-soft-lg) noise-overlay">
+            <ScrollScrubVideo
+              src="/videos/hero-scrub.mp4"
+              poster="/images/practice/hero-1.webp"
+              posterAlt="Ammari Dental treatment room in Aurora, CO"
+              scrollTarget={ref}
+              parallax={40}
+              endAt={0.65}
+            />
 
             <m.div
               initial={{ y: "0%" }}
               animate={{ y: "-100%" }}
               transition={{ delay: 0.4, duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
-              className="absolute inset-0 bg-(--color-brand-700) origin-bottom"
+              className="absolute inset-0 bg-(--color-brand-700) origin-bottom z-[2]"
               aria-hidden
             />
 

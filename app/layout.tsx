@@ -8,6 +8,7 @@ import { Footer } from "@/components/layout/Footer";
 import { FloatingCallButton } from "@/components/layout/FloatingCallButton";
 import { LocalBusinessSchema } from "@/components/schema/Schema";
 import { MotionProvider } from "@/components/MotionProvider";
+import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { metaFor } from "@/lib/metadata";
 
 const inter = Inter({
@@ -37,6 +38,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
       <body className="min-h-screen flex flex-col antialiased">
         <MotionProvider>
+          <SmoothScroll />
           <Header />
           <main id="main" className="flex-1">{children}</main>
           <Footer />

@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useRef, type RefObject } from "react";
 import Image from "next/image";
-import { m, useScroll, useTransform, useReducedMotion, type MotionValue } from "framer-motion";
+import { gsap } from "@/lib/gsap";
+import { useMotion } from "@/lib/useMotion";
 import { cn } from "@/lib/cn";
 
 type Props = {
@@ -11,17 +12,28 @@ type Props = {
   className?: string;
   scrollTarget: RefObject<HTMLElement | null>;
   parallax?: number;
-  /** Optional pre-existing scroll progress (e.g. from a parent useScroll). */
-  progress?: MotionValue<number>;
   /**
    * Fraction of section scroll-progress at which the video should reach its
    * last frame (0–1). After this point the video holds on its final frame
-   * while the section continues to scroll out — so the end frame is visible
-   * before the hero leaves the viewport. Default 0.65.
+   * while the section continues to scroll out. Default 0.65.
    */
   endAt?: number;
 };
 
+/**
+ * GSAP ScrollTrigger-driven video scrub.
+ *
+ * Why GSAP instead of framer's useScroll/useTransform:
+ *  - ScrollTrigger's `scrub: 0.5` adds a smoothing pass that catches up to the
+ *    target instead of locking to it 1:1 — gives the buttery cinematic feel.
+ *  - Works correctly with Lenis smooth scroll (Lenis emits 'scroll' which we
+ *    pipe into ScrollTrigger.update in SmoothScroll.tsx).
+ *  - Robust on iOS Safari where framer's onChange callbacks can stutter under
+ *    momentum scrolling.
+ *
+ * The poster image stays as the LCP element until the video metadata loads,
+ * so first paint is instant.
+ */
 export function ScrollScrubVideo({
   src,
   poster,
@@ -29,21 +41,12 @@ export function ScrollScrubVideo({
   className,
   scrollTarget,
   parallax = 60,
-  progress,
   endAt = 0.65,
 }: Props) {
-  const reduced = useReducedMotion();
+  const { reduced, scrubFactor } = useMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const rafRef = useRef<number | null>(null);
-  const targetTimeRef = useRef(0);
 
-  const fallback = useScroll({
-    target: scrollTarget,
-    offset: ["start start", "end start"],
-  });
-  const scrollYProgress = progress ?? fallback.scrollYProgress;
-  const y = useTransform(scrollYProgress, [0, 1], [0, -parallax]);
-
+  // Pre-warm the video when the section gets close (200 px out)
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
@@ -57,62 +60,75 @@ export function ScrollScrubVideo({
     return () => io.disconnect();
   }, []);
 
+  // Wire GSAP ScrollTrigger to drive currentTime
   useEffect(() => {
     if (reduced) return;
     const v = videoRef.current;
-    if (!v) return;
+    const target = scrollTarget.current;
+    if (!v || !target) return;
 
-    function flush() {
-      rafRef.current = null;
-      if (!v) return;
-      const target = targetTimeRef.current;
-      if (Number.isFinite(target) && Math.abs(v.currentTime - target) > 1 / 240) {
-        v.currentTime = target;
-      }
-    }
+    let parallaxTween: gsap.core.Tween | null = null;
+    let scrubTween: gsap.core.Tween | null = null;
 
-    function compute() {
-      const target = scrollTarget.current;
-      if (!target || !v) return;
+    const setup = () => {
       const dur = v.duration;
       if (!Number.isFinite(dur) || dur <= 0) return;
-      const rect = target.getBoundingClientRect();
-      const total = rect.height;
-      if (total <= 0) return;
-      // Match framer's ["start start", "end start"]: 0 when section top hits
-      // viewport top, 1 when section bottom hits viewport top.
-      const sectionP = Math.min(1, Math.max(0, -rect.top / total));
-      // Re-map so the video reaches its last frame at `endAt` of the scroll
-      // and then holds on the final frame for the remainder.
-      const videoP = Math.min(1, sectionP / endAt);
-      targetTimeRef.current = videoP * dur;
-      if (rafRef.current == null) rafRef.current = requestAnimationFrame(flush);
-    }
 
-    compute();
-    window.addEventListener("scroll", compute, { passive: true });
-    window.addEventListener("resize", compute, { passive: true });
+      // Scrub video currentTime to scroll position
+      const scrubProxy = { time: 0 };
+      scrubTween = gsap.to(scrubProxy, {
+        time: dur,
+        ease: "none",
+        scrollTrigger: {
+          trigger: target,
+          start: "top top",
+          // End when we've scrolled `endAt` of the section's height past top
+          end: () => `+=${target.offsetHeight * endAt}`,
+          scrub: scrubFactor,
+          invalidateOnRefresh: true,
+        },
+        onUpdate: () => {
+          // Seek only when the delta is meaningful — saves decoder work
+          if (Math.abs(v.currentTime - scrubProxy.time) > 1 / 60) {
+            v.currentTime = scrubProxy.time;
+          }
+        },
+      });
 
-    // Also drive scrub from framer's MotionValue — its internal scroll tracker
-    // updates even in environments where window 'scroll' events are throttled.
-    function fromMotion(p: number) {
-      if (!v) return;
-      const dur = v.duration;
-      if (!Number.isFinite(dur) || dur <= 0) return;
-      const videoP = Math.min(1, Math.max(0, p) / endAt);
-      targetTimeRef.current = Math.min(1, videoP) * dur;
-      if (rafRef.current == null) rafRef.current = requestAnimationFrame(flush);
+      // Y parallax on the wrapping element
+      parallaxTween = gsap.fromTo(
+        v.parentElement!,
+        { y: 0 },
+        {
+          y: -parallax,
+          ease: "none",
+          scrollTrigger: {
+            trigger: target,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: scrubFactor,
+            invalidateOnRefresh: true,
+          },
+        },
+      );
+    };
+
+    if (v.readyState >= 1) {
+      setup();
+    } else {
+      v.addEventListener("loadedmetadata", setup, { once: true });
     }
-    const unsub = scrollYProgress.on("change", fromMotion);
 
     return () => {
-      window.removeEventListener("scroll", compute);
-      window.removeEventListener("resize", compute);
-      unsub();
-      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+      v.removeEventListener("loadedmetadata", setup);
+      scrubTween?.scrollTrigger?.kill();
+      scrubTween?.kill();
+      parallaxTween?.scrollTrigger?.kill();
+      parallaxTween?.kill();
     };
-  }, [scrollTarget, scrollYProgress, reduced, endAt]);
+  }, [scrollTarget, reduced, scrubFactor, endAt, parallax]);
 
+  // Reduced-motion: poster only, no video element
   if (reduced && poster) {
     return (
       <div className={cn("absolute inset-0", className)}>
@@ -129,7 +145,7 @@ export function ScrollScrubVideo({
   }
 
   return (
-    <m.div style={{ y }} className={cn("absolute inset-0 will-change-transform", className)}>
+    <div className={cn("absolute inset-0 will-change-transform", className)}>
       {poster && (
         <Image
           src={poster}
@@ -151,6 +167,6 @@ export function ScrollScrubVideo({
         {...({ "webkit-playsinline": "true" } as Record<string, string>)}
         className="absolute inset-0 w-full h-full object-cover"
       />
-    </m.div>
+    </div>
   );
 }
