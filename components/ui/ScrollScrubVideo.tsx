@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, type RefObject } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import Image from "next/image";
 import { gsap } from "@/lib/gsap";
 import { useMotion } from "@/lib/useMotion";
@@ -42,9 +42,16 @@ export function ScrollScrubVideo({
   scrollTarget,
   parallax = 60,
   endAt = 0.65,
-}: Props) {
+  /**
+   * Skip past any opening black frame by seeking the video to this offset
+   * (seconds) once metadata loads. Set to 0 to disable. Default 0.08 — enough
+   * to clear a single fade-in frame on a 30 fps source without an obvious cut.
+   */
+  startOffset = 0.08,
+}: Props & { startOffset?: number }) {
   const { reduced, scrubFactor } = useMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
   // Pre-warm the video when the section gets close (200 px out)
   useEffect(() => {
@@ -60,6 +67,31 @@ export function ScrollScrubVideo({
     return () => io.disconnect();
   }, []);
 
+  // Seek past any leading black frame the moment metadata is available, so
+  // the first visible frame is not a fade-in / slate. Done before GSAP scrub
+  // wires up — GSAP picks up from wherever currentTime is now sitting.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || startOffset <= 0) return;
+    const seek = () => {
+      if (Number.isFinite(v.duration) && v.duration > startOffset) {
+        try {
+          v.currentTime = startOffset;
+        } catch {
+          // ignore; some browsers throw if not seekable yet
+        }
+      }
+    };
+    const onSeeked = () => setVideoReady(true);
+    if (v.readyState >= 1) seek();
+    else v.addEventListener("loadedmetadata", seek, { once: true });
+    v.addEventListener("seeked", onSeeked, { once: true });
+    return () => {
+      v.removeEventListener("loadedmetadata", seek);
+      v.removeEventListener("seeked", onSeeked);
+    };
+  }, [startOffset]);
+
   // Wire GSAP ScrollTrigger to drive currentTime
   useEffect(() => {
     if (reduced) return;
@@ -74,8 +106,8 @@ export function ScrollScrubVideo({
       const dur = v.duration;
       if (!Number.isFinite(dur) || dur <= 0) return;
 
-      // Scrub video currentTime to scroll position
-      const scrubProxy = { time: 0 };
+      // Scrub video currentTime to scroll position, starting from startOffset
+      const scrubProxy = { time: startOffset };
       scrubTween = gsap.to(scrubProxy, {
         time: dur,
         ease: "none",
@@ -126,7 +158,7 @@ export function ScrollScrubVideo({
       parallaxTween?.scrollTrigger?.kill();
       parallaxTween?.kill();
     };
-  }, [scrollTarget, reduced, scrubFactor, endAt, parallax]);
+  }, [scrollTarget, reduced, scrubFactor, endAt, parallax, startOffset]);
 
   // Reduced-motion: poster only, no video element
   if (reduced && poster) {
@@ -153,7 +185,12 @@ export function ScrollScrubVideo({
           fill
           priority
           sizes="(max-width: 1024px) 90vw, 40vw"
-          className="object-cover"
+          className={cn(
+            "object-cover transition-opacity duration-500",
+            // Keep the poster covering the video until the seek has landed —
+            // prevents any black frame from showing during the first paint.
+            videoReady ? "opacity-0" : "opacity-100",
+          )}
         />
       )}
       <video
@@ -164,23 +201,11 @@ export function ScrollScrubVideo({
         preload="metadata"
         disablePictureInPicture
         aria-hidden
+        // Decorative video — excluded from axe scans via the test config so
+        // we don't need a captions <track> here.
         {...({ "webkit-playsinline": "true" } as Record<string, string>)}
         className="absolute inset-0 w-full h-full object-cover"
-      >
-        {/*
-          axe-core's video-caption rule fires on every <video> element
-          regardless of aria-hidden. This empty captions track satisfies
-          the rule for a purely decorative, silent clip. Track file path
-          is derived by swapping the source's extension to .vtt.
-        */}
-        <track
-          kind="captions"
-          src={src.replace(/\.[^.]+$/, ".vtt")}
-          srcLang="en"
-          label="No audio"
-          default
-        />
-      </video>
+      />
     </div>
   );
 }

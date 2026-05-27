@@ -1,8 +1,0 @@
-WEBVTT
-NOTE
-This clip has no audio. The track exists to satisfy axe's video-caption
-rule for a purely decorative, silent video; the parent <video> element is
-aria-hidden and contains no narrative content for assistive tech.
-
-00:00:00.000 --> 00:00:30.000
-[Silent video — Ammari Dental treatment room ambience]

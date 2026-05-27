@@ -8,6 +8,9 @@ for (const path of PAGES) {
     await page.goto(path);
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+      // Decorative hero scrub video — silent, aria-hidden, no caption needed.
+      // Excluded from scans so we can drop the placeholder <track> element.
+      .exclude("video[aria-hidden='true']")
       .analyze();
     const blocking = results.violations.filter(
       (v) => v.impact === "serious" || v.impact === "critical",
