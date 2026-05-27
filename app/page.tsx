@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/Hero";
 import { ByTheNumbers } from "@/components/sections/ByTheNumbers";
 import { TrustStrip } from "@/components/sections/TrustStrip";
@@ -16,9 +17,19 @@ import { StickyValues } from "@/components/sections/StickyValues";
 import { ScrollHueBackground } from "@/components/sections/ScrollHueBackground";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { Container } from "@/components/ui/Container";
-import { AppointmentForm } from "@/components/sections/AppointmentForm";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { metaFor } from "@/lib/metadata";
+
+// Below-the-fold; defer its react-hook-form + zod chunk past first paint.
+// Server-rendered placeholder keeps layout stable.
+const AppointmentForm = dynamic(
+  () => import("@/components/sections/AppointmentForm").then((m) => m.AppointmentForm),
+  {
+    loading: () => (
+      <div className="h-[480px] rounded-(--radius-xl) bg-(--color-surface) border border-(--color-brand-100) animate-pulse" />
+    ),
+  },
+);
 
 export const metadata: Metadata = metaFor("/");
 
