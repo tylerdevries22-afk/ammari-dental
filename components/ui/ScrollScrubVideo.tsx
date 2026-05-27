@@ -166,7 +166,21 @@ export function ScrollScrubVideo({
         aria-hidden
         {...({ "webkit-playsinline": "true" } as Record<string, string>)}
         className="absolute inset-0 w-full h-full object-cover"
-      />
+      >
+        {/*
+          axe-core's video-caption rule fires on every <video> element
+          regardless of aria-hidden. This empty captions track satisfies
+          the rule for a purely decorative, silent clip. Track file path
+          is derived by swapping the source's extension to .vtt.
+        */}
+        <track
+          kind="captions"
+          src={src.replace(/\.[^.]+$/, ".vtt")}
+          srcLang="en"
+          label="No audio"
+          default
+        />
+      </video>
     </div>
   );
 }

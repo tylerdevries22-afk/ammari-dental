@@ -9,6 +9,8 @@ import { FloatingCallButton } from "@/components/layout/FloatingCallButton";
 import { LocalBusinessSchema } from "@/components/schema/Schema";
 import { MotionProvider } from "@/components/MotionProvider";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { AmbientCursor } from "@/components/effects/AmbientCursor";
+import { SectionScrollIndicator } from "@/components/effects/SectionScrollIndicator";
 import { metaFor } from "@/lib/metadata";
 
 const inter = Inter({
@@ -39,6 +41,8 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col antialiased">
         <MotionProvider>
           <SmoothScroll />
+          <AmbientCursor />
+          <SectionScrollIndicator />
           <Header />
           <main id="main" className="flex-1">{children}</main>
           <Footer />

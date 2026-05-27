@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
+import { ByTheNumbers } from "@/components/sections/ByTheNumbers";
 import { TrustStrip } from "@/components/sections/TrustStrip";
 import { ServiceGrid } from "@/components/sections/ServiceGrid";
 import { EmergencyBand } from "@/components/sections/EmergencyBand";
@@ -28,6 +29,7 @@ export default function HomePage() {
       <ScrollHueBackground />
 
       <Hero />
+      <ByTheNumbers />
       <TrustStrip />
       <ParallaxGallery />
       <ServiceGrid />

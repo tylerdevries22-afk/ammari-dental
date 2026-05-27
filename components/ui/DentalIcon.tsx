@@ -240,6 +240,13 @@ const icons: Record<string, ReactNode> = {
     </>
   ),
   bridge_legacy: <path d="M3 12h18M6 12V8m12 4V8M6 12v6h12v-6" />,
+  check: <path d="M5 12l5 5 9-11" />,
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </>
+  ),
 };
 
 export function DentalIcon({
