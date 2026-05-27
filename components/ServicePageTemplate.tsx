@@ -47,7 +47,7 @@ export function ServicePageTemplate({ service, intro, benefits, process, faq }: 
           <div className="lg:col-span-8">
             {benefits && benefits.length > 0 && (
               <div className="mb-16">
-                <h2 className="text-3xl lg:text-4xl font-display tracking-tight mb-8">Why Patients Choose Us</h2>
+                <h2 className="text-3xl lg:text-4xl font-display tracking-tight mb-8 text-(--color-ink-900)">Why Patients Choose Us</h2>
                 <m.ul
                   variants={stagger(0.06)}
                   initial={reveal.initial}

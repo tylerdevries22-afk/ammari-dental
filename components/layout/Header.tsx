@@ -88,7 +88,7 @@ export function Header() {
               unoptimized
               className="w-11 h-11 object-contain"
             />
-            <span className="hidden sm:inline text-[#1FA672]">Ammari Dental</span>
+            <span className="hidden sm:inline text-(--color-brand-700)">Ammari Dental</span>
           </Link>
 
           <nav aria-label="Primary" className="hidden xl:flex items-center gap-0.5">
