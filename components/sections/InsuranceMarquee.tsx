@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { m } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SmoothMarquee } from "@/components/ui/SmoothMarquee";
@@ -46,11 +47,14 @@ export function InsuranceMarquee() {
 function InsuranceTile({ ins }: { ins: Insurance }) {
   return (
     <div className="group flex items-center justify-center h-20 w-44 px-6 rounded-2xl bg-white border border-(--color-brand-100) shadow-[0_1px_0_rgba(0,0,0,0.02)] hover:shadow-[0_8px_24px_-12px_rgba(15,55,50,0.18)] transition-shadow">
-      <img
+      <Image
         src={ins.logo}
         alt={ins.name}
-        className="max-h-10 max-w-full w-auto object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition duration-500"
+        width={160}
+        height={40}
+        sizes="160px"
         loading="lazy"
+        className="max-h-10 max-w-full w-auto object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition duration-500"
       />
     </div>
   );

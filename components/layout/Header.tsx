@@ -82,10 +82,11 @@ export function Header() {
             <Image
               src="/images/practice/ammaridentallogo.png"
               alt=""
-              width={128}
-              height={128}
+              width={88}
+              height={88}
               priority
-              unoptimized
+              fetchPriority="high"
+              sizes="44px"
               className="w-11 h-11 object-contain"
             />
             <span className="hidden sm:inline text-(--color-brand-700)">Ammari Dental</span>

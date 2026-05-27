@@ -62,6 +62,69 @@
   /* Fonts (provided by next/font in layout) */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Typography scale — fluid clamp() driven (modular 1.25 ratio) */
+  --text-xs:      clamp(0.75rem, 0.71rem + 0.18vw, 0.875rem);
+  --text-sm:      clamp(0.875rem, 0.83rem + 0.22vw, 1rem);
+  --text-base:    clamp(1rem, 0.94rem + 0.27vw, 1.125rem);
+  --text-lg:      clamp(1.125rem, 1.05rem + 0.36vw, 1.375rem);
+  --text-xl:      clamp(1.375rem, 1.25rem + 0.6vw, 1.75rem);
+  --text-2xl:     clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
+  --text-3xl:     clamp(2.25rem, 1.85rem + 1.9vw, 3.5rem);
+  --text-4xl:     clamp(3rem, 2.4rem + 2.9vw, 5rem);
+  --text-5xl:     clamp(4rem, 3rem + 4.8vw, 7rem);
+  --text-display: clamp(5rem, 3.5rem + 7.3vw, 10rem);
+
+  /* Line-height tokens */
+  --leading-tight:   1.05;
+  --leading-snug:    1.2;
+  --leading-normal:  1.4;
+  --leading-relaxed: 1.6;
+  --leading-prose:   1.75;
+
+  /* Letter-spacing tokens */
+  --tracking-tightest: -0.04em;
+  --tracking-tight:    -0.025em;
+  --tracking-normal:    0;
+  --tracking-wide:      0.04em;
+  --tracking-widest:    0.16em;
+
+  /* Font-weight tokens */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* Motion tokens — easing */
+  --ease-out:       cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out:    cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-snap:      cubic-bezier(0.85, 0, 0.15, 1);
+
+  /* Motion tokens — duration */
+  --duration-fast:        180ms;
+  --duration-base:        320ms;
+  --duration-slow:        560ms;
+  --duration-deliberate:  900ms;
+
+  /* Z-index scale */
+  --z-base:     0;
+  --z-rise:     10;
+  --z-sticky:   20;
+  --z-overlay:  30;
+  --z-header:   50;
+  --z-cursor:   70;
+  --z-progress: 80;
+  --z-modal:    90;
+  --z-skip:     100;
+
+  /* Surface extensions for medical-tech glass + data treatments */
+  --surface-glass:   color-mix(in oklab, var(--color-surface) 65%, transparent);
+  --surface-glass-dark: color-mix(in oklab, var(--color-brand-900) 55%, transparent);
+  --surface-deep:    var(--color-brand-900);
+  --surface-inverse: var(--color-ink-900);
+  --surface-data:    color-mix(in oklab, var(--color-brand-50) 50%, var(--color-surface));
 }
 
 @layer base {
@@ -74,18 +137,30 @@
     background: var(--color-bg);
     color: var(--color-ink-900);
     font-family: var(--font-sans);
-    font-size: 17px;
-    line-height: 1.65;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     color: var(--color-ink-900);
-    letter-spacing: -0.025em;
-    font-weight: 500;
+    letter-spacing: var(--tracking-tight);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-tight);
+    text-wrap: balance;
   }
+
+  h1 { font-size: var(--text-4xl); letter-spacing: var(--tracking-tightest); }
+  h2 { font-size: var(--text-3xl); }
+  h3 { font-size: var(--text-2xl); }
+  h4 { font-size: var(--text-xl); line-height: var(--leading-snug); }
+  h5 { font-size: var(--text-lg); line-height: var(--leading-snug); }
+  h6 { font-size: var(--text-base); line-height: var(--leading-snug); letter-spacing: var(--tracking-normal); }
+
+  p { text-wrap: pretty; }
 
   ::selection {
     background: var(--color-brand-200);
@@ -107,6 +182,16 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+
+  /* Manual reduced-motion opt-in via [data-motion=reduce] on <html> */
+  [data-motion="reduce"] *,
+  [data-motion="reduce"] *::before,
+  [data-motion="reduce"] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
@@ -195,5 +280,48 @@
   .mask-fade-b {
     -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
             mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+
+  /* Medical-tech: monospaced data lockup */
+  .data-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  /* Medical-tech: tabular numerics for stat counters */
+  .num-tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* Glass dark variant for video overlays */
+  .glass-dark {
+    background: var(--surface-glass-dark);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid color-mix(in oklab, var(--color-brand-300) 25%, transparent);
+  }
+
+  /* GPU-composited noise overlay (used on hero video for film-grain feel) */
+  .noise-overlay {
+    position: relative;
+    isolation: isolate;
+  }
+  .noise-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
+    background-size: 160px 160px;
+  }
+
+  /* Section anchor offset for sticky header */
+  .anchor-offset {
+    scroll-margin-top: 96px;
   }
 }

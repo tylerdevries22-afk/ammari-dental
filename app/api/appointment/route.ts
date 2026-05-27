@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { site } from "@/lib/site";
+import { emailColors as c } from "@/lib/email-tokens";
 
 type AppointmentPayload = {
   name?: string;
@@ -54,17 +55,17 @@ export async function POST(request: Request) {
       .filter(([, v]) => v)
       .map(
         ([k, v]) =>
-          `<tr><td style="padding:6px 12px;border-bottom:1px solid #eef2f7;font-weight:600;color:#0F2538">${escape(
+          `<tr><td style="padding:6px 12px;border-bottom:1px solid ${c.rowBorder};font-weight:600;color:${c.labelText}">${escape(
             String(k),
-          )}</td><td style="padding:6px 12px;border-bottom:1px solid #eef2f7;color:#23435F">${escape(
+          )}</td><td style="padding:6px 12px;border-bottom:1px solid ${c.rowBorder};color:${c.valueText}">${escape(
             String(v),
           )}</td></tr>`,
       )
       .join("");
 
-    const html = `<!doctype html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F7FAFC;padding:24px">
-<table style="background:#fff;border-radius:14px;width:100%;max-width:560px;margin:0 auto;border:1px solid #DCE8F2;overflow:hidden">
-<tr><td style="padding:20px 24px;background:#1F6FAE;color:#fff;font-size:16px;font-weight:600">${site.name} — New Appointment Request</td></tr>
+    const html = `<!doctype html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:${c.pageBg};padding:24px">
+<table style="background:${c.cardBg};border-radius:14px;width:100%;max-width:560px;margin:0 auto;border:1px solid ${c.cardBorder};overflow:hidden">
+<tr><td style="padding:20px 24px;background:${c.bandBg};color:${c.bandText};font-size:16px;font-weight:600">${site.name} — New Appointment Request</td></tr>
 <tr><td style="padding:8px 0"><table style="width:100%;border-collapse:collapse">${rows}</table></td></tr>
 </table></body></html>`;
 
