@@ -89,10 +89,10 @@ export function ServicePageTemplate({ service, intro, benefits, process, faq }: 
 
           <aside className="lg:col-span-4">
             <div className="lg:sticky lg:top-28 grid gap-5">
-              <div className="rounded-2xl bg-(--color-brand-600) text-white p-6 shadow-(--shadow-soft-md)">
-                <div className="text-xs uppercase tracking-widest opacity-80 mb-2">Ready to start?</div>
+              <div className="rounded-2xl bg-(--color-brand-700) text-white p-6 shadow-(--shadow-soft-md)">
+                <div className="text-xs uppercase tracking-widest text-(--color-brand-100) mb-2 font-semibold">Ready to start?</div>
                 <div className="font-display text-2xl leading-tight">Book your visit</div>
-                <p className="mt-2 text-sm text-white/85">
+                <p className="mt-2 text-sm text-(--color-brand-50)">
                   New and returning patients welcome.
                 </p>
                 <div className="mt-5 grid gap-2">
