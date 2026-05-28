@@ -50,21 +50,25 @@ export function SplashScreen() {
           z-index: 100;
           display: grid;
           place-items: center;
-          /* White-centered (matches the video's opaque white frame so there's
-             no visible square edge) fading to a soft brand tint at the edges. */
-          background: radial-gradient(circle at 50% 46%, var(--color-surface) 0%, var(--color-surface) 36%, var(--color-brand-50) 100%);
+          /* Soft brand-tinted wash; the white rounded card sits on top of it. */
+          background: radial-gradient(circle at 50% 46%, var(--color-brand-50), var(--color-bg) 72%);
           animation: am-splash-out 3400ms ease-in-out both;
           will-change: opacity;
         }
-        .am-splash__lockup { display: flex; flex-direction: column; align-items: center; gap: clamp(12px, 2.2vw, 20px); }
+        .am-splash__lockup { display: flex; flex-direction: column; align-items: center; gap: clamp(16px, 2.6vw, 24px); }
         .am-splash__mark {
           position: relative;
-          width: clamp(108px, 16vw, 144px);
+          width: clamp(132px, 19vw, 176px);
           aspect-ratio: 1;
+          border-radius: var(--radius-xl);
+          overflow: hidden;
+          background: var(--color-surface);
+          border: 1px solid var(--color-brand-100);
+          box-shadow: var(--shadow-soft-md);
           animation: am-splash-pop 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .am-splash__static { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 1; }
-        .am-splash__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+        .am-splash__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
         .am-splash__word { display: flex; flex-direction: column; align-items: center; line-height: 1; }
         .am-splash__word-1 {
           font-family: var(--font-sans);
