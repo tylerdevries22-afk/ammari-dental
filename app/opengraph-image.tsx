@@ -8,11 +8,11 @@ export const contentType = "image/png";
 // Inline color tokens (must mirror app/globals.css @theme block)
 const T = {
   bg: "#FAFAF7",
-  brand700: "#154944",
-  brand600: "#1F635E",
-  brand400: "#3F948C",
-  brand100: "#D5EAE8",
-  accent: "#C8956D",
+  brand700: "#0A5C34",
+  brand600: "#0C7A43",
+  brand400: "#2DAE6B",
+  brand100: "#D1EFDE",
+  accent: "#9BCB24",
   ink900: "#121A1F",
   ink500: "#5F7180",
 };

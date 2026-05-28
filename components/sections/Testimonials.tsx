@@ -81,7 +81,7 @@ export function Testimonials() {
               transition={{ type: "spring", stiffness: 220, damping: 30 }}
               className={`absolute inset-0 cursor-grab active:cursor-grabbing rounded-[28px] bg-gradient-to-br ${r.accent} border border-white/60 shadow-(--shadow-soft-lg) p-8 md:p-12 flex flex-col`}
             >
-              <div className="flex gap-1 text-(--color-accent)">
+              <div className="flex gap-1 text-(--color-accent-600)">
                 {Array.from({ length: r.rating }).map((_, i) => (
                   <m.span
                     key={i}

@@ -68,7 +68,7 @@ export function ClinicalTeam() {
               transition={{ delay: 0.3, type: "spring", stiffness: 200, damping: 22 }}
               className="absolute left-1/2 -translate-x-1/2 bottom-2 bg-white rounded-(--radius-pill) shadow-(--shadow-soft-lg) px-5 py-2.5 flex items-center gap-2 whitespace-nowrap"
             >
-              <span className="text-(--color-accent) text-sm tracking-tight">★★★★★</span>
+              <span className="text-(--color-accent-600) text-sm tracking-tight">★★★★★</span>
               <span className="text-sm font-semibold text-(--color-ink-800)">5.0 patient rated</span>
             </m.div>
           </div>

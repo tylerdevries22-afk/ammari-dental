@@ -154,7 +154,7 @@ export function AboutSplit() {
             transition={{ delay: 0.9, type: "spring", stiffness: 200, damping: 22 }}
             className="absolute top-6 -right-4 lg:-right-8 bg-white/90 backdrop-blur rounded-2xl shadow-(--shadow-soft-md) px-4 py-3 hidden md:flex items-center gap-2"
           >
-            <span className="flex gap-0.5 text-(--color-accent)">
+            <span className="flex gap-0.5 text-(--color-accent-600)">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Icon key={i} name="star" className="w-3 h-3 fill-current" />
               ))}
