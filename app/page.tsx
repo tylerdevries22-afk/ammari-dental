@@ -6,6 +6,7 @@ import { TrustStrip } from "@/components/sections/TrustStrip";
 import { ServiceGrid } from "@/components/sections/ServiceGrid";
 import { EmergencyBand } from "@/components/sections/EmergencyBand";
 import { AboutSplit } from "@/components/sections/AboutSplit";
+import { ClinicalTeam } from "@/components/sections/ClinicalTeam";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { InsuranceMarquee } from "@/components/sections/InsuranceMarquee";
 import { StaffStrip } from "@/components/sections/StaffStrip";
@@ -53,6 +54,7 @@ export default function HomePage() {
       <StickyValues />
       <SectionDivider variant="scallop" fillToken="--color-surface-muted" position="top" />
       <AboutSplit />
+      <ClinicalTeam />
       <EmergencyBand />
       <Testimonials />
       <InsuranceMarquee />
