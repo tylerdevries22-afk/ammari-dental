@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { m } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -8,6 +9,7 @@ import { ProcessTimeline } from "@/components/sections/ProcessTimeline";
 import { FAQAccordion } from "@/components/sections/FAQAccordion";
 import { RelatedServicesRail } from "@/components/sections/RelatedServicesRail";
 import { CTABanner } from "@/components/sections/CTABanner";
+import { BeforeAfterSlider } from "@/components/ui/BeforeAfterSlider";
 import { fadeUp, stagger, reveal } from "@/lib/motion";
 import { site } from "@/lib/site";
 import type { Service } from "@/lib/services";
@@ -42,9 +44,58 @@ export function ServicePageTemplate({ service, intro, benefits, process, faq }: 
         }
       />
 
+      {service.image && (
+        <section className="pb-4 lg:pb-8">
+          <Container>
+            <m.div
+              initial={{ opacity: 0, y: 28, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              className="relative w-full aspect-[16/9] lg:aspect-[21/9] rounded-(--radius-xl) overflow-hidden shadow-(--shadow-soft-lg)"
+            >
+              <Image
+                src={service.image}
+                alt={service.imageAlt ?? service.h1}
+                fill
+                sizes="(max-width: 1024px) 100vw, 1200px"
+                className="object-cover"
+                priority={false}
+              />
+              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-(--color-brand-900)/40 via-transparent to-transparent pointer-events-none" />
+            </m.div>
+          </Container>
+        </section>
+      )}
+
       <section className="py-12 lg:py-20">
         <Container className="grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-8">
+            {service.transformation && (
+              <m.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                className="mb-16"
+              >
+                <div className="eyebrow mb-3 text-(--color-brand-600)">Real Result</div>
+                <h2 className="text-3xl lg:text-4xl font-display tracking-tight mb-3 text-(--color-ink-900)">
+                  Drag to see the transformation
+                </h2>
+                <p className="text-(--color-ink-700) leading-relaxed mb-6 max-w-2xl">
+                  Editorial close-up of a representative before-and-after — drag the handle, tap the arrow keys, or let it auto-sweep to compare.
+                </p>
+                <BeforeAfterSlider
+                  beforeSrc={service.transformation.beforeSrc}
+                  afterSrc={service.transformation.afterSrc}
+                  beforeAlt={service.transformation.beforeAlt}
+                  afterAlt={service.transformation.afterAlt}
+                  aspect="4 / 3"
+                />
+              </m.div>
+            )}
+
             {benefits && benefits.length > 0 && (
               <div className="mb-16">
                 <h2 className="text-3xl lg:text-4xl font-display tracking-tight mb-8 text-(--color-ink-900)">Why Patients Choose Us</h2>

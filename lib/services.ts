@@ -18,6 +18,13 @@ export type ServiceKey =
   | "extractions"
   | "multiple-tooth-extractions";
 
+export type Transformation = {
+  beforeSrc: string;
+  afterSrc: string;
+  beforeAlt: string;
+  afterAlt: string;
+};
+
 export type Service = {
   slug: ServiceKey;
   name: string;
@@ -26,6 +33,9 @@ export type Service = {
   blurb: string;
   icon: string;
   featured?: boolean;
+  image?: string;
+  imageAlt?: string;
+  transformation?: Transformation;
 };
 
 export const services: Service[] = [
@@ -38,6 +48,8 @@ export const services: Service[] = [
       "Routine exams, cleanings, and preventive care to keep your smile healthy for life.",
     icon: "tooth-check",
     featured: true,
+    image: "/images/generated/patient-calm-chair.webp",
+    imageAlt: "Patient relaxed in a modern dental operatory at Ammari Dental",
   },
   {
     slug: "comfortable-dentistry",
@@ -67,6 +79,14 @@ export const services: Service[] = [
       "Professional whitening that delivers a brighter, natural-looking smile.",
     icon: "tooth-sparkle",
     featured: true,
+    image: "/images/generated/whitening-smile-hero.webp",
+    imageAlt: "Confident woman smiling with brilliantly white teeth after professional whitening at Ammari Dental",
+    transformation: {
+      beforeSrc: "/images/generated/whitening-before.webp",
+      afterSrc: "/images/generated/whitening-after.webp",
+      beforeAlt: "Close-up of teeth before professional whitening treatment",
+      afterAlt: "Close-up of brilliantly white teeth after professional whitening treatment",
+    },
   },
   {
     slug: "bonding",
@@ -76,6 +96,14 @@ export const services: Service[] = [
     blurb:
       "Reshape chips, gaps, and discoloration with tooth-colored composite resin.",
     icon: "tooth-brush",
+    image: "/images/generated/bonding-after.webp",
+    imageAlt: "Close-up of a confident smile after seamless cosmetic dental bonding repair",
+    transformation: {
+      beforeSrc: "/images/generated/bonding-before.webp",
+      afterSrc: "/images/generated/bonding-after.webp",
+      beforeAlt: "Close-up of front tooth with a small chip before cosmetic bonding repair",
+      afterAlt: "Close-up of the same front tooth seamlessly restored after cosmetic bonding",
+    },
   },
   {
     slug: "tooth-colored-fillings",
@@ -94,6 +122,8 @@ export const services: Service[] = [
     blurb:
       "Custom porcelain crowns that restore strength and beauty to damaged teeth.",
     icon: "crown",
+    image: "/images/generated/crowns-smile-hero.webp",
+    imageAlt: "Confident smile showing natural-looking porcelain dental crowns",
   },
   {
     slug: "bridges",
@@ -112,6 +142,14 @@ export const services: Service[] = [
     blurb:
       "Thin porcelain shells that transform your smile in just a few visits.",
     icon: "tooth-shell",
+    image: "/images/generated/veneers-smile-hero.webp",
+    imageAlt: "Confident smile transformed by premium porcelain veneers",
+    transformation: {
+      beforeSrc: "/images/generated/veneers-before.webp",
+      afterSrc: "/images/generated/veneers-after.webp",
+      beforeAlt: "Close-up of slightly uneven, crowded front teeth before porcelain veneers",
+      afterAlt: "Close-up of perfectly aligned smile after premium porcelain veneers",
+    },
   },
   {
     slug: "root-canal",
@@ -122,6 +160,8 @@ export const services: Service[] = [
       "Save infected teeth and end the pain with modern, gentle endodontic care.",
     icon: "tooth-root",
     featured: true,
+    image: "/images/generated/operatory-endodontic.webp",
+    imageAlt: "Modern endodontic operatory with advanced equipment at Ammari Dental",
   },
   {
     slug: "deep-cleaning",
@@ -159,6 +199,8 @@ export const services: Service[] = [
       "Permanent titanium tooth replacements that look, feel, and function like natural teeth.",
     icon: "implant",
     featured: true,
+    image: "/images/generated/implant-macro-hero.webp",
+    imageAlt: "Macro photo of a titanium dental implant abutment beside a porcelain crown — premium restorative dentistry at Ammari Dental",
   },
   {
     slug: "implant-dentures",
@@ -178,6 +220,8 @@ export const services: Service[] = [
       "Comfortable, custom dentures that restore your smile and confidence.",
     icon: "dentures",
     featured: true,
+    image: "/images/generated/dentures-smile-hero.webp",
+    imageAlt: "Confident senior woman smiling with natural-looking custom dentures",
   },
   {
     slug: "extractions",
