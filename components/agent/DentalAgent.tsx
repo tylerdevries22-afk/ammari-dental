@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { m, AnimatePresence } from "framer-motion";
 import { Icon } from "@/components/ui/Icon";
 import { LogoVideo } from "@/components/ui/LogoVideo";
@@ -9,6 +10,7 @@ import { cn } from "@/lib/cn";
 import { useMotion } from "@/lib/useMotion";
 
 const PANEL_ID = "dental-agent-panel";
+const GREETED_KEY = "ammari-agent-greeted";
 
 type Suggestion = { label: string; href?: string; prompt?: string };
 type Message = {
@@ -60,9 +62,36 @@ export function DentalAgent() {
   const [input, setInput] = useState("");
   const [pending, setPending] = useState(false);
   const [unread, setUnread] = useState(false);
+  const [showLabel, setShowLabel] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const launcherRef = useRef<HTMLButtonElement>(null);
+
+  // Show the "Chat with us" invite once per session, a beat after load, then
+  // auto-retract. setState lives in async timers (not the effect body), so this
+  // doesn't trip react-hooks/set-state-in-effect.
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem(GREETED_KEY)) return;
+    } catch {
+      /* ignore */
+    }
+    const showT = setTimeout(() => setShowLabel(true), 2000);
+    const hideT = setTimeout(() => setShowLabel(false), 9000);
+    return () => {
+      clearTimeout(showT);
+      clearTimeout(hideT);
+    };
+  }, []);
+
+  function dismissLabel() {
+    setShowLabel(false);
+    try {
+      sessionStorage.setItem(GREETED_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+  }
 
   // Escape closes the panel and returns focus to the launcher (dialog pattern).
   useEffect(() => {
@@ -103,6 +132,7 @@ export function DentalAgent() {
   function openPanel() {
     setOpen(true);
     setUnread(false);
+    dismissLabel();
   }
 
   async function send(text: string) {
@@ -162,46 +192,113 @@ export function DentalAgent() {
   return (
     <>
       {/* Floating launcher */}
-      <m.button
-        ref={launcherRef}
-        type="button"
-        onClick={() => (open ? setOpen(false) : openPanel())}
-        aria-label={open ? "Close dental assistant" : "Open dental assistant"}
-        aria-expanded={open}
-        aria-controls={PANEL_ID}
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className={cn(
-          "fixed z-40 grid place-items-center w-14 h-14 rounded-full overflow-hidden text-white shadow-(--shadow-soft-lg)",
-          "bottom-5 right-5",
-          open ? "bg-(--color-ink-800)" : "bg-(--color-brand-600)"
-        )}
-      >
-        {!open && motionEnabled && (
-          <span className="absolute inset-0 rounded-full bg-(--color-brand-600) animate-ping opacity-15" />
-        )}
-        {!open && (
-          <span className="relative">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-              <path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" />
-            </svg>
-          </span>
-        )}
-        {open && (
-          <span className="relative">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <path d="M6 6l12 12M18 6 6 18" />
-            </svg>
-          </span>
-        )}
-        {unread && !open && (
-          <span className="absolute top-1 right-1 w-3 h-3 rounded-full bg-(--color-accent-500) ring-2 ring-white z-10" />
-        )}
-      </m.button>
+      <div className="fixed z-40 bottom-5 right-5 flex items-center gap-2.5">
+        {/* Invite label — slides in once per session to make the chat obvious */}
+        <AnimatePresence>
+          {showLabel && !open && (
+            <m.div
+              initial={{ opacity: 0, x: 16, scale: 0.85 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 16, scale: 0.85 }}
+              transition={{ type: "spring", stiffness: 320, damping: 26 }}
+              className="hidden sm:flex items-center gap-2 rounded-full bg-white shadow-(--shadow-soft-lg) border border-(--color-brand-100) pl-4 pr-2.5 py-2.5"
+            >
+              <span className="text-sm font-medium text-(--color-ink-800) whitespace-nowrap">
+                Questions? Chat with us
+              </span>
+              <button
+                type="button"
+                onClick={dismissLabel}
+                aria-label="Dismiss"
+                className="grid place-items-center w-5 h-5 rounded-full text-(--color-ink-400) hover:bg-(--color-surface-muted) hover:text-(--color-ink-700) transition-colors"
+              >
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
+                  <path d="M6 6l12 12M18 6 6 18" />
+                </svg>
+              </button>
+            </m.div>
+          )}
+        </AnimatePresence>
+
+        {/* Launcher + animated attention rings */}
+        <div className="relative w-16 h-16">
+          {!open && motionEnabled && (
+            <>
+              <m.span
+                aria-hidden
+                className="absolute inset-0 rounded-full bg-(--color-brand-500)"
+                animate={{ scale: [1, 1.65], opacity: [0.35, 0] }}
+                transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut" }}
+              />
+              <m.span
+                aria-hidden
+                className="absolute inset-0 rounded-full bg-(--color-brand-500)"
+                animate={{ scale: [1, 1.65], opacity: [0.35, 0] }}
+                transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut", delay: 1.3 }}
+              />
+            </>
+          )}
+
+          <m.button
+            ref={launcherRef}
+            type="button"
+            onClick={() => (open ? setOpen(false) : openPanel())}
+            aria-label={open ? "Close dental assistant" : "Open dental assistant"}
+            aria-expanded={open}
+            aria-controls={PANEL_ID}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: !open && motionEnabled ? [0, -5, 0] : 0,
+            }}
+            transition={{
+              opacity: { duration: 0.3, delay: 0.5 },
+              scale: { type: "spring", stiffness: 260, damping: 18, delay: 0.5 },
+              y: { repeat: Infinity, duration: 3.6, ease: "easeInOut", delay: 1.6 },
+            }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            className={cn(
+              "absolute inset-0 grid place-items-center rounded-full shadow-(--shadow-soft-lg) ring-1 transition-colors",
+              open
+                ? "bg-(--color-ink-800) text-white ring-(--color-ink-800)"
+                : "bg-white ring-(--color-brand-100)"
+            )}
+          >
+            {open ? (
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M6 6l12 12M18 6 6 18" />
+              </svg>
+            ) : (
+              <>
+                <Image
+                  src="/images/practice/ammaridentallogo.png"
+                  alt=""
+                  width={64}
+                  height={64}
+                  sizes="48px"
+                  className="w-11 h-11 object-contain"
+                />
+                {/* Chat affordance badge — signals "this is a chat" */}
+                <m.span
+                  aria-hidden
+                  className="absolute -bottom-0.5 -right-0.5 grid place-items-center w-6 h-6 rounded-full bg-(--color-brand-600) text-white ring-2 ring-white shadow-(--shadow-soft-sm)"
+                  animate={motionEnabled ? { rotate: [0, -12, 12, 0] } : undefined}
+                  transition={{ repeat: Infinity, repeatDelay: 2.4, duration: 0.7, ease: "easeInOut" }}
+                >
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                  </svg>
+                </m.span>
+              </>
+            )}
+            {unread && !open && (
+              <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-(--color-accent-500) ring-2 ring-white z-10" />
+            )}
+          </m.button>
+        </div>
+      </div>
 
       <AnimatePresence>
         {open && (
