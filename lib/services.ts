@@ -164,8 +164,8 @@ export const services: Service[] = [
     transformation: {
       beforeSrc: "/images/generated/veneers-before.webp",
       afterSrc: "/images/generated/veneers-after.webp",
-      beforeAlt: "Close-up of slightly uneven, crowded front teeth before porcelain veneers",
-      afterAlt: "Close-up of perfectly aligned smile after premium porcelain veneers",
+      beforeAlt: "Close-up of yellowed, gapped, and uneven natural front teeth before porcelain veneers",
+      afterAlt: "Close-up of a bright, even, natural-white smile after porcelain veneers",
     },
   },
   {
