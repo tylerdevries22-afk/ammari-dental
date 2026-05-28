@@ -64,8 +64,6 @@ export function SplashScreen() {
           border-radius: 50%;
           overflow: hidden;
           background: var(--color-surface);
-          border: 1px solid var(--color-brand-200);
-          box-shadow: var(--shadow-soft-md);
           animation: am-splash-pop 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .am-splash__static { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 1; }
