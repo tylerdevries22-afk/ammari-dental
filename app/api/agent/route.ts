@@ -43,7 +43,11 @@ function matchService(text: string) {
 
 function detectIntent(text: string): string {
   const t = text.toLowerCase();
-  if (/(emergency|urgent|broken tooth|knocked.*tooth|severe pain|swelling|bleeding)/i.test(t))
+  if (
+    /(emergency|urgent|brok(e|en)|chipped|cracked|knocked|tooth ?ache|toothache|severe pain|\bpain\b|\bhurts?\b|aching|swell(ing|ed)|swollen|bleeding|abscess|lost (a |my )?(filling|crown|tooth))/i.test(
+      t
+    )
+  )
     return "emergency";
   if (/(book|appointment|schedule|reserve|new patient|first time|visit)/i.test(t))
     return "book";
@@ -65,7 +69,7 @@ function detectIntent(text: string): string {
   if (/(anxious|nervous|afraid|scared|fear|calm|gentle|sedation|comfort)/i.test(t))
     return "anxiety";
   if (matchService(t)) return "service";
-  if (/(hi|hello|hey|good (morning|afternoon|evening))/i.test(t)) return "greeting";
+  if (/\b(hi|hey|hiya|hello|howdy|good (morning|afternoon|evening))\b/i.test(t)) return "greeting";
   return "fallback";
 }
 
