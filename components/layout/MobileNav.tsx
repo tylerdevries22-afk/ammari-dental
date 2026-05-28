@@ -15,26 +15,21 @@ type Section = {
 const sections: Section[] = [
   { label: "Home", href: "/" },
   {
-    label: "Our Practice",
-    items: [
-      { label: "Improving Your Smile", href: "/-improving-your-smile" },
-      { label: "Comfortable Dentistry", href: "/comfortable-dentistry" },
-      { label: "Financing", href: "/financing" },
-      { label: "Office Location", href: "/our-dental-office-location" },
-    ],
-  },
-  {
     label: "Services",
     items: services.map((s) => ({ label: s.name, href: `/${s.slug}` })),
   },
   {
     label: "Patient Resources",
     items: [
+      { label: "Improving Your Smile", href: "/-improving-your-smile" },
+      { label: "Comfortable Dentistry", href: "/comfortable-dentistry" },
+      { label: "Office Location", href: "/our-dental-office-location" },
+      { label: "Financing", href: "/financing" },
       { label: "New Patient Forms", href: "/-new-patient-forms" },
       { label: "Q & A", href: "/-q---a" },
-      { label: "Links", href: "/links" },
       { label: "Post-Op Instructions", href: "/post-op-instructions" },
       { label: "Surgical Instructions", href: "/surgical-instructions" },
+      { label: "Links", href: "/links" },
     ],
   },
   { label: "Patient Education", href: "/articles/general" },

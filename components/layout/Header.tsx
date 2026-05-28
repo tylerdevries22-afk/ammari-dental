@@ -17,28 +17,21 @@ type NavItem =
 
 const primary: NavItem[] = [
   { label: "Home", href: "/", kind: "link" },
-  {
-    label: "Our Practice",
-    href: "/our-dental-office-location",
-    kind: "menu",
-    items: [
-      { label: "Improving Your Smile", href: "/-improving-your-smile" },
-      { label: "Comfortable Dentistry", href: "/comfortable-dentistry" },
-      { label: "Financing", href: "/financing" },
-      { label: "Office Location", href: "/our-dental-office-location" },
-    ],
-  },
   { label: "Services", href: "/dental-services", kind: "mega" },
   {
     label: "Patient Resources",
     href: "/new-patients",
     kind: "menu",
     items: [
+      { label: "Improving Your Smile", href: "/-improving-your-smile" },
+      { label: "Comfortable Dentistry", href: "/comfortable-dentistry" },
+      { label: "Office Location", href: "/our-dental-office-location" },
+      { label: "Financing", href: "/financing" },
       { label: "New Patient Forms", href: "/-new-patient-forms" },
       { label: "Q & A", href: "/-q---a" },
-      { label: "Links", href: "/links" },
       { label: "Post-Op Instructions", href: "/post-op-instructions" },
       { label: "Surgical Instructions", href: "/surgical-instructions" },
+      { label: "Links", href: "/links" },
     ],
   },
   { label: "Patient Education", href: "/articles/general", kind: "link" },
