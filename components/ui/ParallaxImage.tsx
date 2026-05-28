@@ -70,7 +70,9 @@ export function ParallaxImage({
 
   const shapeClass =
     shape === "oval" ? "rounded-[50%]" : shape === "circle" ? "rounded-full" : "";
-  const aspectRatio = shape === "circle" ? "1 / 1" : aspect;
+  // Aspect is overridable per-breakpoint by setting --pi-ar via className
+  // (e.g. lg:[--pi-ar:0.6]); the prop is the fallback.
+  const aspectRatio = shape === "circle" ? "1 / 1" : `var(--pi-ar, ${aspect})`;
   const radiusStyle =
     shape === "rounded"
       ? { borderRadius: `var(${radius})` }

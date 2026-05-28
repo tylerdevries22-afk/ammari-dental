@@ -33,7 +33,7 @@ export function Hero() {
             direction="normal"
             speed={0.13}
             sizes="(max-width: 1024px) 45vw, 22vw"
-            className="bg-(--color-brand-100)"
+            className="bg-(--color-brand-100) lg:[--pi-ar:0.6]"
           />
         </div>
 
@@ -129,7 +129,7 @@ export function Hero() {
             speed={0.18}
             priority
             sizes="(max-width: 1024px) 45vw, 22vw"
-            className="bg-(--color-accent-100)"
+            className="bg-(--color-accent-100) lg:[--pi-ar:0.6]"
           />
         </div>
       </Container>
