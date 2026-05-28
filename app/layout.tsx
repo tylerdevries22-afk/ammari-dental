@@ -7,6 +7,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingCallButton } from "@/components/layout/FloatingCallButton";
 import { DentalAgent } from "@/components/agent/DentalAgent";
+import { SplashScreen } from "@/components/SplashScreen";
 import { LocalBusinessSchema } from "@/components/schema/Schema";
 import { MotionProvider } from "@/components/MotionProvider";
 import { ClientEnhancements } from "@/components/providers/ClientEnhancements";
@@ -38,6 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
       <body className="min-h-screen flex flex-col antialiased">
+        <SplashScreen />
         <MotionProvider>
           <Header />
           <main id="main" className="flex-1">{children}</main>
