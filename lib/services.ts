@@ -61,6 +61,8 @@ export const services: Service[] = [
     blurb:
       "Gentle, anxiety-aware care designed for patients who want a calm, relaxed experience.",
     icon: "tooth-heart",
+    image: "/images/generated/reception-interior.webp",
+    imageAlt: "Calm, welcoming reception and waiting area at Ammari Dental",
   },
   {
     slug: "dental-emergencies",
@@ -71,6 +73,8 @@ export const services: Service[] = [
       "Same-day urgent care for broken teeth, pain, swelling, and trauma.",
     icon: "tooth-crack",
     featured: true,
+    image: "/images/practice/dentist-poster.webp",
+    imageAlt: "Dentist providing prompt same-day emergency dental care at Ammari Dental",
   },
   {
     slug: "teeth-whitening",
@@ -115,6 +119,8 @@ export const services: Service[] = [
     blurb:
       "Mercury-free, natural-looking composite fillings that blend with your enamel.",
     icon: "tooth-fill",
+    image: "/images/generated/fillings-hero.webp",
+    imageAlt: "Close-up of a natural-looking smile restored with tooth-colored composite fillings",
   },
   {
     slug: "dental-crowns",
@@ -142,6 +148,8 @@ export const services: Service[] = [
     blurb:
       "Replace missing teeth with a fixed, natural-looking dental bridge.",
     icon: "bridge",
+    image: "/images/generated/bridges-hero.webp",
+    imageAlt: "Confident, complete smile restored with a fixed dental bridge",
   },
   {
     slug: "veneers",
@@ -180,6 +188,8 @@ export const services: Service[] = [
     blurb:
       "Scaling and root planing to treat early gum disease and restore gum health.",
     icon: "tooth-water",
+    image: "/images/generated/deep-cleaning-hero.webp",
+    imageAlt: "Hygienist using an ultrasonic scaler for a deep dental cleaning",
   },
   {
     slug: "preventative-periodontics",
@@ -189,6 +199,8 @@ export const services: Service[] = [
     blurb:
       "Specialized care to prevent and manage gum disease at every stage.",
     icon: "tooth-shield",
+    image: "/images/generated/perio-hero.webp",
+    imageAlt: "Dentist examining healthy gums during a periodontal check-up",
   },
   {
     slug: "night-guards",
@@ -198,6 +210,8 @@ export const services: Service[] = [
     blurb:
       "Custom-fit guards that protect your teeth from grinding and clenching.",
     icon: "tooth-moon",
+    image: "/images/generated/night-guard-hero.webp",
+    imageAlt: "Clear custom night guard resting on a soft towel in warm light",
   },
   {
     slug: "dental-implants",
@@ -225,6 +239,8 @@ export const services: Service[] = [
     blurb:
       "Stable, secure dentures anchored on dental implants — no slipping, no adhesives.",
     icon: "implant-row",
+    image: "/images/generated/implant-dentures-hero.webp",
+    imageAlt: "Implant-supported overdenture resting on its titanium implant abutments",
   },
   {
     slug: "dentures",
@@ -246,6 +262,8 @@ export const services: Service[] = [
     blurb:
       "Gentle tooth removal with thorough aftercare for a smooth recovery.",
     icon: "forceps",
+    image: "/images/generated/extractions-hero.webp",
+    imageAlt: "Calm modern operatory with sterile instruments prepared for a gentle tooth extraction",
   },
   {
     slug: "multiple-tooth-extractions",
@@ -255,6 +273,8 @@ export const services: Service[] = [
     blurb:
       "Coordinated care for patients needing several extractions safely and comfortably.",
     icon: "forceps-multi",
+    image: "/images/generated/multiple-extractions-hero.webp",
+    imageAlt: "Dentist reviewing a panoramic X-ray with a patient to plan multiple extractions",
   },
 ];
 
