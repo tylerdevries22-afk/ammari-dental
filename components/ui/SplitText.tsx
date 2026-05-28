@@ -1,6 +1,7 @@
 "use client";
-import { m, useReducedMotion } from "framer-motion";
+import { m } from "framer-motion";
 import { cn } from "@/lib/cn";
+import { useMotion } from "@/lib/useMotion";
 
 type Props = {
   text: string;
@@ -21,7 +22,7 @@ export function SplitText({
   amount = 0.4,
   once = true,
 }: Props) {
-  const reduced = useReducedMotion();
+  const { reduced } = useMotion();
   const Tag = m[as];
   const words = text.split(" ");
 

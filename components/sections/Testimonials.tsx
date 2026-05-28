@@ -1,9 +1,10 @@
 "use client";
 import { useState, useRef } from "react";
-import { m, AnimatePresence, useReducedMotion, type PanInfo } from "framer-motion";
+import { m, AnimatePresence, type PanInfo } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Icon } from "@/components/ui/Icon";
+import { useMotion } from "@/lib/useMotion";
 
 const reviews = [
   {
@@ -41,7 +42,7 @@ const swipeThreshold = 60;
 export function Testimonials() {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
-  const reduced = useReducedMotion();
+  const { reduced } = useMotion();
   const dragRef = useRef<HTMLDivElement>(null);
 
   function paginate(d: 1 | -1) {

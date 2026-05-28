@@ -1,6 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { useReducedMotion } from "framer-motion";
+
+const noopSubscribe = () => () => {};
 
 /**
  * Centralized motion contract.
@@ -16,6 +18,10 @@ import { useReducedMotion } from "framer-motion";
 export function useMotion() {
   const osReduced = useReducedMotion();
   const [manualReduced, setManualReduced] = useState(false);
+  // false on the server and during the first client render, true thereafter.
+  // useSyncExternalStore hands React a distinct server snapshot so this never
+  // causes a hydration mismatch and needs no setState-in-effect.
+  const mounted = useSyncExternalStore(noopSubscribe, () => true, () => false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -26,7 +32,12 @@ export function useMotion() {
     return () => obs.disconnect();
   }, []);
 
-  const reduced = Boolean(osReduced) || manualReduced;
+  // Until mounted, always report motion-enabled so the server and the first
+  // client render produce identical markup. framer's useReducedMotion resolves
+  // the real preference on the first client render, so any component that
+  // branches its DOM on motion would otherwise hydrate-mismatch for
+  // reduced-motion users. The real preference takes effect right after mount.
+  const reduced = mounted && (Boolean(osReduced) || manualReduced);
 
   return {
     reduced,
