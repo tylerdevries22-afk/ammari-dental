@@ -23,6 +23,8 @@ export type Transformation = {
   afterSrc: string;
   beforeAlt: string;
   afterAlt: string;
+  /** Aspect ratio CSS string for the slider — default "4 / 3". Use "16 / 9" for wider scene shots. */
+  aspect?: string;
 };
 
 export type Service = {
@@ -122,8 +124,15 @@ export const services: Service[] = [
     blurb:
       "Custom porcelain crowns that restore strength and beauty to damaged teeth.",
     icon: "crown",
-    image: "/images/generated/crowns-smile-hero.webp",
-    imageAlt: "Confident smile showing natural-looking porcelain dental crowns",
+    image: "/images/generated/crowns-after.webp",
+    imageAlt: "Confident smile restored with natural-looking porcelain dental crowns at Ammari Dental",
+    transformation: {
+      beforeSrc: "/images/generated/crowns-before.webp",
+      afterSrc: "/images/generated/crowns-after.webp",
+      beforeAlt: "Smile with a visibly missing or damaged front tooth before a porcelain crown restoration",
+      afterAlt: "The same smile fully restored with a seamless porcelain crown",
+      aspect: "16 / 9",
+    },
   },
   {
     slug: "bridges",
@@ -199,8 +208,14 @@ export const services: Service[] = [
       "Permanent titanium tooth replacements that look, feel, and function like natural teeth.",
     icon: "implant",
     featured: true,
-    image: "/images/generated/implant-macro-hero.webp",
-    imageAlt: "Macro photo of a titanium dental implant abutment beside a porcelain crown — premium restorative dentistry at Ammari Dental",
+    image: "/images/generated/implant-smile-hero.webp",
+    imageAlt: "Confident smile after a seamless dental implant restoration at Ammari Dental",
+    transformation: {
+      beforeSrc: "/images/generated/implant-before.webp",
+      afterSrc: "/images/generated/implant-smile-hero.webp",
+      beforeAlt: "Smile with a visible missing upper front tooth before dental implant placement",
+      afterAlt: "The same smile fully restored with a seamless dental implant",
+    },
   },
   {
     slug: "implant-dentures",

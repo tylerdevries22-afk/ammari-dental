@@ -91,7 +91,7 @@ export function ServicePageTemplate({ service, intro, benefits, process, faq }: 
                   afterSrc={service.transformation.afterSrc}
                   beforeAlt={service.transformation.beforeAlt}
                   afterAlt={service.transformation.afterAlt}
-                  aspect="4 / 3"
+                  aspect={service.transformation.aspect ?? "4 / 3"}
                 />
               </m.div>
             )}
