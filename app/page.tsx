@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/Hero";
-import { HeroStoryPinned } from "@/components/sections/HeroStoryPinned";
 import { ByTheNumbers } from "@/components/sections/ByTheNumbers";
 import { TrustStrip } from "@/components/sections/TrustStrip";
 import { ServiceGrid } from "@/components/sections/ServiceGrid";
@@ -44,7 +43,6 @@ export default function HomePage() {
       <ScrollHueShift />
 
       <Hero />
-      <HeroStoryPinned />
       <SectionDivider variant="wave" fillToken="--surface-data" />
       <ByTheNumbers />
       <TrustStrip />
