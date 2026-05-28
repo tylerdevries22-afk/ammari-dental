@@ -50,8 +50,9 @@ export function SplashScreen() {
           z-index: 100;
           display: grid;
           place-items: center;
-          /* Soft brand-tinted wash; the white rounded card sits on top of it. */
-          background: radial-gradient(circle at 50% 46%, var(--color-brand-50), var(--color-bg) 72%);
+          /* Same color as the logo's background (and the video's white frame)
+             so the mark blends seamlessly and only the circular ring shows. */
+          background: var(--color-surface);
           animation: am-splash-out 3400ms ease-in-out both;
           will-change: opacity;
         }
@@ -60,10 +61,10 @@ export function SplashScreen() {
           position: relative;
           width: clamp(132px, 19vw, 176px);
           aspect-ratio: 1;
-          border-radius: var(--radius-xl);
+          border-radius: 50%;
           overflow: hidden;
           background: var(--color-surface);
-          border: 1px solid var(--color-brand-100);
+          border: 1px solid var(--color-brand-200);
           box-shadow: var(--shadow-soft-md);
           animation: am-splash-pop 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
