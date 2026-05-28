@@ -28,7 +28,7 @@ function fmtHours() {
 function todayHours(): string {
   const today = TODAY_DAY();
   const h = site.hours.find((x) => x.day === today);
-  if (!h) return `We&rsquo;re closed today.`;
+  if (!h) return `We're closed today.`;
   if ("closed" in h && h.closed) return `We're closed today (${today}).`;
   return `Today (${today}) we're open ${h.open}–${h.close}.`;
 }
