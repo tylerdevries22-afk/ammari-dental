@@ -7,6 +7,7 @@ import { ServiceGrid } from "@/components/sections/ServiceGrid";
 import { EmergencyBand } from "@/components/sections/EmergencyBand";
 import { AboutSplit } from "@/components/sections/AboutSplit";
 import { ClinicalTeam } from "@/components/sections/ClinicalTeam";
+import { SmilesStrip } from "@/components/sections/SmilesStrip";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { InsuranceMarquee } from "@/components/sections/InsuranceMarquee";
 import { StaffStrip } from "@/components/sections/StaffStrip";
@@ -56,6 +57,7 @@ export default function HomePage() {
       <AboutSplit />
       <ClinicalTeam />
       <EmergencyBand />
+      <SmilesStrip />
       <Testimonials />
       <InsuranceMarquee />
       <StaffStrip />

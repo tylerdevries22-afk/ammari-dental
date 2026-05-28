@@ -26,8 +26,8 @@ export function Hero() {
         {/* Left arch portrait — drifts down */}
         <div className="col-span-1 lg:col-span-3 order-2 lg:order-1">
           <ParallaxImage
-            src="/images/generated/whitening-smile-hero.webp"
-            alt="A patient with a bright, healthy smile at Ammari Dental"
+            src="/images/generated/people/man-30s.webp"
+            alt="A smiling man — a patient at Ammari Dental in Aurora"
             shape="arch"
             aspect="5 / 7"
             direction="normal"
@@ -121,8 +121,8 @@ export function Hero() {
         {/* Right arch portrait — drifts up (LCP) */}
         <div className="col-span-1 lg:col-span-3 order-3">
           <ParallaxImage
-            src="/images/generated/implant-smile-hero.webp"
-            alt="A happy patient smiling after treatment at Ammari Dental"
+            src="/images/generated/people/woman-20s.webp"
+            alt="A woman with a joyful smile — a patient at Ammari Dental"
             shape="arch"
             aspect="5 / 7"
             direction="reverse"

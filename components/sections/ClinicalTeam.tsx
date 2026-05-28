@@ -36,8 +36,8 @@ export function ClinicalTeam() {
         <div className="relative order-last lg:order-first">
           <div className="relative mx-auto max-w-[460px] aspect-[5/6]">
             <ParallaxImage
-              src="/images/staff/dr-ammari.jpg"
-              alt="Dr. Raed Ammari, DDS, smiling in the Ammari Dental office"
+              src="/images/generated/people/woman-40s.webp"
+              alt="A patient smiling warmly after care at Ammari Dental"
               shape="oval"
               aspect="2 / 3"
               direction="normal"
@@ -46,8 +46,8 @@ export function ClinicalTeam() {
               className="absolute left-0 top-0 w-[58%] shadow-(--shadow-soft-lg) ring-1 ring-(--color-brand-100)"
             />
             <ParallaxImage
-              src="/images/generated/whitening-smile-hero.webp"
-              alt="A patient smiling confidently after care at Ammari Dental"
+              src="/images/generated/people/senior-man.webp"
+              alt="An older patient with a kind smile at Ammari Dental"
               shape="oval"
               aspect="2 / 3"
               direction="reverse"
