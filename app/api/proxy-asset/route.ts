@@ -33,6 +33,17 @@ const ALLOWED_HOSTS = new Set<string>([
   "lh4.googleusercontent.com",
   "lh5.googleusercontent.com",
   "lh6.googleusercontent.com",
+  "maps.googleapis.com",
+  "www.google.com",
+  "www.bing.com",
+  "th.bing.com",
+  "tse1.mm.bing.net",
+  "tse2.mm.bing.net",
+  "tse3.mm.bing.net",
+  "tse4.mm.bing.net",
+  "birdeye.com",
+  "cdn.birdeye.com",
+  "reviewscustomer-prod.s3.amazonaws.com",
 ]);
 
 export async function GET(req: NextRequest) {
