@@ -2,7 +2,8 @@
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/cn";
 
-const SRC = "/videos/logo-animation.mp4";
+// Reuse the splash's compressed clip (~35KB) instead of the 3.6MB master.
+const SRC = "/videos/logo-splash.mp4";
 
 type Props = {
   className?: string;

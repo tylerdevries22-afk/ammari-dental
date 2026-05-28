@@ -39,6 +39,18 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
       <body className="min-h-screen flex flex-col antialiased">
+        {/*
+          Once-per-session splash gate. Runs before the splash element is
+          parsed, so on repeat loads in the same session it marks <html> and
+          the CSS hides the splash before first paint (no flash). First load of
+          a session leaves it visible and sets the flag.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(sessionStorage.getItem('am-splash-shown')){document.documentElement.classList.add('am-splash-seen')}else{sessionStorage.setItem('am-splash-shown','1')}}catch(e){}",
+          }}
+        />
         <SplashScreen />
         <MotionProvider>
           <Header />

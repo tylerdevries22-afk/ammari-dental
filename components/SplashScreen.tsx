@@ -44,6 +44,9 @@ export function SplashScreen() {
         </div>
       </div>
       <style>{`
+        /* Once-per-session: hidden before first paint on repeat loads via the
+           inline gate script in app/layout.tsx that sets this class. */
+        html.am-splash-seen .am-splash { display: none; }
         .am-splash {
           position: fixed;
           inset: 0;
