@@ -1,16 +1,15 @@
 "use client";
 import { useRef } from "react";
-import Image from "next/image";
 import {
   m,
   useScroll,
   useTransform,
-  useSpring,
 } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Magnetic } from "@/components/ui/MagneticButton";
 import { SplitText } from "@/components/ui/SplitText";
+import { ScrollScrubVideo } from "@/components/ui/ScrollScrubVideo";
 import { fadeUp, stagger, reveal } from "@/lib/motion";
 
 export function AboutSplit() {
@@ -19,12 +18,7 @@ export function AboutSplit() {
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const imgY = useSpring(useTransform(scrollYProgress, [0, 1], [-30, 30]), {
-    stiffness: 80,
-    damping: 22,
-  });
   const curtainY = useTransform(scrollYProgress, [0.1, 0.4], ["0%", "-100%"]);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.1, 0.98]);
 
   return (
     <section id="about" data-chapter="About" ref={sectionRef} className="py-24 lg:py-32 bg-(--color-surface-muted)/50 relative anchor-offset">
@@ -106,18 +100,14 @@ export function AboutSplit() {
           className="relative"
         >
           <div className="relative aspect-[4/5] rounded-[28px] shadow-(--shadow-soft-lg) overflow-hidden">
-            <m.div
-              style={{ y: imgY, scale: imgScale }}
-              className="absolute inset-0 will-change-transform"
-            >
-              <Image
-                src="/images/staff/dr-ammari.jpg"
-                alt="Dr. Raed Ammari, DDS — Ammari Dental, Aurora, CO"
-                fill
-                sizes="(max-width: 1024px) 90vw, 45vw"
-                className="object-cover"
-              />
-            </m.div>
+            <ScrollScrubVideo
+              src="/videos/hero-scrub.mp4"
+              poster="/images/practice/dentist-poster.webp"
+              posterAlt="Dr. Raed Ammari providing dental care at Ammari Dental, Aurora, CO"
+              scrollTarget={sectionRef}
+              parallax={40}
+              endAt={0.65}
+            />
 
             <m.div
               style={{ y: curtainY }}

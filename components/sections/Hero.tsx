@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
 import { Magnetic } from "@/components/ui/MagneticButton";
-import { ScrollScrubVideo } from "@/components/ui/ScrollScrubVideo";
+import Image from "next/image";
 import { site } from "@/lib/site";
 
 const headlineWords = ["Friendly", "Staff.", "Beautiful", "Smiles.", "Welcoming", "Environment."];
@@ -190,13 +190,14 @@ export function Hero() {
           className="lg:col-span-5 relative"
         >
           <div className="relative aspect-[4/5] rounded-[28px] overflow-hidden bg-gradient-to-br from-(--color-brand-100) to-(--color-brand-50) shadow-(--shadow-soft-lg) noise-overlay">
-            <ScrollScrubVideo
-              src="/videos/hero-scrub.mp4"
-              poster="/images/practice/hero-1.webp"
-              posterAlt="Ammari Dental treatment room in Aurora, CO"
-              scrollTarget={ref}
-              parallax={40}
-              endAt={0.65}
+            <Image
+              src="/images/staff/dr-ammari.jpg"
+              alt="Dr. Raed Ammari, DDS — Ammari Dental, Aurora, CO"
+              fill
+              priority
+              fetchPriority="high"
+              sizes="(max-width: 1024px) 90vw, 42vw"
+              className="object-cover"
             />
 
             <m.div
