@@ -5,27 +5,51 @@
  * `data-draw` (animated via stroke draw-in) or `data-fill` (faded-in shape).
  * The parent <AnimatedIllustration> orchestrates the timing on scroll.
  *
- * All colors reference tokens via `var(--color-*)` so they re-skin with the
- * design system.
+ * Palette matches the practice logo: an emerald→lime gradient (`url(#leafGrad)`)
+ * for the main shapes, a deep-emerald outline, and lime/yellow leaf accents.
+ * The gradients are defined once by <ServiceIconDefs> (rendered by ServiceGrid)
+ * and referenced across every tile's SVG. Solid colors reference `var(--color-*)`
+ * tokens so the set re-skins with the design system.
  */
 
 const T = {
-  brand50:  "var(--color-brand-50)",
-  brand100: "var(--color-brand-100)",
-  brand300: "var(--color-brand-300)",
-  brand500: "var(--color-brand-500)",
-  brand600: "var(--color-brand-600)",
-  brand700: "var(--color-brand-700)",
-  accent:   "var(--color-accent)",
-  accent300:"var(--color-accent-300)",
-  sage300:  "var(--color-sage-300)",
-  ink200:   "var(--color-ink-200)",
+  leaf50:   "var(--color-leaf-50)",
+  leaf100:  "var(--color-leaf-100)",
+  leaf300:  "var(--color-leaf-300)",
+  leaf500:  "var(--color-leaf-500)",
+  leaf600:  "var(--color-leaf-600)",
+  leaf700:  "var(--color-leaf-700)",
+  lime:     "var(--color-leaf-lime)",
+  yellow:   "var(--color-leaf-yellow)",
   surface:  "var(--color-surface)",
 };
 
+/** Emerald→lime gradient + lime→yellow leaf gradient, defined once per page. */
+export function ServiceIconDefs() {
+  return (
+    <svg aria-hidden width="0" height="0" style={{ position: "absolute", width: 0, height: 0 }}>
+      <defs>
+        <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="var(--color-leaf-300)" />
+          <stop offset="55%" stopColor="var(--color-leaf-600)" />
+          <stop offset="100%" stopColor="var(--color-leaf-700)" />
+        </linearGradient>
+        <linearGradient id="leafGradLime" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="var(--color-leaf-yellow)" />
+          <stop offset="60%" stopColor="var(--color-leaf-lime)" />
+          <stop offset="100%" stopColor="var(--color-leaf-500)" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
+const GRAD = "url(#leafGrad)";
+const LIMEGRAD = "url(#leafGradLime)";
+
 const stroke = (extra: Record<string, string | number> = {}) => ({
   fill: "none",
-  stroke: T.brand700,
+  stroke: T.leaf700,
   strokeWidth: 3,
   strokeLinecap: "round" as const,
   strokeLinejoin: "round" as const,
@@ -42,17 +66,16 @@ const fill = (color: string) => ({
 export function WhiteningScene() {
   return (
     <g>
-      {/* background tint */}
-      <rect {...fill(T.brand50)} width="200" height="200" rx="20" />
+      <rect {...fill(T.leaf50)} width="200" height="200" rx="20" />
       {/* sparkles */}
-      <path {...fill(T.accent)} d="M148 40 L150 50 L160 52 L150 54 L148 64 L146 54 L136 52 L146 50 Z" />
-      <path {...fill(T.accent300)} d="M40 60 L42 68 L50 70 L42 72 L40 80 L38 72 L30 70 L38 68 Z" />
-      <circle {...fill(T.brand300)} cx="172" cy="80" r="4" />
+      <path {...fill(LIMEGRAD)} d="M148 40 L150 50 L160 52 L150 54 L148 64 L146 54 L136 52 L146 50 Z" />
+      <path {...fill(T.lime)} d="M40 60 L42 68 L50 70 L42 72 L40 80 L38 72 L30 70 L38 68 Z" />
+      <circle {...fill(T.leaf300)} cx="172" cy="80" r="4" />
       {/* large tooth */}
-      <path {...fill(T.surface)} d="M100 60c-22 0-38 18-38 40 0 16 4 32 12 50 5 11 12 18 18 18 6 0 8-8 10-22 1-8 4-12 8-12s7 4 8 12c2 14 4 22 10 22 6 0 13-7 18-18 8-18 12-34 12-50 0-22-16-40-38-40-2 0-6 1-10 1-4 0-8-1-10-1z" />
+      <path {...fill(GRAD)} d="M100 60c-22 0-38 18-38 40 0 16 4 32 12 50 5 11 12 18 18 18 6 0 8-8 10-22 1-8 4-12 8-12s7 4 8 12c2 14 4 22 10 22 6 0 13-7 18-18 8-18 12-34 12-50 0-22-16-40-38-40-2 0-6 1-10 1-4 0-8-1-10-1z" />
       <path {...stroke()} d="M100 60c-22 0-38 18-38 40 0 16 4 32 12 50 5 11 12 18 18 18 6 0 8-8 10-22 1-8 4-12 8-12s7 4 8 12c2 14 4 22 10 22 6 0 13-7 18-18 8-18 12-34 12-50 0-22-16-40-38-40-2 0-6 1-10 1-4 0-8-1-10-1z" />
-      {/* sparkle on tooth */}
-      <path {...fill(T.accent)} d="M88 90 L90 96 L96 98 L90 100 L88 106 L86 100 L80 98 L86 96 Z" />
+      {/* shine on tooth */}
+      <path {...fill(T.surface)} d="M88 90 L90 96 L96 98 L90 100 L88 106 L86 100 L80 98 L86 96 Z" />
     </g>
   );
 }
@@ -61,22 +84,17 @@ export function WhiteningScene() {
 export function VeneersScene() {
   return (
     <g>
-      <rect {...fill(T.brand50)} width="200" height="200" rx="20" />
-      {/* row of three veneer tiles */}
+      <rect {...fill(T.leaf50)} width="200" height="200" rx="20" />
       {[40, 100, 160].map((cx, i) => (
         <g key={cx} transform={`translate(${cx - 28} 50)`}>
-          <rect
-            {...fill(i === 1 ? T.surface : T.brand100)}
-            x="0" y="0" width="56" height="80" rx="20"
-          />
+          <rect {...fill(i === 1 ? GRAD : T.leaf100)} x="0" y="0" width="56" height="80" rx="20" />
           <rect {...stroke()} x="0" y="0" width="56" height="80" rx="20" />
           {i === 1 && (
-            <path {...fill(T.accent)} d="M28 22 L31 32 L41 34 L31 36 L28 46 L25 36 L15 34 L25 32 Z" />
+            <path {...fill(T.surface)} d="M28 22 L31 32 L41 34 L31 36 L28 46 L25 36 L15 34 L25 32 Z" />
           )}
         </g>
       ))}
-      {/* underline */}
-      <rect {...fill(T.brand300)} x="40" y="148" width="120" height="6" rx="3" />
+      <rect {...fill(T.lime)} x="40" y="148" width="120" height="6" rx="3" />
       <path {...stroke()} d="M40 148 L160 148" />
     </g>
   );
@@ -86,12 +104,12 @@ export function VeneersScene() {
 export function ImplantScene() {
   return (
     <g>
-      <rect {...fill(T.brand50)} width="200" height="200" rx="20" />
+      <rect {...fill(T.leaf50)} width="200" height="200" rx="20" />
       {/* tooth crown */}
-      <path {...fill(T.surface)} d="M100 40c-18 0-30 14-30 32 0 12 4 22 8 30h44c4-8 8-18 8-30 0-18-12-32-30-32z" />
+      <path {...fill(GRAD)} d="M100 40c-18 0-30 14-30 32 0 12 4 22 8 30h44c4-8 8-18 8-30 0-18-12-32-30-32z" />
       <path {...stroke()} d="M100 40c-18 0-30 14-30 32 0 12 4 22 8 30h44c4-8 8-18 8-30 0-18-12-32-30-32z" />
       {/* abutment */}
-      <rect {...fill(T.brand300)} x="92" y="100" width="16" height="14" rx="2" />
+      <rect {...fill(T.leaf300)} x="92" y="100" width="16" height="14" rx="2" />
       <path {...stroke()} d="M92 102h16M92 112h16" />
       {/* screw threads */}
       <g {...stroke()}>
@@ -100,10 +118,10 @@ export function ImplantScene() {
         <path d="M90 142 L110 142" />
         <path d="M92 154 L108 154" />
       </g>
-      <path {...fill(T.brand500)} d="M86 116h28v44a14 14 0 0 1-14 14 14 14 0 0 1-14-14V116z" opacity="0.4" />
+      <path {...fill(GRAD)} d="M86 116h28v44a14 14 0 0 1-14 14 14 14 0 0 1-14-14V116z" opacity="0.45" />
       <path {...stroke()} d="M86 116h28v44a14 14 0 0 1-14 14 14 14 0 0 1-14-14V116z" />
       {/* shine */}
-      <path {...fill(T.accent)} d="M124 60 L126 68 L134 70 L126 72 L124 80 L122 72 L114 70 L122 68 Z" />
+      <path {...fill(T.yellow)} d="M124 60 L126 68 L134 70 L126 72 L124 80 L122 72 L114 70 L122 68 Z" />
     </g>
   );
 }
@@ -112,21 +130,14 @@ export function ImplantScene() {
 export function CrownScene() {
   return (
     <g>
-      <rect {...fill(T.brand50)} width="200" height="200" rx="20" />
-      {/* crown shape (royal-style) */}
-      <path
-        {...fill(T.accent300)}
-        d="M40 90 L60 60 L80 90 L100 50 L120 90 L140 60 L160 90 L160 140 L40 140 Z"
-      />
-      <path
-        {...stroke()}
-        d="M40 90 L60 60 L80 90 L100 50 L120 90 L140 60 L160 90 L160 140 L40 140 Z"
-      />
+      <rect {...fill(T.leaf50)} width="200" height="200" rx="20" />
+      <path {...fill(GRAD)} d="M40 90 L60 60 L80 90 L100 50 L120 90 L140 60 L160 90 L160 140 L40 140 Z" />
+      <path {...stroke()} d="M40 90 L60 60 L80 90 L100 50 L120 90 L140 60 L160 90 L160 140 L40 140 Z" />
       {/* base band */}
-      <rect {...fill(T.accent)} x="40" y="140" width="120" height="14" />
+      <rect {...fill(T.leaf600)} x="40" y="140" width="120" height="14" />
       <path {...stroke()} d="M40 154 L160 154" />
       {/* gem */}
-      <circle {...fill(T.brand500)} cx="100" cy="115" r="9" />
+      <circle {...fill(T.yellow)} cx="100" cy="115" r="9" />
       <circle {...stroke()} cx="100" cy="115" r="9" />
     </g>
   );
@@ -136,21 +147,17 @@ export function CrownScene() {
 export function RootCanalScene() {
   return (
     <g>
-      <rect {...fill(T.brand50)} width="200" height="200" rx="20" />
-      {/* tooth outline with roots */}
-      <path
-        {...fill(T.surface)}
-        d="M100 40c-22 0-38 18-38 40 0 8 2 16 4 22l14 80c2 8 14 8 16 0l4-30c1-6 4-10 0-10s-1 4 0 10l4 30c2 8 14 8 16 0l14-80c2-6 4-14 4-22 0-22-16-40-38-40z"
-      />
+      <rect {...fill(T.leaf50)} width="200" height="200" rx="20" />
+      <path {...fill(GRAD)} d="M100 40c-22 0-38 18-38 40 0 8 2 16 4 22l14 80c2 8 14 8 16 0l4-30c1-6 4-10 0-10s-1 4 0 10l4 30c2 8 14 8 16 0l14-80c2-6 4-14 4-22 0-22-16-40-38-40z" />
       <path {...stroke()} d="M100 40c-22 0-38 18-38 40 0 8 2 16 4 22" />
       <path {...stroke()} d="M134 102c2-6 4-14 4-22 0-22-16-40-38-40" />
       {/* roots */}
       <path {...stroke()} d="M70 100 L80 180" />
       <path {...stroke()} d="M100 102 L100 184" />
       <path {...stroke()} d="M130 100 L120 180" />
-      {/* infection point */}
-      <circle {...fill(T.accent)} cx="100" cy="135" r="10" />
-      <path {...stroke({ stroke: T.accent })} d="M100 125 L100 145 M90 135 L110 135" />
+      {/* treated point */}
+      <circle {...fill(T.yellow)} cx="100" cy="135" r="10" />
+      <path {...stroke({ stroke: T.leaf700 })} d="M100 125 L100 145 M90 135 L110 135" />
     </g>
   );
 }
@@ -159,20 +166,11 @@ export function RootCanalScene() {
 export function CleaningScene() {
   return (
     <g>
-      <rect {...fill(T.brand50)} width="200" height="200" rx="20" />
-      {/* tooth */}
-      <path
-        {...fill(T.surface)}
-        d="M120 70c-16 0-28 14-28 32 0 14 4 28 10 44 3 8 10 12 14 12s5-6 6-14c1-6 3-8 6-8s5 2 6 8c1 8 2 14 6 14s11-4 14-12c6-16 10-30 10-44 0-18-12-32-28-32-2 0-3 0-5 1-2-1-3-1-5-1z"
-        transform="translate(-15 0)"
-      />
-      <path
-        {...stroke()}
-        d="M120 70c-16 0-28 14-28 32 0 14 4 28 10 44 3 8 10 12 14 12s5-6 6-14c1-6 3-8 6-8s5 2 6 8c1 8 2 14 6 14s11-4 14-12c6-16 10-30 10-44 0-18-12-32-28-32-2 0-3 0-5 1-2-1-3-1-5-1z"
-        transform="translate(-15 0)"
-      />
+      <rect {...fill(T.leaf50)} width="200" height="200" rx="20" />
+      <path {...fill(GRAD)} transform="translate(-15 0)" d="M120 70c-16 0-28 14-28 32 0 14 4 28 10 44 3 8 10 12 14 12s5-6 6-14c1-6 3-8 6-8s5 2 6 8c1 8 2 14 6 14s11-4 14-12c6-16 10-30 10-44 0-18-12-32-28-32-2 0-3 0-5 1-2-1-3-1-5-1z" />
+      <path {...stroke()} transform="translate(-15 0)" d="M120 70c-16 0-28 14-28 32 0 14 4 28 10 44 3 8 10 12 14 12s5-6 6-14c1-6 3-8 6-8s5 2 6 8c1 8 2 14 6 14s11-4 14-12c6-16 10-30 10-44 0-18-12-32-28-32-2 0-3 0-5 1-2-1-3-1-5-1z" />
       {/* toothbrush handle */}
-      <rect {...fill(T.brand500)} x="120" y="50" width="50" height="10" rx="5" transform="rotate(35 145 55)" />
+      <rect {...fill(T.leaf600)} x="120" y="50" width="50" height="10" rx="5" transform="rotate(35 145 55)" />
       <rect {...stroke()} x="120" y="50" width="50" height="10" rx="5" transform="rotate(35 145 55)" />
       {/* bristles */}
       <g {...stroke()} transform="rotate(35 145 55)">
@@ -183,9 +181,9 @@ export function CleaningScene() {
         <path d="M131 50 L129 42" />
       </g>
       {/* bubbles */}
-      <circle {...fill(T.brand300)} cx="50" cy="120" r="8" />
-      <circle {...fill(T.brand300)} cx="68" cy="146" r="6" />
-      <circle {...fill(T.brand300)} cx="58" cy="160" r="4" />
+      <circle {...fill(T.leaf300)} cx="50" cy="120" r="8" />
+      <circle {...fill(T.lime)} cx="68" cy="146" r="6" />
+      <circle {...fill(T.leaf300)} cx="58" cy="160" r="4" />
     </g>
   );
 }
@@ -194,16 +192,10 @@ export function CleaningScene() {
 export function EmergencyScene() {
   return (
     <g>
-      <rect {...fill(T.brand50)} width="200" height="200" rx="20" />
+      <rect {...fill(T.leaf50)} width="200" height="200" rx="20" />
       {/* shield */}
-      <path
-        {...fill(T.accent300)}
-        d="M100 35 L150 55 L150 110 C150 140 130 158 100 168 C70 158 50 140 50 110 L50 55 Z"
-      />
-      <path
-        {...stroke()}
-        d="M100 35 L150 55 L150 110 C150 140 130 158 100 168 C70 158 50 140 50 110 L50 55 Z"
-      />
+      <path {...fill(GRAD)} d="M100 35 L150 55 L150 110 C150 140 130 158 100 168 C70 158 50 140 50 110 L50 55 Z" />
+      <path {...stroke()} d="M100 35 L150 55 L150 110 C150 140 130 158 100 168 C70 158 50 140 50 110 L50 55 Z" />
       {/* cross */}
       <rect {...fill(T.surface)} x="88" y="68" width="24" height="60" rx="4" />
       <rect {...fill(T.surface)} x="70" y="86" width="60" height="24" rx="4" />
@@ -216,16 +208,10 @@ export function EmergencyScene() {
 export function DenturesScene() {
   return (
     <g>
-      <rect {...fill(T.brand50)} width="200" height="200" rx="20" />
-      {/* upper denture (smile shape) */}
-      <path
-        {...fill(T.accent)}
-        d="M40 90 C40 130 70 150 100 150 C130 150 160 130 160 90 L150 90 L140 110 L130 90 L120 110 L110 90 L100 110 L90 90 L80 110 L70 90 L60 110 L50 90 Z"
-      />
-      <path
-        {...stroke()}
-        d="M40 90 C40 130 70 150 100 150 C130 150 160 130 160 90 L150 90 L140 110 L130 90 L120 110 L110 90 L100 110 L90 90 L80 110 L70 90 L60 110 L50 90 Z"
-      />
+      <rect {...fill(T.leaf50)} width="200" height="200" rx="20" />
+      {/* upper denture (gum) */}
+      <path {...fill(GRAD)} d="M40 90 C40 130 70 150 100 150 C130 150 160 130 160 90 L150 90 L140 110 L130 90 L120 110 L110 90 L100 110 L90 90 L80 110 L70 90 L60 110 L50 90 Z" />
+      <path {...stroke()} d="M40 90 C40 130 70 150 100 150 C130 150 160 130 160 90 L150 90 L140 110 L130 90 L120 110 L110 90 L100 110 L90 90 L80 110 L70 90 L60 110 L50 90 Z" />
       {/* upper individual teeth */}
       <g {...fill(T.surface)}>
         <rect x="56" y="60" width="14" height="32" rx="4" />
@@ -251,16 +237,10 @@ export function DenturesScene() {
 export function DefaultScene() {
   return (
     <g>
-      <rect {...fill(T.brand50)} width="200" height="200" rx="20" />
-      <circle {...fill(T.brand100)} cx="100" cy="100" r="50" />
-      <path
-        {...fill(T.surface)}
-        d="M100 70c-15 0-26 12-26 26 0 11 3 22 8 32 3 6 8 8 10 8 3 0 4-5 5-12 1-5 2-7 5-7s4 2 5 7c1 7 2 12 5 12 2 0 7-2 10-8 5-10 8-21 8-32 0-14-12-26-26-26z"
-      />
-      <path
-        {...stroke()}
-        d="M100 70c-15 0-26 12-26 26 0 11 3 22 8 32 3 6 8 8 10 8 3 0 4-5 5-12 1-5 2-7 5-7s4 2 5 7c1 7 2 12 5 12 2 0 7-2 10-8 5-10 8-21 8-32 0-14-12-26-26-26z"
-      />
+      <rect {...fill(T.leaf50)} width="200" height="200" rx="20" />
+      <circle {...fill(T.leaf100)} cx="100" cy="100" r="50" />
+      <path {...fill(GRAD)} d="M100 70c-15 0-26 12-26 26 0 11 3 22 8 32 3 6 8 8 10 8 3 0 4-5 5-12 1-5 2-7 5-7s4 2 5 7c1 7 2 12 5 12 2 0 7-2 10-8 5-10 8-21 8-32 0-14-12-26-26-26z" />
+      <path {...stroke()} d="M100 70c-15 0-26 12-26 26 0 11 3 22 8 32 3 6 8 8 10 8 3 0 4-5 5-12 1-5 2-7 5-7s4 2 5 7c1 7 2 12 5 12 2 0 7-2 10-8 5-10 8-21 8-32 0-14-12-26-26-26z" />
     </g>
   );
 }

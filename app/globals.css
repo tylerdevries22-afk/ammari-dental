@@ -19,6 +19,17 @@
   --color-brand-800: #0F3633;
   --color-brand-900: #0A2624;
 
+  /* Leaf — sampled from the logo's emerald→lime gradient + yellow leaves.
+     Used by the service-icon illustration set so it matches the mark. */
+  --color-leaf-50:   #EAF8EF;
+  --color-leaf-100:  #CFEFD9;
+  --color-leaf-300:  #68E2A7;
+  --color-leaf-500:  #14A35A;
+  --color-leaf-600:  #109E54;
+  --color-leaf-700:  #0B6B3B;
+  --color-leaf-lime: #A8D62A;
+  --color-leaf-yellow: #D8F93A;
+
   /* Accent — rose-gold / champagne for cosmetic warmth */
   --color-accent:    #C8956D;
   --color-accent-50: #FAF1E9;

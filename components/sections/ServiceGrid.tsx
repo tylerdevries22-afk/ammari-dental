@@ -3,6 +3,7 @@ import { m } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ServiceTile } from "@/components/sections/ServiceTile";
+import { ServiceIconDefs } from "@/components/illustrations/scenes";
 import { fadeUp, stagger, reveal } from "@/lib/motion";
 import { services } from "@/lib/services";
 import { cn } from "@/lib/cn";
@@ -21,6 +22,7 @@ export function ServiceGrid({
   const items = showAll ? services : services.filter((s) => s.featured);
   return (
     <section id="services" data-chapter="Services" className="py-24 lg:py-32 anchor-offset">
+      <ServiceIconDefs />
       <Container>
         <SectionHeader eyebrow={eyebrow} title={heading} description={description} />
 

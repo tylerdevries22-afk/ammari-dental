@@ -50,7 +50,7 @@ export default function HomePage() {
       <TrustStrip />
       <SectionDivider variant="arc" fillToken="--color-bg" />
       <ParallaxGallery />
-      <ServiceGrid />
+      <ServiceGrid showAll heading="Our Services" />
       <SectionDivider variant="blob" fillToken="--color-bg" />
       <StickyValues />
       <SectionDivider variant="scallop" fillToken="--color-surface-muted" position="top" />
