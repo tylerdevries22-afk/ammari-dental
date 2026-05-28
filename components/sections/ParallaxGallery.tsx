@@ -7,10 +7,10 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { fadeUp, reveal } from "@/lib/motion";
 
 const tiles = [
-  { src: "/images/practice/hero-1.webp", alt: "Treatment room", size: "tall", rate: 0.18 },
-  { src: "/images/practice/hero-2.webp", alt: "Modern operatory", size: "wide", rate: -0.12 },
-  { src: "/images/practice/hero-3.webp", alt: "Reception area", size: "square", rate: 0.24 },
-  { src: "/images/practice/hero-4.webp", alt: "Comfortable lobby", size: "tall", rate: -0.20 },
+  { src: "/images/practice/hero-1.webp", alt: "Treatment operatory at Ammari Dental", size: "tall", rate: 0.18 },
+  { src: "/images/practice/hero-2.webp", alt: "Wide view of a treatment room with chair, monitor, and supplies", size: "wide", rate: -0.12 },
+  { src: "/images/practice/hero-3.webp", alt: "Waiting room and reception window at Ammari Dental", size: "square", rate: 0.24 },
+  { src: "/images/practice/hero-4.webp", alt: "Hallway between treatment rooms", size: "tall", rate: -0.20 },
 ];
 
 export function ParallaxGallery() {
@@ -28,10 +28,10 @@ export function ParallaxGallery() {
           eyebrow="Inside the office"
           title={
             <>
-              Designed to feel <span className="text-aurora">at ease</span>.
+              A real office <span className="text-aurora">designed to feel easy</span>.
             </>
           }
-          description="Calm rooms, gentle lighting, and modern equipment — every detail tuned so your appointment feels less clinical and more comforting."
+          description="Bright, clean treatment rooms, modern equipment, and a comfortable waiting area — everything you'd expect from a practice that genuinely cares about your visit."
         />
 
         <div className="mt-20 grid grid-cols-12 gap-4 lg:gap-6 [grid-auto-rows:120px] lg:[grid-auto-rows:160px]">
