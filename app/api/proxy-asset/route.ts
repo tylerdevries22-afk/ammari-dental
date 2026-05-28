@@ -24,18 +24,12 @@ const ALLOWED_HOSTS = new Set<string>([
   "d8j0ntlcm91z4.cloudfront.net",      // Higgs Field outputs
   "www.auroragentledentist.com",       // practice's own site
   "auroragentledentist.com",
-  "static.wixstatic.com",              // Wix-hosted images on practice site
+  "cdcssl.ibsrv.net",                  // practice's CMS image host
+  "static.wixstatic.com",
   "img.wixstatic.com",
   "www.facebook.com",
-  "scontent.fdfw1-1.fna.fbcdn.net",    // Facebook CDN
-  "scontent-iad3-1.xx.fbcdn.net",
   "www.yelp.com",
-  "s3-media0.fl.yelpcdn.com",          // Yelp CDN
-  "s3-media1.fl.yelpcdn.com",
-  "s3-media2.fl.yelpcdn.com",
-  "s3-media3.fl.yelpcdn.com",
-  "s3-media4.fl.yelpcdn.com",
-  "lh3.googleusercontent.com",         // Google Business photos
+  "lh3.googleusercontent.com",
   "lh4.googleusercontent.com",
   "lh5.googleusercontent.com",
   "lh6.googleusercontent.com",
