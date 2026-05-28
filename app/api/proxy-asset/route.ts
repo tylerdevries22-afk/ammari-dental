@@ -43,7 +43,23 @@ const ALLOWED_HOSTS = new Set<string>([
   "tse4.mm.bing.net",
   "birdeye.com",
   "cdn.birdeye.com",
+  "cdn2.birdeye.com",
+  "ddjkm7nmu27lx.cloudfront.net",      // Birdeye user-uploaded photos
   "reviewscustomer-prod.s3.amazonaws.com",
+  "www.healthgrades.com",
+  "healthgrades.com",
+  "d3iw72m71ie81c.cloudfront.net",     // Healthgrades CDN
+  "www.yellowpages.com",
+  "ypcdn.com",
+  "i.ypcdn.com",
+  "www.ratemds.com",
+  "ratemds.com",
+  "www.sharecare.com",
+  "sharecare.com",
+  "doctor.webmd.com",
+  "img.webmd.com",
+  "www.vitals.com",
+  "static.vitalsdata.com",
 ]);
 
 export async function GET(req: NextRequest) {
