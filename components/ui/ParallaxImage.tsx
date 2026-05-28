@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useMotion } from "@/lib/useMotion";
 import { cn } from "@/lib/cn";
 
-type Shape = "rounded" | "oval" | "circle";
+type Shape = "rounded" | "oval" | "circle" | "arch";
 
 type Props = {
   src: string;
@@ -72,7 +72,15 @@ export function ParallaxImage({
     shape === "oval" ? "rounded-[50%]" : shape === "circle" ? "rounded-full" : "";
   const aspectRatio = shape === "circle" ? "1 / 1" : aspect;
   const radiusStyle =
-    shape === "rounded" ? { borderRadius: `var(${radius})` } : undefined;
+    shape === "rounded"
+      ? { borderRadius: `var(${radius})` }
+      : shape === "arch"
+        ? {
+            // Domed top + gently rounded bottom (the Tend hero frame).
+            borderRadius:
+              "50% 50% var(--radius-2xl) var(--radius-2xl) / 42% 42% var(--radius-2xl) var(--radius-2xl)",
+          }
+        : undefined;
 
   // Headroom so the parallax drift never reveals the frame edges.
   const animate = enabled && amp > 0;
