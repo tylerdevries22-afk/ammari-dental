@@ -6,6 +6,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingCallButton } from "@/components/layout/FloatingCallButton";
+import { DentalAgent } from "@/components/agent/DentalAgent";
 import { LocalBusinessSchema } from "@/components/schema/Schema";
 import { MotionProvider } from "@/components/MotionProvider";
 import { ClientEnhancements } from "@/components/providers/ClientEnhancements";
@@ -42,6 +43,7 @@ export default function RootLayout({
           <main id="main" className="flex-1">{children}</main>
           <Footer />
           <FloatingCallButton />
+          <DentalAgent />
           {/*
             ClientEnhancements is rendered AFTER Header/main/Footer so the
             skip link (first focusable in Header) is hit first by Tab. The
