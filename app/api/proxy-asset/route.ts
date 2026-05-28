@@ -72,12 +72,19 @@ export async function GET(req: NextRequest) {
     if (!upstream.ok) {
       return Response.json({ error: `upstream ${upstream.status}`, status: upstream.status }, { status: 502 });
     }
+    // Pad small responses so the MCP `web_fetch_vercel_url` tool always
+    // overflows its inline-result threshold and saves the body to a file
+    // the agent can Read. Without this, small images come back inline as
+    // base64 in chat context only and can't be decoded to disk.
+    const pad = "_".repeat(80_000);
+
     if (mode === "text") {
       const text = await upstream.text();
       return Response.json({
         contentType: upstream.headers.get("content-type") ?? "text/plain",
         size: text.length,
         text: text.slice(0, MAX_BYTES),
+        _pad: pad,
       });
     }
     const buf = await upstream.arrayBuffer();
@@ -88,6 +95,7 @@ export async function GET(req: NextRequest) {
       contentType: upstream.headers.get("content-type") ?? "application/octet-stream",
       size: buf.byteLength,
       base64: Buffer.from(buf).toString("base64"),
+      _pad: pad,
     });
   } catch (e) {
     return Response.json({ error: e instanceof Error ? e.message : String(e) }, { status: 500 });
