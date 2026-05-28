@@ -19,7 +19,7 @@ const sections: Section[] = [
     items: services.map((s) => ({ label: s.name, href: `/${s.slug}` })),
   },
   {
-    label: "Patient Resources",
+    label: "Resources",
     items: [
       { label: "Improving Your Smile", href: "/-improving-your-smile" },
       { label: "Comfortable Dentistry", href: "/comfortable-dentistry" },
@@ -32,7 +32,7 @@ const sections: Section[] = [
       { label: "Links", href: "/links" },
     ],
   },
-  { label: "Patient Education", href: "/articles/general" },
+  { label: "Education", href: "/articles/general" },
   { label: "Blog", href: "/articles/general" },
   { label: "About Us", href: "/dental-staff" },
   { label: "Contact Us", href: "/contact" },

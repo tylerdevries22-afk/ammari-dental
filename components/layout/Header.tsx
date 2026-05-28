@@ -19,7 +19,7 @@ const primary: NavItem[] = [
   { label: "Home", href: "/", kind: "link" },
   { label: "Services", href: "/dental-services", kind: "mega" },
   {
-    label: "Patient Resources",
+    label: "Resources",
     href: "/new-patients",
     kind: "menu",
     items: [
@@ -34,7 +34,7 @@ const primary: NavItem[] = [
       { label: "Links", href: "/links" },
     ],
   },
-  { label: "Patient Education", href: "/articles/general", kind: "link" },
+  { label: "Education", href: "/articles/general", kind: "link" },
   { label: "Blog", href: "/articles/general", kind: "link" },
   { label: "About Us", href: "/dental-staff", kind: "link" },
   { label: "Contact Us", href: "/contact", kind: "link" },
