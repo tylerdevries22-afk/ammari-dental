@@ -226,13 +226,13 @@ export function DentalAgent() {
             <>
               <m.span
                 aria-hidden
-                className="absolute inset-0 rounded-full bg-(--color-brand-500)"
+                className="absolute inset-0 rounded-full bg-(--color-brand-500) pointer-events-none"
                 animate={{ scale: [1, 1.65], opacity: [0.35, 0] }}
                 transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut" }}
               />
               <m.span
                 aria-hidden
-                className="absolute inset-0 rounded-full bg-(--color-brand-500)"
+                className="absolute inset-0 rounded-full bg-(--color-brand-500) pointer-events-none"
                 animate={{ scale: [1, 1.65], opacity: [0.35, 0] }}
                 transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut", delay: 1.3 }}
               />
