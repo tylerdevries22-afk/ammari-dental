@@ -80,6 +80,10 @@ const TOOTH =
 const sparkle = (cx: number, cy: number, r: number, ri = r * 0.24) =>
   `M${cx} ${cy - r} L${cx + ri} ${cy - ri} L${cx + r} ${cy} L${cx + ri} ${cy + ri} L${cx} ${cy + r} L${cx - ri} ${cy + ri} L${cx - r} ${cy} L${cx - ri} ${cy - ri} Z`;
 
+/** Heart path centered on (cx,cy), roughly 2s wide / 1.7s tall. */
+const heart = (cx: number, cy: number, s: number) =>
+  `M${cx} ${cy + s * 0.78} C ${cx - s * 1.15} ${cy - s * 0.05}, ${cx - s * 0.5} ${cy - s}, ${cx} ${cy - s * 0.32} C ${cx + s * 0.5} ${cy - s}, ${cx + s * 1.15} ${cy - s * 0.05}, ${cx} ${cy + s * 0.78} Z`;
+
 const Bg = () => <rect {...fill(T.leaf50)} width="200" height="200" rx="20" />;
 
 /* ─── General dentistry — the logo motif (tooth + swaying leaf sprout) ── */
@@ -307,26 +311,233 @@ export function DefaultScene() {
   );
 }
 
+/* ─── Comfortable dentistry — a heartbeat inside the tooth ──────────── */
+export function ComfortableScene() {
+  return (
+    <g>
+      <Bg />
+      <path {...fill(GRAD)} d={TOOTH} />
+      <path {...stroke()} d={TOOTH} />
+      <g {...anim("heartbeat", { origin: "100 104" })}>
+        <path {...fill(LIMEGRAD)} d={heart(100, 102, 22)} />
+        <path {...stroke()} d={heart(100, 102, 22)} />
+      </g>
+    </g>
+  );
+}
+
+/* ─── Tooth-colored fillings — a seamless filled cavity that glints ── */
+export function FillingScene() {
+  return (
+    <g>
+      <Bg />
+      <path {...fill(T.leaf100)} d={TOOTH} />
+      <path {...stroke()} d={TOOTH} />
+      {/* the filling */}
+      <path
+        {...fill(GRAD)}
+        d="M84 94 C84 84 93 79 100 79 C108 79 117 86 117 96 C117 107 107 112 99 112 C90 112 84 103 84 94 Z"
+      />
+      <path
+        {...stroke({ strokeWidth: 2.4 })}
+        d="M84 94 C84 84 93 79 100 79 C108 79 117 86 117 96 C117 107 107 112 99 112 C90 112 84 103 84 94 Z"
+      />
+      <path {...fill(T.surface)} {...anim("twinkle")} d={sparkle(96, 92, 8)} />
+    </g>
+  );
+}
+
+/* ─── Bonding — a resin layer sculpted onto the front of the tooth ──── */
+export function BondingScene() {
+  return (
+    <g>
+      <Bg />
+      <path {...fill(T.leaf100)} d={TOOTH} />
+      {/* bonded layer with a centre seam */}
+      <path
+        {...fill(GRAD)}
+        d="M80 96 C82 78 94 70 100 70 C106 70 118 78 120 96 C120 118 108 134 100 134 C92 134 80 118 80 96 Z"
+        opacity="0.92"
+      />
+      <path {...stroke()} d={TOOTH} />
+      <path {...stroke({ strokeWidth: 2 })} d="M100 70 C103 90 103 114 100 134" />
+      <path {...fill(T.yellow)} {...anim("twinkle", { seq: 0 })} d={sparkle(124, 62, 12)} />
+      <path {...fill(T.lime)} {...anim("twinkle", { seq: 1 })} d={sparkle(66, 104, 7)} />
+    </g>
+  );
+}
+
+/* ─── Bridges — three crowns hang from a connecting rail (cascade) ──── */
+export function BridgeScene() {
+  const crowns = [
+    { x: 50, g: GRAD, seq: 0 },
+    { x: 90, g: LIMEGRAD, seq: 1 },
+    { x: 130, g: GRAD, seq: 2 },
+  ];
+  return (
+    <g>
+      <Bg />
+      <rect {...fill(T.leaf600)} x="38" y="72" width="124" height="20" rx="6" />
+      <rect {...stroke()} x="38" y="72" width="124" height="20" rx="6" />
+      {crowns.map(({ x, g, seq }) => (
+        <g key={x} {...anim("pulse", { seq })}>
+          <path {...fill(g)} d={`M${x} 92 h22 v32 a11 11 0 0 1 -22 0 z`} />
+          <path {...stroke()} d={`M${x} 92 h22 v32 a11 11 0 0 1 -22 0 z`} />
+        </g>
+      ))}
+    </g>
+  );
+}
+
+/* ─── Deep cleaning / perio — a scaler works the gum line ───────────── */
+export function DeepCleaningScene() {
+  return (
+    <g>
+      <Bg />
+      <g transform="translate(-14 4)">
+        <path {...fill(GRAD)} d={TOOTH} transform="scale(0.9)" />
+        <path {...stroke()} d={TOOTH} transform="scale(0.9)" />
+      </g>
+      {/* gum line */}
+      <path {...stroke({ strokeWidth: 4 })} d="M30 132 C70 122 110 122 150 132" />
+      <path {...fill(T.lime)} d="M30 132 C70 122 110 122 150 132 L150 140 C110 130 70 130 30 140 Z" opacity="0.6" />
+      {/* scaler — scrubs at the gum line */}
+      <g {...anim("brush", { origin: "112 126" })}>
+        <g transform="rotate(34 112 126)">
+          <rect {...fill(T.leaf600)} x="112" y="60" width="9" height="62" rx="4.5" />
+          <rect {...stroke()} x="112" y="60" width="9" height="62" rx="4.5" />
+          <path {...stroke()} d="M116 122 c0 6 -4 9 -9 9" />
+        </g>
+      </g>
+      {/* loosened specks drift up */}
+      <circle {...fill(T.leaf300)} {...anim("float", { seq: 0 })} cx="56" cy="150" r="5" />
+      <circle {...fill(T.lime)} {...anim("float", { seq: 1 })} cx="72" cy="164" r="3.5" />
+    </g>
+  );
+}
+
+/* ─── Night guards — a clear guard arch under a crescent moon ────────── */
+export function NightGuardScene() {
+  return (
+    <g>
+      <Bg />
+      {/* crescent moon */}
+      <path {...fill(T.leaf300)} {...anim("twinkle", { seq: 0 })} d="M150 44 a22 22 0 1 0 18 34 a17 17 0 1 1 -18 -34 z" />
+      <path {...fill(T.yellow)} {...anim("twinkle", { seq: 1 })} d={sparkle(58, 56, 9)} />
+      {/* teeth arch */}
+      <g transform="translate(0 6)">
+        {[64, 84, 100, 116, 136].map((x, i) => (
+          <rect key={x} {...fill(T.surface)} x={x - 8} y={108 - (i === 2 ? 6 : i === 1 || i === 3 ? 3 : 0)} width="16" height={34 + (i === 2 ? 6 : 0)} rx="5" />
+        ))}
+        {[64, 84, 100, 116, 136].map((x, i) => (
+          <rect key={`s${x}`} {...stroke({ strokeWidth: 2 })} x={x - 8} y={108 - (i === 2 ? 6 : i === 1 || i === 3 ? 3 : 0)} width="16" height={34 + (i === 2 ? 6 : 0)} rx="5" />
+        ))}
+      </g>
+      {/* clear guard hugging the arch */}
+      <path {...fill(GRAD)} {...anim("float")} d="M48 132 C48 162 76 176 100 176 C124 176 152 162 152 132 C152 124 144 120 136 124 C120 132 80 132 64 124 C56 120 48 124 48 132 Z" opacity="0.45" />
+      <path {...stroke()} d="M48 132 C48 162 76 176 100 176 C124 176 152 162 152 132" />
+    </g>
+  );
+}
+
+/* ─── Extractions — forceps lift a tooth free ───────────────────────── */
+export function ExtractionScene() {
+  return (
+    <g>
+      <Bg />
+      {/* gum / socket */}
+      <path {...fill(T.lime)} d="M40 150 h120 v8 a6 6 0 0 1 -6 6 H46 a6 6 0 0 1 -6 -6 z" opacity="0.6" />
+      <path {...stroke()} d="M40 150 h120" />
+      {/* the lifted tooth */}
+      <g {...anim("bob")} transform="translate(0 4)">
+        <path {...fill(GRAD)} d={TOOTH} transform="translate(28 26) scale(0.62)" />
+        <path {...stroke()} d={TOOTH} transform="translate(28 26) scale(0.62)" />
+      </g>
+      {/* forceps gripping from above */}
+      <g {...stroke({ strokeWidth: 4 })}>
+        <path d="M78 36 L92 96" />
+        <path d="M122 36 L108 96" />
+        <path d="M92 96 q8 8 16 0" />
+      </g>
+      <circle {...fill(T.yellow)} {...anim("twinkle")} cx="100" cy="30" r="4" />
+    </g>
+  );
+}
+
+/* ─── Multiple extractions — a row of teeth, one drawn out (cascade) ── */
+export function MultiExtractionScene() {
+  const xs = [60, 100, 140];
+  return (
+    <g>
+      <Bg />
+      <path {...fill(T.lime)} d="M30 150 h140 v8 a6 6 0 0 1 -6 6 H36 a6 6 0 0 1 -6 -6 z" opacity="0.6" />
+      <path {...stroke()} d="M30 150 h140" />
+      {xs.map((x, i) => (
+        <g key={x} {...anim("pulse", { seq: i })} transform={`translate(${x - 100} ${i === 1 ? -10 : 6})`}>
+          <path {...fill(i === 1 ? LIMEGRAD : GRAD)} d={TOOTH} transform="translate(64 70) scale(0.34)" />
+          <path {...stroke({ strokeWidth: 2.4 })} d={TOOTH} transform="translate(64 70) scale(0.34)" />
+        </g>
+      ))}
+      {/* forceps over the centre tooth */}
+      <g {...stroke({ strokeWidth: 3 })}>
+        <path d="M86 40 L96 78" />
+        <path d="M114 40 L104 78" />
+        <path d="M96 78 q4 6 8 0" />
+      </g>
+    </g>
+  );
+}
+
+/* ─── Implant dentures — an arch seated on two implant posts ─────────── */
+export function ImplantDentureScene() {
+  return (
+    <g>
+      <Bg />
+      {/* two implant posts */}
+      {[72, 128].map((x, i) => (
+        <g key={x} {...anim("pulse", { seq: i })}>
+          <rect {...fill(T.leaf300)} x={x - 7} y="120" width="14" height="46" rx="3" />
+          <g {...stroke({ strokeWidth: 2.4 })}>
+            <path d={`M${x - 9} 130 h18`} />
+            <path d={`M${x - 9} 142 h18`} />
+            <path d={`M${x - 9} 154 h18`} />
+          </g>
+        </g>
+      ))}
+      {/* denture arch seated on top */}
+      <g {...anim("bob")}>
+        <path {...fill(GRAD)} d="M40 96 C40 70 70 56 100 56 C130 56 160 70 160 96 C160 112 148 120 132 118 L132 104 L120 116 L108 104 L100 116 L92 104 L80 116 L68 104 L68 118 C52 120 40 112 40 96 Z" />
+        <path {...stroke()} d="M40 96 C40 70 70 56 100 56 C130 56 160 70 160 96 C160 112 148 120 132 118 L132 104 L120 116 L108 104 L100 116 L92 104 L80 116 L68 104 L68 118 C52 120 40 112 40 96 Z" />
+        <g {...fill(T.surface)}>
+          {[64, 82, 100, 118, 136].map((x) => (
+            <rect key={x} x={x - 6} y="68" width="12" height="26" rx="4" />
+          ))}
+        </g>
+      </g>
+    </g>
+  );
+}
+
 /* ─── Scene registry — slug → JSX element factory ──────────────────── */
 const registry: Record<string, () => React.ReactElement> = {
   "dental-services": GeneralScene,
-  "teeth-whitening": WhiteningScene,
-  "veneers": VeneersScene,
-  "dental-implants": ImplantScene,
-  "implant-dentures": ImplantScene,
-  "dental-crowns": CrownScene,
-  "bridges": CrownScene,
-  "root-canal": RootCanalScene,
+  "comfortable-dentistry": ComfortableScene,
+  "deep-cleaning": DeepCleaningScene,
   "preventative-periodontics": CleaningScene,
-  "deep-cleaning": CleaningScene,
-  "comfortable-dentistry": CleaningScene,
-  "dental-emergencies": EmergencyScene,
-  "extractions": EmergencyScene,
-  "multiple-tooth-extractions": EmergencyScene,
+  "night-guards": NightGuardScene,
+  "teeth-whitening": WhiteningScene,
+  "bonding": BondingScene,
+  "veneers": VeneersScene,
+  "tooth-colored-fillings": FillingScene,
+  "dental-crowns": CrownScene,
+  "bridges": BridgeScene,
+  "root-canal": RootCanalScene,
   "dentures": DenturesScene,
-  "tooth-colored-fillings": WhiteningScene,
-  "bonding": VeneersScene,
-  "night-guards": CleaningScene,
+  "dental-implants": ImplantScene,
+  "implant-dentures": ImplantDentureScene,
+  "extractions": ExtractionScene,
+  "multiple-tooth-extractions": MultiExtractionScene,
+  "dental-emergencies": EmergencyScene,
 };
 
 /**
