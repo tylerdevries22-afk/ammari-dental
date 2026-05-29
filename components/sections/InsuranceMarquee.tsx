@@ -54,7 +54,7 @@ function InsuranceTile({ ins }: { ins: Insurance }) {
         height={40}
         sizes="160px"
         loading="lazy"
-        className="max-h-10 max-w-full w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+        className="max-h-10 max-w-full w-auto object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition duration-500"
       />
     </div>
   );
