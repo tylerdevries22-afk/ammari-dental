@@ -15,7 +15,6 @@ import { ArticlesGrid } from "@/components/sections/ArticlesGrid";
 import { LocationHours } from "@/components/sections/LocationHours";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { ParallaxGallery } from "@/components/sections/ParallaxGallery";
-import { StickyValues } from "@/components/sections/StickyValues";
 import { ScrollHueBackground } from "@/components/sections/ScrollHueBackground";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { SectionDivider } from "@/components/ui/SectionDivider";
@@ -51,8 +50,6 @@ export default function HomePage() {
       <SectionDivider variant="arc" fillToken="--color-bg" />
       <ParallaxGallery />
       <ServiceGrid showAll heading="Our Services" />
-      <SectionDivider variant="blob" fillToken="--color-bg" />
-      <StickyValues />
       <SectionDivider variant="scallop" fillToken="--color-surface-muted" position="top" />
       <AboutSplit />
       <ClinicalTeam />
