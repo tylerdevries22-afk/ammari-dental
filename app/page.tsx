@@ -49,12 +49,12 @@ export default function HomePage() {
       <TrustStrip />
       <SectionDivider variant="arc" fillToken="--color-bg" />
       <ParallaxGallery />
+      <SmilesStrip />
       <ServiceGrid showAll heading="Our Services" />
       <SectionDivider variant="scallop" fillToken="--color-surface-muted" position="top" />
       <AboutSplit />
       <ClinicalTeam />
       <EmergencyBand />
-      <SmilesStrip />
       <Testimonials />
       <InsuranceMarquee />
       <StaffStrip />
