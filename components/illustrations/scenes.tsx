@@ -233,6 +233,31 @@ export function DenturesScene() {
   );
 }
 
+/* ─── General dentistry — the logo motif (tooth + leaf sprout) ─────── */
+export function GeneralScene() {
+  return (
+    <g>
+      <rect {...fill(T.leaf50)} width="200" height="200" rx="20" />
+      {/* tooth, lowered to make room for the sprout above */}
+      <g transform="translate(0 16)">
+        <path {...fill(GRAD)} d="M100 66c-21 0-36 17-36 38 0 15 4 30 11 47 5 10 11 17 17 17 6 0 8-8 9-21 1-7 4-11 8-11s7 4 8 11c1 13 3 21 9 21 6 0 12-7 17-17 7-17 11-32 11-47 0-21-15-38-36-38-2 0-5 1-9 1-4 0-7-1-9-1z" />
+        <path {...stroke()} d="M100 66c-21 0-36 17-36 38 0 15 4 30 11 47 5 10 11 17 17 17 6 0 8-8 9-21 1-7 4-11 8-11s7 4 8 11c1 13 3 21 9 21 6 0 12-7 17-17 7-17 11-32 11-47 0-21-15-38-36-38-2 0-5 1-9 1-4 0-7-1-9-1z" />
+        <path {...fill(T.surface)} d="M86 92 L88 99 L95 101 L88 103 L86 110 L84 103 L77 101 L84 99 Z" />
+      </g>
+      {/* leaf sprout from the crown — echoes the practice mark */}
+      <path {...stroke({ strokeWidth: 4 })} d="M100 82 C 100 68 100 58 100 50" />
+      {/* right leaf */}
+      <path {...fill(LIMEGRAD)} d="M101 68 C 106 47 123 38 143 41 C 137 64 119 72 101 68 Z" />
+      <path {...stroke()} d="M101 68 C 106 47 123 38 143 41 C 137 64 119 72 101 68 Z" />
+      <path {...stroke({ strokeWidth: 2.4 })} d="M109 61 C 120 54 131 49 139 46" />
+      {/* left leaf */}
+      <path {...fill(T.lime)} d="M99 72 C 94 54 80 46 61 49 C 67 69 82 76 99 72 Z" />
+      <path {...stroke()} d="M99 72 C 94 54 80 46 61 49 C 67 69 82 76 99 72 Z" />
+      <path {...stroke({ strokeWidth: 2.4 })} d="M91 65 C 81 59 73 55 65 52" />
+    </g>
+  );
+}
+
 /* ─── Default fallback ─────────────────────────────────────────────── */
 export function DefaultScene() {
   return (
@@ -247,6 +272,7 @@ export function DefaultScene() {
 
 /* ─── Scene registry — slug → JSX element factory ──────────────────── */
 const registry: Record<string, () => React.ReactElement> = {
+  "dental-services": GeneralScene,
   "teeth-whitening": WhiteningScene,
   "veneers": VeneersScene,
   "dental-implants": ImplantScene,

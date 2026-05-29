@@ -46,7 +46,7 @@ export function ServiceTile({ service, className }: Props) {
             aria-hidden
             className="absolute -top-1/4 -right-1/4 w-2/3 h-2/3 rounded-full bg-(--color-brand-200)/40 blur-3xl"
           />
-          {/* Illustration */}
+          {/* Illustration (the icon of the card — the redundant corner disc was removed) */}
           <div className="absolute inset-4 grid place-items-center group-hover:scale-[1.04] transition-transform duration-500 ease-out">
             <AnimatedIllustration
               className="w-full h-full"
@@ -54,11 +54,6 @@ export function ServiceTile({ service, className }: Props) {
             >
               {renderSceneFor(service.slug)}
             </AnimatedIllustration>
-          </div>
-
-          {/* Icon disc top-right */}
-          <div className="absolute top-4 right-4 grid place-items-center w-10 h-10 rounded-full bg-(--color-surface)/85 backdrop-blur-sm text-(--color-brand-700) shadow-(--shadow-soft-sm) group-hover:bg-(--color-brand-700) group-hover:text-(--color-brand-50) transition-colors">
-            <Icon name={service.icon} className="w-4 h-4" variant="line" />
           </div>
         </div>
 

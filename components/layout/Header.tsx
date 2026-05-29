@@ -7,7 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { site } from "@/lib/site";
-import { services } from "@/lib/services";
+import { servicesByCategory } from "@/lib/services";
 import { cn } from "@/lib/cn";
 
 type NavItem =
@@ -108,24 +108,39 @@ export function Header() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 8 }}
                           transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                          className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[680px]"
+                          className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[760px]"
                         >
-                          <div className="bg-white rounded-2xl shadow-(--shadow-soft-lg) border border-(--color-brand-100) p-6 grid grid-cols-2 gap-x-6 gap-y-2">
-                            {services.map((s) => (
-                              <Link
-                                key={s.slug}
-                                href={`/${s.slug}`}
-                                className="group flex items-start gap-3 p-2 rounded-lg hover:bg-(--color-brand-50) transition-colors"
-                              >
-                                <span className="grid place-items-center w-9 h-9 rounded-md bg-(--color-brand-50) text-(--color-brand-600) group-hover:bg-(--color-brand-600) group-hover:text-white transition-colors">
-                                  <Icon name={s.icon} className="w-4 h-4" />
-                                </span>
-                                <span>
-                                  <span className="block text-sm font-medium text-(--color-ink-900)">{s.name}</span>
-                                  <span className="block text-xs text-(--color-ink-500) line-clamp-1">{s.blurb}</span>
-                                </span>
-                              </Link>
-                            ))}
+                          <div className="bg-white rounded-2xl shadow-(--shadow-soft-lg) border border-(--color-brand-100) p-6">
+                            <div className="columns-3 gap-6 [column-fill:balance]">
+                              {servicesByCategory().map((group) => (
+                                <div key={group.category} className="mb-5 break-inside-avoid">
+                                  <div className="eyebrow text-(--color-brand-600) mb-1.5 px-2">{group.label}</div>
+                                  {group.items.map((s) => (
+                                    <Link
+                                      key={s.slug}
+                                      href={`/${s.slug}`}
+                                      className="group flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-(--color-brand-50) transition-colors"
+                                    >
+                                      <span className="grid place-items-center w-7 h-7 rounded-md bg-(--color-brand-50) text-(--color-brand-600) group-hover:bg-(--color-brand-600) group-hover:text-white transition-colors shrink-0">
+                                        <Icon name={s.icon} className="w-3.5 h-3.5" />
+                                      </span>
+                                      <span className="text-sm font-medium text-(--color-ink-800) group-hover:text-(--color-brand-700) transition-colors leading-tight">
+                                        {s.name}
+                                      </span>
+                                    </Link>
+                                  ))}
+                                </div>
+                              ))}
+                            </div>
+                            <Link
+                              href="/dental-services"
+                              className="mt-1 flex items-center justify-center gap-1.5 pt-4 border-t border-(--color-brand-100) text-sm font-semibold text-(--color-brand-700)"
+                            >
+                              View all services
+                              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2" fill="none" aria-hidden>
+                                <path d="M5 12h14m-6-7 7 7-7 7" />
+                              </svg>
+                            </Link>
                           </div>
                         </m.div>
                       )}
