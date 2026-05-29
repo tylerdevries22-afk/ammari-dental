@@ -40,7 +40,7 @@ export function ByTheNumbers() {
     <section
       id="by-the-numbers"
       data-chapter="By the numbers"
-      className="relative py-20 lg:py-28 bg-(--surface-data) border-y border-(--color-brand-100)"
+      className="relative py-20 lg:py-28 bg-(--color-surface-warm)"
     >
       <Container>
         <m.div

@@ -29,7 +29,7 @@ export function ClinicalTeam() {
     <section
       id="care"
       data-chapter="Our standard"
-      className="relative py-24 lg:py-32 bg-(--color-surface-warm) overflow-hidden anchor-offset"
+      className="relative py-24 lg:py-32 overflow-hidden anchor-offset"
     >
       <Container className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
         {/* Opposing-drift oval portrait pair */}

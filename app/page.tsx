@@ -15,10 +15,8 @@ import { ArticlesGrid } from "@/components/sections/ArticlesGrid";
 import { LocationHours } from "@/components/sections/LocationHours";
 import { CTABanner } from "@/components/sections/CTABanner";
 import { ParallaxGallery } from "@/components/sections/ParallaxGallery";
-import { ScrollHueBackground } from "@/components/sections/ScrollHueBackground";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { SectionDivider } from "@/components/ui/SectionDivider";
-import { ScrollHueShift } from "@/components/effects/ScrollHueShift";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { metaFor } from "@/lib/metadata";
@@ -40,26 +38,49 @@ export default function HomePage() {
   return (
     <>
       <ScrollProgress />
-      <ScrollHueBackground />
-      <ScrollHueShift />
 
+      {/* HOOK — hero + an instant reassurance bar, read as one unit (tone A). */}
       <Hero />
-      <SectionDivider variant="wave" fillToken="--surface-data" />
-      <ByTheNumbers />
       <TrustStrip />
-      <SectionDivider variant="arc" fillToken="--color-bg" />
-      <ParallaxGallery />
-      <SmilesStrip />
-      <ServiceGrid showAll heading="Our Services" />
-      <SectionDivider variant="scallop" fillToken="--color-surface-muted" position="top" />
-      <AboutSplit />
-      <ClinicalTeam />
-      <EmergencyBand />
-      <Testimonials />
-      <InsuranceMarquee />
-      <StaffStrip />
-      <ArticlesGrid />
 
+      {/* HARD TRUST — two decades, measured. */}
+      <SectionDivider variant="wave" fillToken="--color-surface-warm" />
+      <ByTheNumbers />
+
+      {/* WARMTH — the faces of real Aurora neighbors. */}
+      <SectionDivider variant="wave" fillToken="--color-surface-warm" position="top" />
+      <SmilesStrip />
+
+      {/* COMFORT — the calm, easy-to-visit space. */}
+      <SectionDivider variant="arc" fillToken="--color-surface-warm" />
+      <ParallaxGallery />
+
+      {/* THE OFFER — everything we do. */}
+      <SectionDivider variant="wave" fillToken="--color-surface-warm" position="top" />
+      <ServiceGrid showAll heading="Our Services" />
+
+      {/* RELATIONSHIP — the doctor, the standard, and the team, contiguous. */}
+      <SectionDivider variant="wave" fillToken="--color-surface-warm" />
+      <AboutSplit />
+      <SectionDivider variant="wave" fillToken="--color-surface-warm" position="top" />
+      <ClinicalTeam />
+      <SectionDivider variant="wave" fillToken="--color-surface-warm" />
+      <StaffStrip />
+
+      {/* HARD PROOF — verbatim reviews + the aggregate Google rating. */}
+      <SectionDivider variant="wave" fillToken="--color-surface-warm" position="top" />
+      <Testimonials />
+
+      {/* REMOVE FRICTION — cost. */}
+      <SectionDivider variant="wave" fillToken="--color-surface-warm" />
+      <InsuranceMarquee />
+
+      {/* ACT NOW — urgent-care punctuation. */}
+      <SectionDivider variant="arc" fillToken="--color-surface-warm" position="top" />
+      <EmergencyBand />
+
+      {/* CONVERT — the primary appointment request. */}
+      <SectionDivider variant="wave" fillToken="--color-surface-warm" />
       <section className="py-24 lg:py-32 bg-(--color-surface-warm)">
         <Container className="grid lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5">
@@ -76,8 +97,17 @@ export default function HomePage() {
         </Container>
       </section>
 
+      {/* LOGISTICS — where and when. */}
+      <SectionDivider variant="wave" fillToken="--color-surface-warm" position="top" />
       <LocationHours />
+
+      {/* CLOSER — final dark CTA. */}
+      <SectionDivider variant="arc" fillToken="--color-surface-warm" />
       <CTABanner title="Welcoming new patients" description="Book an appointment in minutes." />
+
+      {/* LEARN (coda) — patient education, out of the conversion path. */}
+      <SectionDivider variant="wave" fillToken="--color-surface-warm" position="top" />
+      <ArticlesGrid />
     </>
   );
 }

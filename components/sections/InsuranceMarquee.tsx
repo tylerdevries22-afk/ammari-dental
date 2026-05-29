@@ -10,7 +10,7 @@ type Insurance = (typeof site.insurances)[number];
 
 export function InsuranceMarquee() {
   return (
-    <section className="py-20 border-y border-(--color-brand-100) bg-white">
+    <section className="py-20 bg-(--color-surface-warm)">
       <Container>
         <m.div
           variants={fadeUp}
@@ -25,8 +25,8 @@ export function InsuranceMarquee() {
       </Container>
 
       <div className="relative">
-        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-40 z-10 bg-gradient-to-r from-white to-transparent" />
-        <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-40 z-10 bg-gradient-to-l from-white to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-40 z-10 bg-gradient-to-r from-(--color-surface-warm) to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-40 z-10 bg-gradient-to-l from-(--color-surface-warm) to-transparent" />
 
         <SmoothMarquee durationSec={70}>
           {site.insurances.map((ins) => (

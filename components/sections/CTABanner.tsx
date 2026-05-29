@@ -46,7 +46,7 @@ export function CTABanner({
   }
 
   return (
-    <section className="py-24">
+    <section className="py-24 bg-(--color-surface-warm)">
       <Container>
         <m.div
           ref={ref}

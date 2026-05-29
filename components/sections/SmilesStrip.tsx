@@ -30,13 +30,10 @@ export function SmilesStrip() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-20 lg:py-28 bg-(--color-brand-50)"
+      className="relative overflow-hidden py-20 lg:py-28"
     >
-      {/* Seamless blends: the band melts into the off-white sections above/below. */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-(--color-bg) to-transparent" />
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-(--color-bg) to-transparent" />
-      {/* Soft brand glow behind the row. */}
-      <div aria-hidden className="pointer-events-none absolute left-1/2 top-[58%] -translate-x-1/2 -translate-y-1/2 w-[85%] h-[55%] rounded-[50%] bg-(--color-brand-200)/35 blur-3xl" />
+      {/* Soft brand glow behind the row — the only brand fill in this band. */}
+      <div aria-hidden className="pointer-events-none absolute left-1/2 top-[58%] -translate-x-1/2 -translate-y-1/2 w-[85%] h-[55%] rounded-[50%] bg-(--color-brand-200)/30 blur-3xl" />
 
       <Container>
         <m.div
@@ -55,8 +52,8 @@ export function SmilesStrip() {
 
       <m.div style={{ y: enabled ? rowY : 0 }} className="relative">
         {/* Horizontal edge fades dissolve the row into the band. */}
-        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 z-10 bg-gradient-to-r from-(--color-brand-50) to-transparent" />
-        <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 z-10 bg-gradient-to-l from-(--color-brand-50) to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 z-10 bg-gradient-to-r from-(--color-bg) to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 z-10 bg-gradient-to-l from-(--color-bg) to-transparent" />
 
         <SmoothMarquee durationSec={80}>
           {smiles.map((s) => (

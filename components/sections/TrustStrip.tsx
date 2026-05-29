@@ -13,7 +13,7 @@ const items = [
 
 export function TrustStrip() {
   return (
-    <section className="py-6 border-y border-(--color-brand-100) bg-(--color-surface-muted)/40">
+    <section className="py-5 border-t border-(--color-brand-100)">
       <Container className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm text-(--color-ink-700)">
         {items.map((it, i) => (
           <m.div

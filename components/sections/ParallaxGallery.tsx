@@ -21,8 +21,7 @@ export function ParallaxGallery() {
   });
 
   return (
-    <section ref={ref} className="relative py-24 lg:py-36 overflow-hidden">
-      <div aria-hidden className="absolute inset-0 aurora-gradient opacity-50 -z-10" />
+    <section ref={ref} className="relative py-24 lg:py-36 overflow-hidden bg-(--color-surface-warm)">
       <Container>
         <SectionHeader
           eyebrow="Inside the office"

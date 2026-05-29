@@ -22,7 +22,7 @@ export function AboutSplit() {
   const curtainY = useTransform(scrollYProgress, [0.1, 0.4], ["0%", "-100%"]);
 
   return (
-    <section id="about" data-chapter="About" ref={sectionRef} className="py-24 lg:py-32 bg-(--color-surface-muted)/50 relative anchor-offset">
+    <section id="about" data-chapter="About" ref={sectionRef} className="py-24 lg:py-32 bg-(--color-surface-warm) relative anchor-offset">
       <Container className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <m.div
           variants={stagger(0.08)}
@@ -30,7 +30,7 @@ export function AboutSplit() {
           whileInView={reveal.whileInView}
           viewport={reveal.viewport}
         >
-          <m.div variants={fadeUp} className="eyebrow">Welcome</m.div>
+          <m.div variants={fadeUp} className="eyebrow">Meet Dr. Ammari</m.div>
           <SplitText
             as="h2"
             text="We'll Provide You With That Winning Smile!"
@@ -48,7 +48,7 @@ export function AboutSplit() {
               "New patient special",
               "Friendly, multilingual team",
               "Modern, comfortable office",
-              "Most insurance accepted",
+              "Gentle, judgment-free care",
             ].map((b, i) => (
               <m.li
                 key={b}

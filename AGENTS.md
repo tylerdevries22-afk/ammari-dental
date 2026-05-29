@@ -80,4 +80,4 @@ Mount progressive enhancements via `components/providers/ClientEnhancements.tsx`
 
 ## Sections + chapter markers
 
-The homepage uses `[data-chapter]` + `id` attributes on its key sections so `components/effects/SectionScrollIndicator.tsx` auto-discovers them and renders a right-margin chapter bar (xl+ only). Currently tagged: `#welcome`, `#by-the-numbers`, `#services`, `#about`, `#reviews`, `#team`, `#visit`. Add new chapters by setting both `id` and `data-chapter` on a `<section>` inside `<main>`.
+The homepage uses `[data-chapter]` + `id` attributes on its key sections so `components/effects/SectionScrollIndicator.tsx` auto-discovers them and renders a right-margin chapter bar (xl+ only). Currently tagged (in DOM order): `#welcome`, `#by-the-numbers`, `#services`, `#about`, `#care`, `#team`, `#reviews`, `#visit`. Add new chapters by setting both `id` and `data-chapter` on a `<section>` inside `<main>`.
