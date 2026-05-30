@@ -229,7 +229,7 @@ function SearchOverlay({ onClose }: { onClose: () => void }) {
       animate={{ opacity: 1 }}
       exit={reduced ? { opacity: 0 } : { opacity: 0 }}
       transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed inset-0 z-[100] flex items-start justify-center px-3 sm:px-6 pt-[68px] sm:pt-[88px] bg-(--color-ink-900)/45 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-start justify-center sm:px-6 sm:pt-[88px] bg-(--color-ink-900)/45 backdrop-blur-sm"
       onClick={onClose}
       onKeyDown={onKeyDown}
     >
@@ -239,10 +239,10 @@ function SearchOverlay({ onClose }: { onClose: () => void }) {
         exit={reduced ? { y: 0, opacity: 0 } : { y: -8, scale: 0.99, opacity: 0 }}
         transition={{ type: "spring", stiffness: 360, damping: 32 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[640px] rounded-(--radius-xl) bg-(--color-surface)/95 backdrop-blur-xl border border-(--color-brand-100) shadow-(--shadow-soft-lg) overflow-hidden flex flex-col max-h-[min(72vh,640px)]"
+        className="relative w-full h-[100dvh] max-h-[100dvh] rounded-none border-0 shadow-none pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] sm:w-full sm:max-w-[640px] sm:h-auto sm:max-h-[min(72vh,640px)] sm:rounded-(--radius-xl) sm:border sm:border-(--color-brand-100) sm:shadow-(--shadow-soft-lg) sm:pt-0 sm:pb-0 bg-(--color-surface)/95 backdrop-blur-xl overflow-hidden flex flex-col"
       >
         {/* Header: input + close */}
-        <div className="flex items-center gap-3 px-4 sm:px-5 h-14 border-b border-(--color-brand-100)/70 bg-gradient-to-br from-(--color-brand-50)/40 to-transparent">
+        <div className="flex items-center gap-3 px-4 sm:px-5 h-14 shrink-0 border-b border-(--color-brand-100)/70 bg-gradient-to-br from-(--color-brand-50)/40 to-transparent">
           <Icon name="search" className="w-4 h-4 text-(--color-brand-600) shrink-0" />
           <input
             id={INPUT_ID}
@@ -405,7 +405,7 @@ function SearchOverlay({ onClose }: { onClose: () => void }) {
               <Icon name="arrow" className="w-4 h-4 opacity-80 group-hover:translate-x-0.5 transition-transform" />
             </button>
           )}
-          <div className="px-4 sm:px-5 py-2.5 flex items-center justify-between text-[11px] text-(--color-ink-500)">
+          <div className="hidden sm:flex px-4 sm:px-5 py-2.5 items-center justify-between text-[11px] text-(--color-ink-500)">
             <div className="flex items-center gap-3">
               <KbdHint k="↑" /> <KbdHint k="↓" /> <span>navigate</span>
               <KbdHint k="↵" /> <span>select</span>
