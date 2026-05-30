@@ -258,6 +258,16 @@ const icons: Record<string, ReactNode> = {
       <path d="M12 7v5l3 2" />
     </>
   ),
+  search: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" />
+    </>
+  ),
+  command: (
+    <path d="M6 18a3 3 0 1 1 3-3v6m6 0a3 3 0 1 1 3-3h-6m0 0V9m0 0a3 3 0 1 1 3-3v6m-6 0H9m0 0a3 3 0 1 1-3 3V9" />
+  ),
+  enter: <path d="M9 14l-4-4 4-4m-4 4h11a4 4 0 0 1 0 8h-1" />,
 };
 
 type Variant = "line" | "duotone";

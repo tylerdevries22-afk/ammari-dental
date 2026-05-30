@@ -106,6 +106,31 @@ export function DentalAgent() {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
+  // Bridge from the site-wide SearchPalette: opening the chat with a
+  // pre-filled prompt is dispatched as `ammari:open-chat`. We keep a ref to
+  // the latest `send` so the listener doesn't need to re-subscribe each render.
+  const sendRef = useRef<(text: string) => void>(() => undefined);
+  useEffect(() => {
+    function onOpenChat(e: Event) {
+      const detail = (e as CustomEvent<{ prompt?: string }>).detail ?? {};
+      // Inline openPanel's effects so the listener has no stale closure deps.
+      setOpen(true);
+      setUnread(false);
+      setShowLabel(false);
+      try {
+        sessionStorage.setItem(GREETED_KEY, "1");
+      } catch {
+        /* ignore */
+      }
+      if (detail.prompt) {
+        // Defer so the panel mounts + input focuses before we dispatch.
+        setTimeout(() => sendRef.current(detail.prompt!), 120);
+      }
+    }
+    window.addEventListener("ammari:open-chat", onOpenChat as EventListener);
+    return () => window.removeEventListener("ammari:open-chat", onOpenChat as EventListener);
+  }, []);
+
   useEffect(() => {
     try {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
@@ -134,6 +159,11 @@ export function DentalAgent() {
     setUnread(false);
     dismissLabel();
   }
+
+  // Keep the bridge ref pointed at the latest `send` (defined just below).
+  useEffect(() => {
+    sendRef.current = (text: string) => void send(text);
+  });
 
   async function send(text: string) {
     const trimmed = text.trim();

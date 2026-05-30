@@ -6,6 +6,7 @@ import { m, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { SiteSearch } from "@/components/ui/SiteSearch";
 import { site } from "@/lib/site";
 import { servicesByCategory } from "@/lib/services";
 import { cn } from "@/lib/cn";
@@ -203,10 +204,11 @@ export function Header() {
             })}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <SiteSearch />
             <a
               href={`tel:${site.phoneTel}`}
-              className="text-sm font-semibold text-(--color-ink-700) hover:text-(--color-brand-700)"
+              className="hidden lg:inline text-sm font-semibold text-(--color-ink-700) hover:text-(--color-brand-700)"
             >
               {site.phone}
             </a>
