@@ -35,10 +35,19 @@ const primary: NavItem[] = [
       { label: "Links", href: "/links" },
     ],
   },
-  { label: "Education", href: "/articles/general", kind: "link" },
+  {
+    label: "Education",
+    href: "/articles/general",
+    kind: "menu",
+    items: [
+      { label: "General Dentistry", href: "/articles/general" },
+      { label: "Curated Articles", href: "/articles/baystone_curated_content" },
+      { label: "Educational Videos", href: "/educational-videos" },
+    ],
+  },
   { label: "Blog", href: "/articles/general", kind: "link" },
-  { label: "About Us", href: "/dental-staff", kind: "link" },
-  { label: "Contact Us", href: "/contact", kind: "link" },
+  { label: "About", href: "/dental-staff", kind: "link" },
+  { label: "Contact", href: "/contact", kind: "link" },
 ];
 
 export function Header() {
@@ -98,9 +107,24 @@ export function Header() {
                   >
                     <Link
                       href={item.href}
-                      className="px-3 py-2 text-[13px] font-medium text-(--color-ink-700) hover:text-(--color-brand-700) transition-colors"
+                      className="px-3 py-2 text-[13px] font-medium text-(--color-ink-700) hover:text-(--color-brand-700) transition-colors inline-flex items-center gap-1"
                     >
                       {item.label}
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="11"
+                        height="11"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        fill="none"
+                        className={cn(
+                          "transition-transform duration-200",
+                          openKey === item.label && "rotate-180",
+                        )}
+                        aria-hidden
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
                     </Link>
                     <AnimatePresence>
                       {openKey === item.label && (
@@ -162,7 +186,19 @@ export function Header() {
                       className="px-3 py-2 text-[13px] font-medium text-(--color-ink-700) hover:text-(--color-brand-700) transition-colors inline-flex items-center gap-1"
                     >
                       {item.label}
-                      <svg viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" strokeWidth="2" fill="none">
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="11"
+                        height="11"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        fill="none"
+                        className={cn(
+                          "transition-transform duration-200",
+                          openKey === item.label && "rotate-180",
+                        )}
+                        aria-hidden
+                      >
                         <path d="m6 9 6 6 6-6" />
                       </svg>
                     </Link>
