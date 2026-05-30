@@ -43,13 +43,13 @@ export default function HomePage() {
       <Hero />
       <TrustStrip />
 
-      {/* HARD TRUST — two decades, measured. */}
+      {/* WARMTH — the faces of real Aurora neighbors lead the page. */}
       <SectionDivider variant="wave" fillToken="--color-surface-warm" />
-      <ByTheNumbers />
-
-      {/* WARMTH — the faces of real Aurora neighbors. */}
-      <SectionDivider variant="wave" fillToken="--color-surface-warm" position="top" />
       <SmilesStrip />
+
+      {/* HARD TRUST — two decades, measured. */}
+      <SectionDivider variant="wave" fillToken="--color-surface-warm" position="top" />
+      <ByTheNumbers />
 
       {/* COMFORT — the calm, easy-to-visit space. */}
       <SectionDivider variant="arc" fillToken="--color-surface-warm" />
