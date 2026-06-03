@@ -15,32 +15,34 @@ type Section = {
 const sections: Section[] = [
   { label: "Home", href: "/" },
   {
-    label: "Our Practice",
-    items: [
-      { label: "Improving Your Smile", href: "/-improving-your-smile" },
-      { label: "Comfortable Dentistry", href: "/comfortable-dentistry" },
-      { label: "Financing", href: "/financing" },
-      { label: "Office Location", href: "/our-dental-office-location" },
-    ],
-  },
-  {
     label: "Services",
     items: services.map((s) => ({ label: s.name, href: `/${s.slug}` })),
   },
   {
-    label: "Patient Resources",
+    label: "Resources",
     items: [
+      { label: "Improving Your Smile", href: "/-improving-your-smile" },
+      { label: "Comfortable Dentistry", href: "/comfortable-dentistry" },
+      { label: "Office Location", href: "/our-dental-office-location" },
+      { label: "Financing", href: "/financing" },
       { label: "New Patient Forms", href: "/-new-patient-forms" },
       { label: "Q & A", href: "/-q---a" },
-      { label: "Links", href: "/links" },
       { label: "Post-Op Instructions", href: "/post-op-instructions" },
       { label: "Surgical Instructions", href: "/surgical-instructions" },
+      { label: "Links", href: "/links" },
     ],
   },
-  { label: "Patient Education", href: "/articles/general" },
+  {
+    label: "Education",
+    items: [
+      { label: "General Dentistry", href: "/articles/general" },
+      { label: "Curated Articles", href: "/articles/baystone_curated_content" },
+      { label: "Educational Videos", href: "/educational-videos" },
+    ],
+  },
   { label: "Blog", href: "/articles/general" },
-  { label: "About Us", href: "/dental-staff" },
-  { label: "Contact Us", href: "/contact" },
+  { label: "About", href: "/dental-staff" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {

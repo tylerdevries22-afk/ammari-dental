@@ -13,9 +13,9 @@ export function FloatingCallButton() {
       whileHover={{ scale: 1.06 }}
       whileTap={{ scale: 0.96 }}
       aria-label={`Call ${site.phone}`}
-      className="lg:hidden fixed bottom-5 right-5 z-40 grid place-items-center w-14 h-14 rounded-full bg-(--color-brand-600) text-white shadow-(--shadow-soft-lg)"
+      className="lg:hidden fixed bottom-24 right-5 z-40 grid place-items-center w-14 h-14 rounded-full bg-(--color-brand-600) text-white shadow-(--shadow-soft-lg)"
     >
-      <span className="absolute inset-0 rounded-full bg-(--color-brand-600) animate-ping opacity-20" />
+      <span className="absolute inset-0 rounded-full bg-(--color-accent) animate-ping opacity-30" />
       <Icon name="phone" className="w-6 h-6 relative" />
     </m.a>
   );

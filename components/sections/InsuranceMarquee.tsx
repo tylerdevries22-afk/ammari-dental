@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { m } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SmoothMarquee } from "@/components/ui/SmoothMarquee";
@@ -9,7 +10,7 @@ type Insurance = (typeof site.insurances)[number];
 
 export function InsuranceMarquee() {
   return (
-    <section className="py-20 border-y border-(--color-brand-100) bg-white">
+    <section className="py-20 bg-(--color-surface-warm)">
       <Container>
         <m.div
           variants={fadeUp}
@@ -24,8 +25,8 @@ export function InsuranceMarquee() {
       </Container>
 
       <div className="relative">
-        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-40 z-10 bg-gradient-to-r from-white to-transparent" />
-        <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-40 z-10 bg-gradient-to-l from-white to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-40 z-10 bg-gradient-to-r from-(--color-surface-warm) to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-40 z-10 bg-gradient-to-l from-(--color-surface-warm) to-transparent" />
 
         <SmoothMarquee durationSec={70}>
           {site.insurances.map((ins) => (
@@ -46,11 +47,14 @@ export function InsuranceMarquee() {
 function InsuranceTile({ ins }: { ins: Insurance }) {
   return (
     <div className="group flex items-center justify-center h-20 w-44 px-6 rounded-2xl bg-white border border-(--color-brand-100) shadow-[0_1px_0_rgba(0,0,0,0.02)] hover:shadow-[0_8px_24px_-12px_rgba(15,55,50,0.18)] transition-shadow">
-      <img
+      <Image
         src={ins.logo}
         alt={ins.name}
-        className="max-h-10 max-w-full w-auto object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition duration-500"
+        width={160}
+        height={40}
+        sizes="160px"
         loading="lazy"
+        className="max-h-10 max-w-full w-auto object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition duration-500"
       />
     </div>
   );

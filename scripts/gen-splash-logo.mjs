@@ -1,0 +1,10 @@
+import fs from "node:fs";
+import sharp from "sharp";
+const src = "public/images/practice/ammaridentallogo.png";
+const buf = await sharp(src).resize({ width: 200, height: 200, fit: "contain", background: { r:0,g:0,b:0,alpha:0 } }).webp({ quality: 82, alphaQuality: 90 }).toBuffer();
+const b64 = buf.toString("base64");
+const dataUri = `data:image/webp;base64,${b64}`;
+console.log(`webp bytes: ${buf.length}  | base64 chars: ${b64.length} (~${Math.round(b64.length/1024)}KB inline)`);
+const out = `// Auto-generated: optimized 200px WebP of the practice logo, inlined as a\n// data URI so the splash paints at first render with zero network fetch.\n// Regenerate with scripts/gen-splash-logo.mjs if the logo changes.\nexport const SPLASH_LOGO = ${JSON.stringify(dataUri)};\n`;
+fs.writeFileSync("lib/splashLogo.ts", out);
+console.log("wrote lib/splashLogo.ts");

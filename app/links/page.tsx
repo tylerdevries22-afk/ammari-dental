@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { InfoPage } from "@/components/InfoPage";
 import { metaFor } from "@/lib/metadata";
 
@@ -50,7 +51,7 @@ export default function Page() {
         <li><a href="/post-op-instructions">Post-Op Instructions</a></li>
         <li><a href="/surgical-instructions">Surgical Instructions</a></li>
         <li><a href="/before-anesthesia">Before Anesthesia</a></li>
-        <li><a href="/articles/general">Patient Education Library</a></li>
+        <li><Link href="/articles/general">Patient Education Library</Link></li>
       </ul>
     </InfoPage>
   );

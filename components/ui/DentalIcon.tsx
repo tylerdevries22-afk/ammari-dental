@@ -14,6 +14,17 @@ const icons: Record<string, ReactNode> = {
       <path d="M9 12l2 2 4-4" />
     </>
   ),
+  // Logo mark: a tooth with leaves sprouting from the crown.
+  "tooth-leaf": (
+    <>
+      <g transform="translate(1.2 3) scale(0.88)">
+        <path d="M12 3.5c-2.4 0-4.5 1.5-5.5 3.5-.7 1.5-.5 3 .2 4.4.7 1.5 1.3 3 1.3 5 0 1.6.4 3.6 1.5 4.6.6.5 1.4.4 1.7-.5.5-1.4.6-3 .8-4.5.1-1 .8-1.5 2-1.5s1.9.5 2 1.5c.2 1.5.3 3.1.8 4.5.3.9 1.1 1 1.7.5 1.1-1 1.5-3 1.5-4.6 0-2 .6-3.5 1.3-5 .7-1.4.9-2.9.2-4.4-1-2-3.1-3.5-5.5-3.5z" />
+      </g>
+      <path d="M12 6.3c.4-2.1 2-3.4 4.1-3.6-.2 2.2-1.8 3.5-4.1 3.6z" />
+      <path d="M12 6.3c-.3-1.6-1.4-2.6-3.1-2.8.2 1.7 1.3 2.7 3.1 2.8z" strokeWidth={1.2} />
+      <path d="M12 6.6V5.1" strokeWidth={1.2} />
+    </>
+  ),
   "tooth-heart": (
     <>
       <path d="M12 3.5c-2.4 0-4.5 1.5-5.5 3.5-.7 1.5-.5 3 .2 4.4.7 1.5 1.3 3 1.3 5 0 1.6.4 3.6 1.5 4.6.6.5 1.4.4 1.7-.5.5-1.4.6-3 .8-4.5.1-1 .8-1.5 2-1.5s1.9.5 2 1.5c.2 1.5.3 3.1.8 4.5.3.9 1.1 1 1.7.5 1.1-1 1.5-3 1.5-4.6 0-2 .6-3.5 1.3-5 .7-1.4.9-2.9.2-4.4-1-2-3.1-3.5-5.5-3.5z" />
@@ -240,13 +251,45 @@ const icons: Record<string, ReactNode> = {
     </>
   ),
   bridge_legacy: <path d="M3 12h18M6 12V8m12 4V8M6 12v6h12v-6" />,
+  check: <path d="M5 12l5 5 9-11" />,
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </>
+  ),
+  search: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" />
+    </>
+  ),
+  command: (
+    <path d="M6 18a3 3 0 1 1 3-3v6m6 0a3 3 0 1 1 3-3h-6m0 0V9m0 0a3 3 0 1 1 3-3v6m-6 0H9m0 0a3 3 0 1 1-3 3V9" />
+  ),
+  enter: <path d="M9 14l-4-4 4-4m-4 4h11a4 4 0 0 1 0 8h-1" />,
 };
 
+type Variant = "line" | "duotone";
+
+/**
+ * Duotone rendering layers a soft brand-100 fill at low opacity behind the
+ * existing stroke geometry. Effect: the icon reads as a flat brand-coloured
+ * shape with a darker outline — same vocabulary across the whole library
+ * without redrawing each path.
+ *
+ * Pass `variant="line"` for the original outline-only behavior.
+ */
 export function DentalIcon({
   name,
   className,
+  variant = "duotone",
   ...props
-}: { name: string; className?: string } & SVGProps<SVGSVGElement>) {
+}: {
+  name: string;
+  className?: string;
+  variant?: Variant;
+} & SVGProps<SVGSVGElement>) {
   const node = icons[name] ?? icons.tooth;
   return (
     <svg
@@ -260,6 +303,16 @@ export function DentalIcon({
       aria-hidden="true"
       {...props}
     >
+      {variant === "duotone" && (
+        <g
+          fill="var(--color-brand-100)"
+          stroke="none"
+          opacity="0.85"
+          style={{ mixBlendMode: "multiply" }}
+        >
+          {node}
+        </g>
+      )}
       {node}
     </svg>
   );

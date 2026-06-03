@@ -7,25 +7,39 @@
   --color-surface-muted: #F1EFEA;
   --color-surface-warm: #F7F2EC;
 
-  /* Brand — deep teal-mineral with aurora green undertones */
-  --color-brand-50:  #ECF5F4;
-  --color-brand-100: #D5EAE8;
-  --color-brand-200: #A6D2CD;
-  --color-brand-300: #74B6AF;
-  --color-brand-400: #3F948C;
-  --color-brand-500: #2C7973;
-  --color-brand-600: #1F635E;
-  --color-brand-700: #154944;
-  --color-brand-800: #0F3633;
-  --color-brand-900: #0A2624;
+  /* Brand — emerald green, sampled from the logo's tooth-mark gradient (#14A35A core) */
+  --color-brand-50:  #ECF7F0;
+  --color-brand-100: #D1EFDE;
+  --color-brand-200: #A1DEBC;
+  --color-brand-300: #66C892;
+  --color-brand-400: #2DAE6B;
+  --color-brand-500: #119351;
+  --color-brand-600: #0C7A43;
+  --color-brand-700: #0A5C34;
+  --color-brand-800: #084425;
+  --color-brand-900: #06301B;
 
-  /* Accent — rose-gold / champagne for cosmetic warmth */
-  --color-accent:    #C8956D;
-  --color-accent-50: #FAF1E9;
-  --color-accent-100:#F2DCC4;
-  --color-accent-300:#DDB48B;
-  --color-accent-500:#B07A4A;
-  --color-accent-600:#925F33;
+  /* Leaf — sampled from the logo's emerald→lime gradient + yellow leaves.
+     Used by the service-icon illustration set so it matches the mark. */
+  --color-leaf-50:   #EAF8EF;
+  --color-leaf-100:  #CFEFD9;
+  --color-leaf-300:  #68E2A7;
+  --color-leaf-500:  #14A35A;
+  --color-leaf-600:  #109E54;
+  --color-leaf-700:  #0B6B3B;
+  --color-leaf-lime: #A8D62A;
+  --color-leaf-yellow: #D8F93A;
+
+  /* Accent — lime / leaf-green, sampled from the logo's leaves (#9BCB24 pop).
+     Bright shades (default/300) are pops on dark or large fills; 600/700 are the
+     accessible (WCAG AA) shades for glyphs/text on light surfaces. */
+  --color-accent:    #9BCB24;
+  --color-accent-50: #F6FBE6;
+  --color-accent-100:#E9F6C2;
+  --color-accent-300:#C2E25C;
+  --color-accent-500:#7AA61C;
+  --color-accent-600:#556F16;
+  --color-accent-700:#3D5212;
 
   /* Tertiary — soft sage for variety */
   --color-sage-100:  #E8EDE0;
@@ -51,6 +65,7 @@
   --radius-md: 12px;
   --radius-lg: 18px;
   --radius-xl: 28px;
+  --radius-2xl: 40px;
   --radius-pill: 9999px;
 
   /* Shadows — warm, sculpted */
@@ -62,6 +77,69 @@
   /* Fonts (provided by next/font in layout) */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Typography scale — fluid clamp() driven (modular 1.25 ratio) */
+  --text-xs:      clamp(0.75rem, 0.71rem + 0.18vw, 0.875rem);
+  --text-sm:      clamp(0.875rem, 0.83rem + 0.22vw, 1rem);
+  --text-base:    clamp(1rem, 0.94rem + 0.27vw, 1.125rem);
+  --text-lg:      clamp(1.125rem, 1.05rem + 0.36vw, 1.375rem);
+  --text-xl:      clamp(1.375rem, 1.25rem + 0.6vw, 1.75rem);
+  --text-2xl:     clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
+  --text-3xl:     clamp(2.25rem, 1.85rem + 1.9vw, 3.5rem);
+  --text-4xl:     clamp(3rem, 2.4rem + 2.9vw, 5rem);
+  --text-5xl:     clamp(4rem, 3rem + 4.8vw, 7rem);
+  --text-display: clamp(5rem, 3.5rem + 7.3vw, 10rem);
+
+  /* Line-height tokens */
+  --leading-tight:   1.05;
+  --leading-snug:    1.2;
+  --leading-normal:  1.4;
+  --leading-relaxed: 1.6;
+  --leading-prose:   1.75;
+
+  /* Letter-spacing tokens */
+  --tracking-tightest: -0.04em;
+  --tracking-tight:    -0.025em;
+  --tracking-normal:    0;
+  --tracking-wide:      0.04em;
+  --tracking-widest:    0.16em;
+
+  /* Font-weight tokens */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* Motion tokens — easing */
+  --ease-out:       cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out:    cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-snap:      cubic-bezier(0.85, 0, 0.15, 1);
+
+  /* Motion tokens — duration */
+  --duration-fast:        180ms;
+  --duration-base:        320ms;
+  --duration-slow:        560ms;
+  --duration-deliberate:  900ms;
+
+  /* Z-index scale */
+  --z-base:     0;
+  --z-rise:     10;
+  --z-sticky:   20;
+  --z-overlay:  30;
+  --z-header:   50;
+  --z-cursor:   70;
+  --z-progress: 80;
+  --z-modal:    90;
+  --z-skip:     100;
+
+  /* Surface extensions for medical-tech glass + data treatments */
+  --surface-glass:   color-mix(in oklab, var(--color-surface) 65%, transparent);
+  --surface-glass-dark: color-mix(in oklab, var(--color-brand-900) 55%, transparent);
+  --surface-deep:    var(--color-brand-900);
+  --surface-inverse: var(--color-ink-900);
+  --surface-data:    color-mix(in oklab, var(--color-brand-50) 50%, var(--color-surface));
 }
 
 @layer base {
@@ -74,18 +152,30 @@
     background: var(--color-bg);
     color: var(--color-ink-900);
     font-family: var(--font-sans);
-    font-size: 17px;
-    line-height: 1.65;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     color: var(--color-ink-900);
-    letter-spacing: -0.025em;
-    font-weight: 500;
+    letter-spacing: var(--tracking-tight);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-tight);
+    text-wrap: balance;
   }
+
+  h1 { font-size: var(--text-4xl); letter-spacing: var(--tracking-tightest); }
+  h2 { font-size: var(--text-3xl); }
+  h3 { font-size: var(--text-2xl); }
+  h4 { font-size: var(--text-xl); line-height: var(--leading-snug); }
+  h5 { font-size: var(--text-lg); line-height: var(--leading-snug); }
+  h6 { font-size: var(--text-base); line-height: var(--leading-snug); letter-spacing: var(--tracking-normal); }
+
+  p { text-wrap: pretty; }
 
   ::selection {
     background: var(--color-brand-200);
@@ -107,6 +197,16 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+
+  /* Manual reduced-motion opt-in via [data-motion=reduce] on <html> */
+  [data-motion="reduce"] *,
+  [data-motion="reduce"] *::before,
+  [data-motion="reduce"] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
@@ -170,9 +270,9 @@
   /* Aurora gradient — used as scroll-driven background */
   .aurora-gradient {
     background:
-      radial-gradient(60% 50% at 20% 20%, rgba(63,148,140,0.25) 0%, transparent 60%),
-      radial-gradient(50% 60% at 80% 30%, rgba(200,149,109,0.18) 0%, transparent 60%),
-      radial-gradient(70% 50% at 60% 80%, rgba(166,210,205,0.30) 0%, transparent 70%);
+      radial-gradient(60% 50% at 20% 20%, rgba(45,174,107,0.25) 0%, transparent 60%),
+      radial-gradient(50% 60% at 80% 30%, rgba(155,203,36,0.16) 0%, transparent 60%),
+      radial-gradient(70% 50% at 60% 80%, rgba(161,222,188,0.32) 0%, transparent 70%);
   }
 
   /* Soft gradient text for hero accents */
@@ -195,5 +295,48 @@
   .mask-fade-b {
     -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
             mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+
+  /* Medical-tech: monospaced data lockup */
+  .data-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  /* Medical-tech: tabular numerics for stat counters */
+  .num-tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* Glass dark variant for video overlays */
+  .glass-dark {
+    background: var(--surface-glass-dark);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid color-mix(in oklab, var(--color-brand-300) 25%, transparent);
+  }
+
+  /* GPU-composited noise overlay (used on hero video for film-grain feel) */
+  .noise-overlay {
+    position: relative;
+    isolation: isolate;
+  }
+  .noise-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
+    background-size: 160px 160px;
+  }
+
+  /* Section anchor offset for sticky header */
+  .anchor-offset {
+    scroll-margin-top: 96px;
   }
 }

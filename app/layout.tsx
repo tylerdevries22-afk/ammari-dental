@@ -6,8 +6,11 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingCallButton } from "@/components/layout/FloatingCallButton";
+import { DentalAgent } from "@/components/agent/DentalAgent";
+import { SplashScreen } from "@/components/SplashScreen";
 import { LocalBusinessSchema } from "@/components/schema/Schema";
 import { MotionProvider } from "@/components/MotionProvider";
+import { ClientEnhancements } from "@/components/providers/ClientEnhancements";
 import { metaFor } from "@/lib/metadata";
 
 const inter = Inter({
@@ -36,11 +39,32 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
       <body className="min-h-screen flex flex-col antialiased">
+        {/*
+          Once-per-session splash gate. Runs before the splash element is
+          parsed, so on repeat loads in the same session it marks <html> and
+          the CSS hides the splash before first paint (no flash). First load of
+          a session leaves it visible and sets the flag.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(sessionStorage.getItem('am-splash-shown')){document.documentElement.classList.add('am-splash-seen')}else{sessionStorage.setItem('am-splash-shown','1')}}catch(e){}",
+          }}
+        />
+        <SplashScreen />
         <MotionProvider>
           <Header />
           <main id="main" className="flex-1">{children}</main>
           <Footer />
           <FloatingCallButton />
+          <DentalAgent />
+          {/*
+            ClientEnhancements is rendered AFTER Header/main/Footer so the
+            skip link (first focusable in Header) is hit first by Tab. The
+            SectionScrollIndicator renders anchor links that would otherwise
+            steal initial focus from the skip link.
+          */}
+          <ClientEnhancements />
         </MotionProvider>
         <LocalBusinessSchema />
         <Analytics />

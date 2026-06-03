@@ -1,16 +1,16 @@
 "use client";
 import { useRef } from "react";
-import Image from "next/image";
 import {
   m,
   useScroll,
   useTransform,
-  useSpring,
 } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { Icon } from "@/components/ui/Icon";
 import { Magnetic } from "@/components/ui/MagneticButton";
 import { SplitText } from "@/components/ui/SplitText";
+import { ScrollScrubVideo } from "@/components/ui/ScrollScrubVideo";
 import { fadeUp, stagger, reveal } from "@/lib/motion";
 
 export function AboutSplit() {
@@ -19,15 +19,10 @@ export function AboutSplit() {
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const imgY = useSpring(useTransform(scrollYProgress, [0, 1], [-30, 30]), {
-    stiffness: 80,
-    damping: 22,
-  });
   const curtainY = useTransform(scrollYProgress, [0.1, 0.4], ["0%", "-100%"]);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.1, 0.98]);
 
   return (
-    <section ref={sectionRef} className="py-24 lg:py-32 bg-(--color-surface-muted)/50 relative">
+    <section id="about" data-chapter="About" ref={sectionRef} className="py-24 lg:py-32 bg-(--color-surface-warm) relative anchor-offset">
       <Container className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <m.div
           variants={stagger(0.08)}
@@ -35,7 +30,7 @@ export function AboutSplit() {
           whileInView={reveal.whileInView}
           viewport={reveal.viewport}
         >
-          <m.div variants={fadeUp} className="eyebrow">Welcome</m.div>
+          <m.div variants={fadeUp} className="eyebrow">Meet Dr. Ammari</m.div>
           <SplitText
             as="h2"
             text="We'll Provide You With That Winning Smile!"
@@ -53,7 +48,7 @@ export function AboutSplit() {
               "New patient special",
               "Friendly, multilingual team",
               "Modern, comfortable office",
-              "Most insurance accepted",
+              "Gentle, judgment-free care",
             ].map((b, i) => (
               <m.li
                 key={b}
@@ -106,18 +101,14 @@ export function AboutSplit() {
           className="relative"
         >
           <div className="relative aspect-[4/5] rounded-[28px] shadow-(--shadow-soft-lg) overflow-hidden">
-            <m.div
-              style={{ y: imgY, scale: imgScale }}
-              className="absolute inset-0 will-change-transform"
-            >
-              <Image
-                src="/images/staff/dr-ammari.jpg"
-                alt="Dr. Raed Ammari, DDS — Ammari Dental, Aurora, CO"
-                fill
-                sizes="(max-width: 1024px) 90vw, 45vw"
-                className="object-cover"
-              />
-            </m.div>
+            <ScrollScrubVideo
+              src="/videos/hero-scrub.mp4"
+              poster="/images/practice/dentist-poster.webp"
+              posterAlt="Dr. Raed Ammari providing dental care at Ammari Dental, Aurora, CO"
+              scrollTarget={sectionRef}
+              parallax={40}
+              endAt={0.65}
+            />
 
             <m.div
               style={{ y: curtainY }}
@@ -132,47 +123,43 @@ export function AboutSplit() {
               className="pointer-events-none absolute top-6 left-6 right-6 h-px bg-white/40 origin-left"
               aria-hidden
             />
-
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent p-6 text-white">
-              <m.div
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ delay: 0.55, duration: 0.6 }}
-                className="font-display text-2xl"
-              >
-                Dr. Raed Ammari, DDS
-              </m.div>
-              <m.div
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ delay: 0.65, duration: 0.6 }}
-                className="text-sm opacity-90 mt-1"
-              >
-                Family &amp; Cosmetic Dentistry
-              </m.div>
-              <m.div
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ delay: 0.75, duration: 0.6 }}
-                className="mt-3 inline-block text-xs uppercase tracking-widest bg-white/15 backdrop-blur px-3 py-1 rounded-full font-semibold"
-              >
-                Aurora, CO
-              </m.div>
-            </div>
           </div>
 
+          {/* Booking badge — travels with the video */}
           <m.div
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ delay: 0.9, type: "spring", stiffness: 200, damping: 22 }}
-            className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-(--shadow-soft-lg) px-5 py-4"
+            transition={{ delay: 0.7, type: "spring", stiffness: 200, damping: 22 }}
+            className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-(--shadow-soft-lg) p-4 flex items-center gap-3 max-w-[260px]"
           >
-            <div className="text-3xl font-display text-(--color-brand-700)">20+</div>
-            <div className="text-xs text-(--color-ink-500)">years caring for Aurora</div>
+            <m.span
+              animate={{ scale: [1, 1.18, 1] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+              className="grid place-items-center w-10 h-10 rounded-full bg-(--color-success)/15 text-(--color-success)"
+            >
+              <Icon name="calendar" className="w-5 h-5" />
+            </m.span>
+            <div>
+              <div className="text-xs text-(--color-ink-500)">Now booking</div>
+              <div className="text-sm font-semibold">Same-week openings</div>
+            </div>
+          </m.div>
+
+          {/* Rating badge — travels with the video */}
+          <m.div
+            initial={{ opacity: 0, x: 20, scale: 0.9 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ delay: 0.9, type: "spring", stiffness: 200, damping: 22 }}
+            className="absolute top-6 -right-4 lg:-right-8 bg-white/90 backdrop-blur rounded-2xl shadow-(--shadow-soft-md) px-4 py-3 hidden md:flex items-center gap-2"
+          >
+            <span className="flex gap-0.5 text-(--color-accent-600)">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Icon key={i} name="star" className="w-3 h-3 fill-current" />
+              ))}
+            </span>
+            <span className="text-xs font-semibold text-(--color-ink-700)">5.0 patient rated</span>
           </m.div>
         </m.div>
       </Container>

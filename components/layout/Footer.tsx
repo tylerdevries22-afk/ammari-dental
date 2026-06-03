@@ -15,8 +15,10 @@ export function Footer() {
               <Image
                 src="/images/practice/logo.webp"
                 alt=""
-                width={32}
-                height={32}
+                width={64}
+                height={64}
+                sizes="32px"
+                loading="lazy"
                 className="w-full h-full object-contain"
               />
             </span>

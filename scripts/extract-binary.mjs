@@ -1,0 +1,11 @@
+import fs from "node:fs";
+const [src, out] = process.argv.slice(2);
+const raw = fs.readFileSync(src, "utf8");
+const outer = JSON.parse(raw);
+const payload = outer.text ? JSON.parse(outer.text) : outer;
+const b64 = (payload.base64 || payload.content || "").replace(/^data:[^;]+;base64,/, "");
+const buf = Buffer.from(b64, "base64");
+console.log(`${src} → ${buf.length} bytes, ${payload.contentType || "binary"}`);
+fs.writeFileSync(out, buf);
+const stat = fs.statSync(out);
+console.log(`  → ${out} (${Math.round(stat.size / 1024)} KB)`);
