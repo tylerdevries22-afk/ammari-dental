@@ -138,6 +138,28 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
                 Call {site.phone}
               </Button>
               <Button href="/appointment" size="md">Book Appointment</Button>
+              <div className="grid grid-cols-2 gap-2 pt-1">
+                <Link
+                  href="/login"
+                  onClick={onClose}
+                  className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl border border-(--color-brand-200) text-(--color-brand-700) text-sm font-semibold hover:bg-(--color-brand-50) transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2" fill="none">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3" />
+                  </svg>
+                  Log In
+                </Link>
+                <Link
+                  href="/login"
+                  onClick={onClose}
+                  className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-(--color-brand-600) text-white text-sm font-semibold hover:bg-(--color-brand-700) transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2" fill="none">
+                    <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                  </svg>
+                  Sign Up
+                </Link>
+              </div>
             </div>
           </m.div>
         </m.div>

@@ -201,6 +201,15 @@ export function Header() {
             >
               {site.phone}
             </a>
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-(--color-brand-300) text-(--color-brand-700) text-xs font-semibold hover:bg-(--color-brand-50) transition-colors"
+            >
+              <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" strokeWidth="2" fill="none">
+                <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+              </svg>
+              Staff Login
+            </Link>
           </div>
 
           <button

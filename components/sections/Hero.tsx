@@ -1,14 +1,7 @@
 "use client";
 import { useRef } from "react";
 import Image from "next/image";
-import {
-  m,
-  useScroll,
-  useTransform,
-  useSpring,
-  useMotionValue,
-  useReducedMotion,
-} from "framer-motion";
+import { m, useScroll, useTransform, useSpring, useMotionValue, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -21,21 +14,17 @@ const headlineWords = ["Friendly", "Staff.", "Beautiful", "Smiles.", "Welcoming"
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
 
-  const ySlow = useSpring(useTransform(scrollYProgress, [0, 1], [0, 140]), { stiffness: 80, damping: 20 });
-  const yFast = useSpring(useTransform(scrollYProgress, [0, 1], [0, -60]), { stiffness: 80, damping: 20 });
-  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
-  const imageY = useSpring(useTransform(scrollYProgress, [0, 1], [0, -40]), { stiffness: 80, damping: 22 });
+  const opacity  = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
+  const scale    = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
+  const imageY   = useTransform(scrollYProgress, [0, 1], [0, -40]);
 
+  // Cursor parallax — higher stiffness (160 vs 50) means spring settles in ~6 frames
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
-  const sx = useSpring(cursorX, { stiffness: 50, damping: 18 });
-  const sy = useSpring(cursorY, { stiffness: 50, damping: 18 });
+  const sx = useSpring(cursorX, { stiffness: 160, damping: 22, mass: 0.4 });
+  const sy = useSpring(cursorY, { stiffness: 160, damping: 22, mass: 0.4 });
   const flairX = useTransform(sx, [-1, 1], [-30, 30]);
   const flairY = useTransform(sy, [-1, 1], [-25, 25]);
 
@@ -52,12 +41,13 @@ export function Hero() {
       onMouseMove={onMove}
       className="relative pt-[72px] overflow-hidden"
     >
+      {/* Cursor-driven flair blobs — compositor-only transform, no layout/paint */}
       <m.div
-        style={{ y: ySlow, x: flairX }}
+        style={{ y: useTransform(scrollYProgress, [0,1],[0,140]), x: flairX, willChange: "transform" }}
         className="absolute -top-40 -right-40 w-[640px] h-[640px] rounded-full bg-gradient-to-br from-(--color-brand-200) via-(--color-brand-100) to-transparent blur-3xl opacity-70 -z-10"
       />
       <m.div
-        style={{ y: yFast, x: flairY }}
+        style={{ y: useTransform(scrollYProgress, [0,1],[0,-60]), x: flairY, willChange: "transform" }}
         className="absolute top-40 -left-40 w-[520px] h-[520px] rounded-full bg-gradient-to-tr from-(--color-accent)/20 via-(--color-brand-50) to-transparent blur-3xl opacity-70 -z-10"
       />
 
@@ -182,7 +172,7 @@ export function Hero() {
         </m.div>
 
         <m.div
-          style={{ scale, opacity, x: useTransform(sx, [-1, 1], [-12, 12]) }}
+          style={{ scale, opacity, x: useTransform(sx, [-1, 1], [-12, 12]), willChange: "transform" }}
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -208,18 +198,8 @@ export function Hero() {
               aria-hidden
             />
 
-            <m.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-8 left-8 w-20 h-20 rounded-full bg-(--color-brand-200)/40 blur-md pointer-events-none"
-              aria-hidden
-            />
-            <m.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-12 right-10 w-16 h-16 rounded-full bg-(--color-accent)/30 blur-md pointer-events-none"
-              aria-hidden
-            />
+            <div className="absolute top-8 left-8 w-20 h-20 rounded-full bg-(--color-brand-200)/40 blur-md pointer-events-none animate-[float-slow_4s_ease-in-out_infinite]" aria-hidden />
+            <div className="absolute bottom-12 right-10 w-16 h-16 rounded-full bg-(--color-accent)/30 blur-md pointer-events-none animate-[float-slow_5s_ease-in-out_0.5s_infinite]" aria-hidden />
           </div>
 
           <m.div
@@ -266,11 +246,7 @@ export function Hero() {
       >
         Scroll
         <span className="relative w-px h-10 overflow-hidden">
-          <m.span
-            animate={{ y: ["-100%", "100%"] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0 bg-(--color-brand-600)"
-          />
+          <span className="absolute inset-0 bg-(--color-brand-600) animate-scroll-line" />
         </span>
       </m.div>
     </section>

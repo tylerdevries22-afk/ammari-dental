@@ -38,5 +38,5 @@ export const stagger = (gap = 0.08, delay = 0.05): Variants => ({
 export const reveal = {
   initial: "hidden" as const,
   whileInView: "show" as const,
-  viewport: { once: true, amount: 0.3 },
+  viewport: { once: true, amount: 0.12 },
 };

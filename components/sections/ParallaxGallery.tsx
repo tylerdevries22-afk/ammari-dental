@@ -7,18 +7,23 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { fadeUp, reveal } from "@/lib/motion";
 
 const tiles = [
-  { src: "/images/practice/hero-1.webp", alt: "Treatment room", size: "tall", rate: 0.18 },
-  { src: "/images/practice/hero-2.webp", alt: "Modern operatory", size: "wide", rate: -0.12 },
-  { src: "/images/practice/hero-3.webp", alt: "Reception area", size: "square", rate: 0.24 },
-  { src: "/images/practice/hero-4.webp", alt: "Comfortable lobby", size: "tall", rate: -0.20 },
+  { src: "/images/practice/hero-1.webp", alt: "Treatment room",   size: "tall",   rate: 0.14 },
+  { src: "/images/practice/hero-2.webp", alt: "Modern operatory", size: "wide",   rate: -0.10 },
+  { src: "/images/practice/hero-3.webp", alt: "Reception area",   size: "square", rate: 0.18 },
+  { src: "/images/practice/hero-4.webp", alt: "Comfortable lobby",size: "tall",   rate: -0.16 },
 ];
+
+type Size = "tall" | "wide" | "square";
+
+const sizeClass: Record<Size, string> = {
+  tall:   "col-span-6 lg:col-span-4 row-span-3",
+  wide:   "col-span-6 lg:col-span-8 row-span-2",
+  square: "col-span-6 lg:col-span-4 row-span-2",
+};
 
 export function ParallaxGallery() {
   const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
 
   return (
     <section ref={ref} className="relative py-24 lg:py-36 overflow-hidden">
@@ -26,11 +31,7 @@ export function ParallaxGallery() {
       <Container>
         <SectionHeader
           eyebrow="Inside the office"
-          title={
-            <>
-              Designed to feel <span className="text-aurora">at ease</span>.
-            </>
-          }
+          title={<>Designed to feel <span className="text-aurora">at ease</span>.</>}
           description="Calm rooms, gentle lighting, and modern equipment — every detail tuned so your appointment feels less clinical and more comforting."
         />
 
@@ -38,12 +39,10 @@ export function ParallaxGallery() {
           {tiles.map((t, i) => (
             <ParallaxTile
               key={t.src}
-              src={t.src}
-              alt={t.alt}
-              size={t.size as "tall" | "wide" | "square"}
-              rate={t.rate}
-              progress={scrollYProgress}
+              {...t}
+              size={t.size as Size}
               index={i}
+              progress={scrollYProgress}
             />
           ))}
         </div>
@@ -64,48 +63,25 @@ export function ParallaxGallery() {
   );
 }
 
-type Size = "tall" | "wide" | "square";
-
-const sizeClass: Record<Size, string> = {
-  tall: "col-span-6 lg:col-span-4 row-span-3",
-  wide: "col-span-6 lg:col-span-8 row-span-2",
-  square: "col-span-6 lg:col-span-4 row-span-2",
-};
-
 function ParallaxTile({
-  src,
-  alt,
-  size,
-  rate,
-  progress,
-  index,
+  src, alt, size, rate, progress, index,
 }: {
-  src: string;
-  alt: string;
-  size: Size;
-  rate: number;
-  progress: ReturnType<typeof useScroll>["scrollYProgress"];
-  index: number;
+  src: string; alt: string; size: Size; rate: number;
+  progress: ReturnType<typeof useScroll>["scrollYProgress"]; index: number;
 }) {
   const y = useTransform(progress, [0, 1], [0, rate * 320]);
-  const scale = useTransform(progress, [0, 0.5, 1], [1.06, 1, 1.04]);
 
   return (
     <m.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ delay: index * 0.08, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ delay: index * 0.07, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={`${sizeClass[size]} relative rounded-[28px] overflow-hidden shadow-(--shadow-soft-md) bg-(--color-brand-50)`}
     >
-      <m.div style={{ y, scale }} className="absolute inset-0 will-change-transform">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes="(max-width: 1024px) 50vw, 33vw"
-          className="object-cover"
-        />
+      {/* Inner wrapper carries the parallax — will-change promotes to GPU layer */}
+      <m.div style={{ y, willChange: "transform" }} className="absolute inset-0">
+        <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 50vw, 33vw" className="object-cover" />
       </m.div>
       <div className="absolute inset-0 bg-gradient-to-t from-(--color-brand-900)/30 via-transparent to-transparent pointer-events-none" />
     </m.div>

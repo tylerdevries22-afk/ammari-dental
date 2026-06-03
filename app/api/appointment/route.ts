@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { site } from "@/lib/site";
+import { supabaseAdmin } from "@/lib/supabase";
 
 type AppointmentPayload = {
   name?: string;
@@ -75,6 +76,34 @@ export async function POST(request: Request) {
       replyTo: body.email,
       html,
     });
+
+    // Persist lead + appointment to Supabase
+    const db = supabaseAdmin();
+    const { data: lead } = await db
+      .from("leads")
+      .insert({
+        name: body.name ?? null,
+        email: body.email ?? null,
+        phone: body.phone ?? null,
+        service_interest: body.reason ?? null,
+        status: "appointment_requested",
+      })
+      .select("id")
+      .single();
+
+    if (lead?.id) {
+      await db.from("appointments").insert({
+        lead_id: lead.id,
+        start_time: body.preferredDate ? new Date(body.preferredDate).toISOString() : null,
+        status: "pending",
+        type: body.reason ?? null,
+      });
+      await db.from("ai_events").insert({
+        event_type: "appointment_form_submitted",
+        payload: { lead_id: lead.id, name: body.name, reason: body.reason },
+        agent_id: "appointment-form",
+      });
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
