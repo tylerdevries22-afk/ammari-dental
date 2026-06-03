@@ -29,3 +29,33 @@ test("skip link is reachable via keyboard", async ({ page }) => {
   const focused = await page.evaluate(() => document.activeElement?.textContent);
   expect(focused).toMatch(/skip to content/i);
 });
+
+// The booking picker ships behind NEXT_PUBLIC_BOOKING_FLAG. In CI the flag is
+// "off" by default, so /appointment renders the legacy form (covered above).
+// When the flag is "preview" or "on", the picker becomes scannable and this
+// suite runs the same axe rules against its initial step.
+const pickerEnabled = ["preview", "on"].includes(
+  process.env.NEXT_PUBLIC_BOOKING_FLAG ?? "",
+);
+
+test.describe(pickerEnabled ? "booking picker" : "booking picker (skipped — flag off)", () => {
+  test.skip(!pickerEnabled, "Set NEXT_PUBLIC_BOOKING_FLAG=preview to run");
+
+  test("a11y: /appointment?booking=1 (reason step)", async ({ page }) => {
+    await page.goto("/appointment?booking=1");
+    // Wait for the reason cards to mount (initial fetch resolves).
+    await page.getByRole("radiogroup", { name: /reason/i }).waitFor();
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+      .exclude("video[aria-hidden='true']")
+      .analyze();
+    const blocking = results.violations.filter(
+      (v) => v.impact === "serious" || v.impact === "critical",
+    );
+    expect(
+      blocking,
+      `Found ${blocking.length} a11y violations:\n` +
+        blocking.map((v) => `- ${v.id}: ${v.help}`).join("\n"),
+    ).toEqual([]);
+  });
+});
