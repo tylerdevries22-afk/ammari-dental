@@ -248,6 +248,12 @@ export function Header() {
             >
               {site.phone}
             </a>
+            <Link
+              href="/appointment"
+              className="hidden xl:inline-flex items-center justify-center h-10 px-5 rounded-full text-sm font-semibold bg-(--color-brand-600) text-(--color-brand-50) hover:bg-(--color-brand-700) shadow-(--shadow-soft-sm) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-400) focus-visible:ring-offset-2"
+            >
+              Book
+            </Link>
           </div>
 
           <button

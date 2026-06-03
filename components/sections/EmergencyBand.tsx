@@ -30,7 +30,7 @@ export function EmergencyBand() {
                 </span>
                 Dental Emergency
               </div>
-              <h2 className="mt-4 text-4xl lg:text-5xl font-display tracking-tight leading-[1.05]">
+              <h2 className="mt-4 text-4xl lg:text-5xl font-display tracking-tight leading-[1.05] text-(--color-accent-300)!">
                 Pain, swelling, or a broken tooth?
               </h2>
               <p className="mt-4 text-white/85 max-w-lg">
@@ -38,12 +38,17 @@ export function EmergencyBand() {
               </p>
             </div>
             <div className="lg:col-span-5 flex flex-col gap-3">
-              <Button href={`tel:${site.phoneTel}`} variant="secondary" size="lg" className="bg-white! text-(--color-brand-700)! border-white!">
+              <Button
+                href={`tel:${site.phoneTel}`}
+                variant="secondary"
+                size="lg"
+                className="bg-(--color-accent)! text-(--color-brand-900)! border-(--color-accent)! hover:bg-(--color-accent-300)! hover:border-(--color-accent-300)!"
+              >
                 Call {site.phone}
               </Button>
               <a
                 href={`tel:${site.emergencyTel}`}
-                className="text-center py-3 rounded-full border border-white/40 hover:bg-white/10 transition-colors text-sm font-semibold"
+                className="text-center py-3 rounded-full border border-(--color-accent)/60 text-(--color-accent-300) hover:bg-(--color-accent)/10 transition-colors text-sm font-semibold"
               >
                 After hours: {site.emergencyPhone}
               </a>
