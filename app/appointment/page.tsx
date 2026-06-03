@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/sections/PageHero";
 import { LocationHours } from "@/components/sections/LocationHours";
 import { metaFor } from "@/lib/metadata";
-import { isBookingActiveForRequest } from "@/lib/booking/flag";
+import {
+  getBookingMode,
+  isBookingActiveForRequest,
+} from "@/lib/booking/flag";
 
 export const metadata: Metadata = metaFor("/appointment");
 
@@ -22,6 +26,8 @@ export default async function Page({
 }) {
   const sp = await searchParams;
   const useRealBooking = isBookingActiveForRequest({ searchParams: sp });
+  const mode = getBookingMode();
+  const showPreviewHint = !useRealBooking && mode === "preview";
 
   return (
     <>
@@ -38,6 +44,26 @@ export default async function Page({
       <section className="pb-24">
         <Container className="grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-8">
+            {showPreviewHint && (
+              <Link
+                href="/appointment?booking=1"
+                className="mb-6 group inline-flex items-center gap-2 rounded-(--radius-pill) bg-(--color-brand-50) text-(--color-brand-700) px-4 py-2 text-sm font-semibold border border-(--color-brand-100) hover:bg-(--color-brand-100) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-400) focus-visible:ring-offset-2"
+              >
+                <span
+                  aria-hidden
+                  className="grid place-items-center w-5 h-5 rounded-full bg-(--color-brand-600) text-(--color-brand-50) text-[10px] font-bold"
+                >
+                  New
+                </span>
+                Try booking in real time — pick a slot now
+                <span
+                  aria-hidden
+                  className="transition-transform group-hover:translate-x-0.5"
+                >
+                  →
+                </span>
+              </Link>
+            )}
             <h2 className="text-3xl font-display tracking-tight mb-2">
               {useRealBooking ? "Choose your visit" : "Create an Appointment"}
             </h2>

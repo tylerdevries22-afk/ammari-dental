@@ -16,8 +16,12 @@ export type BookingMode = "off" | "preview" | "on";
 
 export function getBookingMode(): BookingMode {
   const raw = (process.env.NEXT_PUBLIC_BOOKING_FLAG ?? "").trim().toLowerCase();
-  if (raw === "on" || raw === "preview") return raw;
-  return "off";
+  if (raw === "on" || raw === "off") return raw;
+  // Default is "preview": the legacy form stays the canonical /appointment
+  // page (no visible regression), but ?booking=1 surfaces the new picker and
+  // /api/booking/* responds. Flip to "on" once it's ready for everyone, or
+  // "off" to fully disable.
+  return "preview";
 }
 
 export function isBookingActiveForRequest(opts: {

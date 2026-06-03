@@ -196,13 +196,11 @@ function isoForLocal(localDate: string, minuteOffset: number): string {
 function denverOffset(localDate: string): string {
   // Rough DST window: 2nd Sunday of March → 1st Sunday of November.
   // Mock-only; production uses NexHealth's zoned strings.
-  const [y, mo, d] = localDate.split("-").map(Number);
-  const month = mo;
+  const [, month, day] = localDate.split("-").map(Number);
   if (month > 3 && month < 11) return "-06:00"; // MDT
   if (month < 3 || month > 11) return "-07:00"; // MST
-  // Edge months: bias to MDT mid-spring and MST late-fall.
-  if (month === 3) return d >= 8 ? "-06:00" : "-07:00";
-  return d >= 1 && d <= 7 ? "-06:00" : "-07:00";
+  if (month === 3) return day >= 8 ? "-06:00" : "-07:00";
+  return day >= 1 && day <= 7 ? "-06:00" : "-07:00";
 }
 
 function isPast(iso: string, leadHours: number): boolean {

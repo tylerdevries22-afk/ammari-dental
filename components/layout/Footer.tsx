@@ -36,6 +36,12 @@ export function Footer() {
             <Icon name="phone" className="w-4 h-4" />
             {site.phone}
           </a>
+          <Link
+            href="/appointment"
+            className="mt-4 inline-flex items-center justify-center h-11 px-5 rounded-full text-sm font-semibold bg-(--color-brand-500) text-(--color-brand-50) hover:bg-(--color-brand-400) transition-colors w-fit"
+          >
+            Book an appointment
+          </Link>
           <div className="mt-3 space-y-1 text-xs text-white/60">
             <div>
               <span className="text-white/50">Emergency: </span>
@@ -79,6 +85,7 @@ export function Footer() {
         <div>
           <h4 className="text-xs uppercase tracking-widest text-white/50 mb-4 font-sans font-semibold">Practice</h4>
           <ul className="space-y-2 text-sm">
+            <li><Link href="/appointment" className="text-white/80 hover:text-white">Book an Appointment</Link></li>
             <li><Link href="/new-patients" className="text-white/80 hover:text-white">New Patients</Link></li>
             <li><Link href="/-new-patient-forms" className="text-white/80 hover:text-white">Forms</Link></li>
             <li><Link href="/dental-staff" className="text-white/80 hover:text-white">Meet the Doctor</Link></li>

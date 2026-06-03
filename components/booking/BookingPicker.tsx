@@ -97,7 +97,7 @@ export function BookingPicker() {
     const params = new URLSearchParams({
       reasonId: state.reason.id,
       startDate,
-      days: "14",
+      days: "30",
     });
     if (state.provider) params.set("providerId", state.provider.id);
     (async () => {
