@@ -19,7 +19,7 @@ const articles = [
 
 export function ArticlesGrid() {
   return (
-    <section className="py-24 lg:py-32 bg-(--color-surface-muted)/40">
+    <section className="py-24 lg:py-32">
       <Container>
         <SectionHeader
           eyebrow="Patient education"

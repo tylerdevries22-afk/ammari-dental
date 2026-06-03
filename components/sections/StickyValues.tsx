@@ -217,7 +217,7 @@ function StepNavItem({
       >
         <m.span
           style={{ opacity: activeOpacity }}
-          className="absolute inset-0 rounded-full bg-gradient-to-br from-(--color-brand-200) to-(--color-accent) shadow-[0_0_24px_rgba(166,210,205,0.55)]"
+          className="absolute inset-0 rounded-full bg-gradient-to-br from-(--color-brand-200) to-(--color-accent) shadow-[0_0_24px_rgba(161,222,188,0.55)]"
         />
         <span className="relative text-[10px] font-semibold tracking-wider text-(--color-brand-900) mix-blend-screen">
           {step.number}

@@ -22,7 +22,7 @@ export function AboutSplit() {
   const curtainY = useTransform(scrollYProgress, [0.1, 0.4], ["0%", "-100%"]);
 
   return (
-    <section id="about" data-chapter="About" ref={sectionRef} className="py-24 lg:py-32 bg-(--color-surface-muted)/50 relative anchor-offset">
+    <section id="about" data-chapter="About" ref={sectionRef} className="py-24 lg:py-32 bg-(--color-surface-warm) relative anchor-offset">
       <Container className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <m.div
           variants={stagger(0.08)}
@@ -30,7 +30,7 @@ export function AboutSplit() {
           whileInView={reveal.whileInView}
           viewport={reveal.viewport}
         >
-          <m.div variants={fadeUp} className="eyebrow">Welcome</m.div>
+          <m.div variants={fadeUp} className="eyebrow">Meet Dr. Ammari</m.div>
           <SplitText
             as="h2"
             text="We'll Provide You With That Winning Smile!"
@@ -48,7 +48,7 @@ export function AboutSplit() {
               "New patient special",
               "Friendly, multilingual team",
               "Modern, comfortable office",
-              "Most insurance accepted",
+              "Gentle, judgment-free care",
             ].map((b, i) => (
               <m.li
                 key={b}
@@ -154,7 +154,7 @@ export function AboutSplit() {
             transition={{ delay: 0.9, type: "spring", stiffness: 200, damping: 22 }}
             className="absolute top-6 -right-4 lg:-right-8 bg-white/90 backdrop-blur rounded-2xl shadow-(--shadow-soft-md) px-4 py-3 hidden md:flex items-center gap-2"
           >
-            <span className="flex gap-0.5 text-(--color-accent)">
+            <span className="flex gap-0.5 text-(--color-accent-600)">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Icon key={i} name="star" className="w-3 h-3 fill-current" />
               ))}

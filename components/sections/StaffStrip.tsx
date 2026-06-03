@@ -10,7 +10,7 @@ import { fadeUp, stagger, reveal } from "@/lib/motion";
 
 export function StaffStrip({ showBio = false }: { showBio?: boolean }) {
   return (
-    <section id="team" data-chapter="Team" className="py-24 lg:py-32 anchor-offset">
+    <section id="team" data-chapter="Team" className="py-24 lg:py-32 bg-(--color-surface-warm) anchor-offset">
       <Container>
         <SectionHeader
           eyebrow="Our team"

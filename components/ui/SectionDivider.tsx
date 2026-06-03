@@ -1,6 +1,6 @@
 "use client";
-import { m, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
-import { useRef, useState } from "react";
+import { m, useScroll, useTransform, useMotionValueEvent, useInView } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import { useMotion } from "@/lib/useMotion";
 import { cn } from "@/lib/cn";
 
@@ -73,6 +73,16 @@ export function SectionDivider({
   });
   const spec = variants[variant];
 
+  // Perf: only run the per-frame path interpolation while this divider is
+  // near the viewport. With many dividers on a page, ungated setState-per-
+  // scroll-frame across all of them is a real jank source. A ref mirror keeps
+  // the motion-value callback reading a fresh value without re-subscribing.
+  const inView = useInView(ref, { margin: "300px 0px 300px 0px" });
+  const inViewRef = useRef(inView);
+  useEffect(() => {
+    inViewRef.current = inView;
+  }, [inView]);
+
   // Morph by interpolating a NUMERIC weight (0..1..0 across scroll), then
   // sample a discrete d each tick. Framer's useTransform on string keyframes
   // doesn't interpolate SVG paths reliably across all environments, so we
@@ -80,6 +90,7 @@ export function SectionDivider({
   const weight = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
   const [d, setD] = useState(spec.from);
   useMotionValueEvent(weight, "change", (w) => {
+    if (!inViewRef.current) return;
     setD(interpolatePath(spec.from, spec.to, w));
   });
 

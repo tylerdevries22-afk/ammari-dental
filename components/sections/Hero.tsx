@@ -1,105 +1,58 @@
 "use client";
-import { useRef } from "react";
-import {
-  m,
-  useScroll,
-  useTransform,
-  useSpring,
-  useMotionValue,
-  useReducedMotion,
-} from "framer-motion";
+import { m } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
-import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
 import { Magnetic } from "@/components/ui/MagneticButton";
-import Image from "next/image";
+import { ParallaxImage } from "@/components/ui/ParallaxImage";
+import { ServicePills } from "@/components/ui/ServicePills";
 import { site } from "@/lib/site";
 
 const headlineWords = ["Friendly", "Staff.", "Beautiful", "Smiles.", "Welcoming", "Environment."];
 
 export function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
-  const ySlow = useSpring(useTransform(scrollYProgress, [0, 1], [0, 140]), { stiffness: 80, damping: 20 });
-  const yFast = useSpring(useTransform(scrollYProgress, [0, 1], [0, -60]), { stiffness: 80, damping: 20 });
-  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
-
-  const cursorX = useMotionValue(0);
-  const cursorY = useMotionValue(0);
-  const sx = useSpring(cursorX, { stiffness: 50, damping: 18 });
-  const sy = useSpring(cursorY, { stiffness: 50, damping: 18 });
-  const flairX = useTransform(sx, [-1, 1], [-30, 30]);
-  const flairY = useTransform(sy, [-1, 1], [-25, 25]);
-
-  function onMove(e: React.MouseEvent<HTMLElement>) {
-    if (reduced) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    cursorX.set(((e.clientX - rect.left) / rect.width) * 2 - 1);
-    cursorY.set(((e.clientY - rect.top) / rect.height) * 2 - 1);
-  }
-
   return (
-    <section
-      id="welcome"
-      data-chapter="Welcome"
-      ref={ref}
-      onMouseMove={onMove}
-      className="relative pt-[72px] overflow-hidden"
-    >
-      <m.div
-        style={{ y: ySlow, x: flairX }}
-        className="absolute -top-40 -right-40 w-[640px] h-[640px] rounded-full bg-gradient-to-br from-(--color-brand-200) via-(--color-brand-100) to-transparent blur-3xl opacity-70 -z-10"
-      />
-      <m.div
-        style={{ y: yFast, x: flairY }}
-        className="absolute top-40 -left-40 w-[520px] h-[520px] rounded-full bg-gradient-to-tr from-(--color-accent)/20 via-(--color-brand-50) to-transparent blur-3xl opacity-70 -z-10"
-      />
-
-      <svg
+    <section id="welcome" data-chapter="Welcome" className="relative pt-[72px] overflow-hidden">
+      <div
         aria-hidden
-        viewBox="0 0 400 100"
-        className="absolute top-[88px] right-8 w-[260px] h-[80px] -z-10 hidden lg:block"
-      >
-        <m.path
-          d="M5 50 Q 80 5, 160 50 T 320 50 T 395 50"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          className="text-(--color-brand-300)"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 0.6 }}
-          transition={{ delay: 1.2, duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-        />
-      </svg>
+        className="absolute -top-40 -right-40 w-[640px] h-[640px] rounded-full bg-gradient-to-br from-(--color-brand-200) via-(--color-brand-100) to-transparent blur-3xl opacity-60 -z-10"
+      />
+      <div
+        aria-hidden
+        className="absolute top-40 -left-40 w-[520px] h-[520px] rounded-full bg-gradient-to-tr from-(--color-accent)/20 via-(--color-brand-50) to-transparent blur-3xl opacity-60 -z-10"
+      />
 
-      <Container className="relative pt-16 pb-24 lg:pt-24 lg:pb-32 grid lg:grid-cols-12 gap-12 items-center">
-        <m.div style={{ opacity }} className="lg:col-span-7">
+      <Container className="relative pt-10 pb-10 lg:pt-16 lg:pb-14 grid grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+        {/* Left arch portrait — drifts down */}
+        <div className="col-span-1 lg:col-span-3 order-2 lg:order-1">
+          <ParallaxImage
+            src="/images/generated/people/man-30s.webp"
+            alt="A smiling man — a patient at Ammari Dental in Aurora"
+            shape="arch"
+            aspect="5 / 7"
+            direction="normal"
+            speed={0.13}
+            sizes="(max-width: 1024px) 45vw, 22vw"
+            className="bg-(--color-brand-100) lg:[--pi-ar:0.6]"
+          />
+        </div>
+
+        {/* Center copy */}
+        <div className="col-span-2 lg:col-span-6 order-1 lg:order-2 text-center">
           <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="eyebrow flex items-center gap-2"
+            className="eyebrow inline-flex items-center justify-center gap-2"
           >
-            <m.span
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="w-8 h-px bg-(--color-brand-600) origin-left"
-            />
+            <span className="w-8 h-px bg-(--color-brand-600)" />
             Aurora, Colorado · Since 2003
+            <span className="w-8 h-px bg-(--color-brand-600)" />
           </m.div>
 
-          <h1 className="mt-5 text-[clamp(40px,6.5vw,76px)] leading-[0.98] font-display tracking-[-0.03em]">
+          <h1 className="mt-5 text-[clamp(34px,4.6vw,60px)] leading-[1.02] font-display tracking-[-0.03em]">
             <m.span
-              className="inline-flex flex-wrap"
+              className="inline-flex flex-wrap justify-center"
               initial="hidden"
               animate="show"
               variants={{
@@ -108,18 +61,12 @@ export function Hero() {
               }}
             >
               {headlineWords.map((word, i) => (
-                <span
-                  key={i}
-                  className="inline-block overflow-hidden pb-[0.12em] -mb-[0.12em]"
-                >
+                <span key={i} className="inline-block overflow-hidden pb-[0.12em] -mb-[0.12em]">
                   <m.span
                     className="inline-block"
                     variants={{
                       hidden: { y: "115%" },
-                      show: {
-                        y: "0%",
-                        transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] },
-                      },
+                      show: { y: "0%", transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] } },
                     }}
                   >
                     {word === "Smiles." ? (
@@ -135,7 +82,7 @@ export function Hero() {
                     ) : (
                       word
                     )}
-                    {i < headlineWords.length - 1 && "\u00A0"}
+                    {i < headlineWords.length - 1 && " "}
                   </m.span>
                 </span>
               ))}
@@ -146,17 +93,17 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
-            className="mt-7 text-lg lg:text-xl text-(--color-ink-700) max-w-xl leading-relaxed"
+            className="mt-6 text-lg lg:text-xl text-(--color-ink-700) max-w-xl mx-auto leading-relaxed"
           >
-            Comprehensive family, cosmetic, and emergency dentistry led by
-            Dr. Raed Ammari. Same-day visits available, most insurance accepted.
+            Comprehensive family, cosmetic, and emergency dentistry led by Dr. Raed
+            Ammari — with no judgment, ever. Same-day visits, most insurance accepted.
           </m.p>
 
           <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.85 }}
-            className="mt-9 flex flex-wrap gap-3"
+            className="mt-8 flex flex-wrap gap-3 justify-center"
           >
             <Magnetic strength={0.4}>
               <Button href="/appointment" size="lg" iconEnd={<Icon name="arrow" className="w-4 h-4" />}>
@@ -169,127 +116,38 @@ export function Hero() {
               </Button>
             </Magnetic>
           </m.div>
+        </div>
 
-          <m.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.05 }}
-            className="mt-12 grid grid-cols-3 gap-6 max-w-md"
-          >
-            <Stat value={20} suffix="+" label="years in Aurora" />
-            <Stat value={18} label="insurances accepted" />
-            <Stat value={5} suffix="★" label="patient rated" />
-          </m.div>
-        </m.div>
-
-        <m.div
-          style={{ scale, opacity, x: useTransform(sx, [-1, 1], [-12, 12]) }}
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="lg:col-span-5 relative"
-        >
-          <div className="relative aspect-[4/5] rounded-[28px] overflow-hidden bg-gradient-to-br from-(--color-brand-100) to-(--color-brand-50) shadow-(--shadow-soft-lg) noise-overlay">
-            <Image
-              src="/images/staff/dr-ammari.jpg"
-              alt="Dr. Raed Ammari, DDS — Ammari Dental, Aurora, CO"
-              fill
-              priority
-              fetchPriority="high"
-              sizes="(max-width: 1024px) 90vw, 42vw"
-              className="object-cover"
-            />
-
-            <m.div
-              initial={{ y: "0%" }}
-              animate={{ y: "-100%" }}
-              transition={{ delay: 0.4, duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
-              className="absolute inset-0 bg-(--color-brand-700) origin-bottom z-[2]"
-              aria-hidden
-            />
-
-            <m.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-8 left-8 w-20 h-20 rounded-full bg-(--color-brand-200)/40 blur-md pointer-events-none"
-              aria-hidden
-            />
-            <m.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-12 right-10 w-16 h-16 rounded-full bg-(--color-accent)/30 blur-md pointer-events-none"
-              aria-hidden
-            />
-
-            {/* Doctor caption — travels with the portrait */}
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent p-6 text-white z-[1]">
-              <m.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.5, duration: 0.6 }}
-                className="font-display text-2xl"
-              >
-                Dr. Raed Ammari, DDS
-              </m.div>
-              <m.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.6, duration: 0.6 }}
-                className="text-sm opacity-90 mt-1"
-              >
-                Family &amp; Cosmetic Dentistry
-              </m.div>
-              <m.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.7, duration: 0.6 }}
-                className="mt-3 inline-block text-xs uppercase tracking-widest bg-white/15 backdrop-blur px-3 py-1 rounded-full font-semibold"
-              >
-                Aurora, CO
-              </m.div>
-            </div>
-          </div>
-
-          {/* 20+ years badge — travels with the portrait */}
-          <m.div
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 1.8, type: "spring", stiffness: 200, damping: 22 }}
-            className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-(--shadow-soft-lg) px-5 py-4"
-          >
-            <div className="text-3xl font-display text-(--color-brand-700)">20+</div>
-            <div className="text-xs text-(--color-ink-500)">years caring for Aurora</div>
-          </m.div>
-        </m.div>
+        {/* Right arch portrait — drifts up (LCP) */}
+        <div className="col-span-1 lg:col-span-3 order-3">
+          <ParallaxImage
+            src="/images/generated/people/woman-20s.webp"
+            alt="A woman with a joyful smile — a patient at Ammari Dental"
+            shape="arch"
+            aspect="5 / 7"
+            direction="reverse"
+            speed={0.18}
+            priority
+            sizes="(max-width: 1024px) 45vw, 22vw"
+            className="bg-(--color-accent-100) lg:[--pi-ar:0.6]"
+          />
+        </div>
       </Container>
 
-      <m.div
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2, duration: 0.6 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 text-(--color-ink-500) text-[11px] uppercase tracking-widest"
-        aria-hidden
-      >
-        Scroll
-        <span className="relative w-px h-10 overflow-hidden">
-          <m.span
-            animate={{ y: ["-100%", "100%"] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0 bg-(--color-brand-600)"
-          />
-        </span>
-      </m.div>
-    </section>
-  );
-}
-
-function Stat({ value, suffix, label }: { value: number; suffix?: string; label: string }) {
-  return (
-    <div>
-      <div className="text-3xl font-display text-(--color-ink-900)">
-        <AnimatedNumber value={value} suffix={suffix} />
+      <Container className="pb-6">
+        <m.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.6 }}
+          className="text-center font-display text-2xl lg:text-3xl text-(--color-brand-700)"
+        >
+          A full range of care for every smile
+        </m.p>
+      </Container>
+      <div className="pb-16 lg:pb-20">
+        <ServicePills />
       </div>
-      <div className="text-xs text-(--color-ink-500) mt-1 leading-tight">{label}</div>
-    </div>
+    </section>
   );
 }

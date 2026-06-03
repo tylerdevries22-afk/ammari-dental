@@ -7,17 +7,17 @@
   --color-surface-muted: #F1EFEA;
   --color-surface-warm: #F7F2EC;
 
-  /* Brand — deep teal-mineral with aurora green undertones */
-  --color-brand-50:  #ECF5F4;
-  --color-brand-100: #D5EAE8;
-  --color-brand-200: #A6D2CD;
-  --color-brand-300: #74B6AF;
-  --color-brand-400: #3F948C;
-  --color-brand-500: #2C7973;
-  --color-brand-600: #1F635E;
-  --color-brand-700: #154944;
-  --color-brand-800: #0F3633;
-  --color-brand-900: #0A2624;
+  /* Brand — emerald green, sampled from the logo's tooth-mark gradient (#14A35A core) */
+  --color-brand-50:  #ECF7F0;
+  --color-brand-100: #D1EFDE;
+  --color-brand-200: #A1DEBC;
+  --color-brand-300: #66C892;
+  --color-brand-400: #2DAE6B;
+  --color-brand-500: #119351;
+  --color-brand-600: #0C7A43;
+  --color-brand-700: #0A5C34;
+  --color-brand-800: #084425;
+  --color-brand-900: #06301B;
 
   /* Leaf — sampled from the logo's emerald→lime gradient + yellow leaves.
      Used by the service-icon illustration set so it matches the mark. */
@@ -30,13 +30,16 @@
   --color-leaf-lime: #A8D62A;
   --color-leaf-yellow: #D8F93A;
 
-  /* Accent — rose-gold / champagne for cosmetic warmth */
-  --color-accent:    #C8956D;
-  --color-accent-50: #FAF1E9;
-  --color-accent-100:#F2DCC4;
-  --color-accent-300:#DDB48B;
-  --color-accent-500:#B07A4A;
-  --color-accent-600:#925F33;
+  /* Accent — lime / leaf-green, sampled from the logo's leaves (#9BCB24 pop).
+     Bright shades (default/300) are pops on dark or large fills; 600/700 are the
+     accessible (WCAG AA) shades for glyphs/text on light surfaces. */
+  --color-accent:    #9BCB24;
+  --color-accent-50: #F6FBE6;
+  --color-accent-100:#E9F6C2;
+  --color-accent-300:#C2E25C;
+  --color-accent-500:#7AA61C;
+  --color-accent-600:#556F16;
+  --color-accent-700:#3D5212;
 
   /* Tertiary — soft sage for variety */
   --color-sage-100:  #E8EDE0;
@@ -62,6 +65,7 @@
   --radius-md: 12px;
   --radius-lg: 18px;
   --radius-xl: 28px;
+  --radius-2xl: 40px;
   --radius-pill: 9999px;
 
   /* Shadows — warm, sculpted */
@@ -266,9 +270,9 @@
   /* Aurora gradient — used as scroll-driven background */
   .aurora-gradient {
     background:
-      radial-gradient(60% 50% at 20% 20%, rgba(63,148,140,0.25) 0%, transparent 60%),
-      radial-gradient(50% 60% at 80% 30%, rgba(200,149,109,0.18) 0%, transparent 60%),
-      radial-gradient(70% 50% at 60% 80%, rgba(166,210,205,0.30) 0%, transparent 70%);
+      radial-gradient(60% 50% at 20% 20%, rgba(45,174,107,0.25) 0%, transparent 60%),
+      radial-gradient(50% 60% at 80% 30%, rgba(155,203,36,0.16) 0%, transparent 60%),
+      radial-gradient(70% 50% at 60% 80%, rgba(161,222,188,0.32) 0%, transparent 70%);
   }
 
   /* Soft gradient text for hero accents */

@@ -8,8 +8,10 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Ammari Dental — Aurora CO family & cosmetic dentistry",
     start_url: "/",
     display: "standalone",
+    // PWA manifest needs literal colors (can't read CSS vars); keep these in
+    // sync with --color-bg and --color-brand-600 in app/globals.css.
     background_color: "#FAFAF7",
-    theme_color: "#1F635E",
+    theme_color: "#0C7A43",
     icons: [
       {
         src: "/apple-icon",

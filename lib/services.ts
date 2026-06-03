@@ -48,7 +48,7 @@ export const services: Service[] = [
     category: "general",
     blurb:
       "Routine exams, cleanings, and preventive care to keep your smile healthy for life.",
-    icon: "tooth-check",
+    icon: "tooth-leaf",
     featured: true,
     image: "/images/generated/patient-calm-chair.webp",
     imageAlt: "Patient relaxed in a modern dental operatory at Ammari Dental",
@@ -279,6 +279,33 @@ export const services: Service[] = [
 ];
 
 export const featuredServices = services.filter((s) => s.featured);
+
+export type ServiceCategory = Service["category"];
+
+/** Display label + menu order for each service category. */
+export const categoryMeta: Record<ServiceCategory, { label: string; order: number }> = {
+  general:     { label: "General & Preventive", order: 1 },
+  cosmetic:    { label: "Cosmetic",             order: 2 },
+  restorative: { label: "Restorative",          order: 3 },
+  surgical:    { label: "Oral Surgery",         order: 4 },
+  emergency:   { label: "Emergency",            order: 5 },
+};
+
+/** Services grouped by category, in menu order (empty groups dropped). */
+export function servicesByCategory(): {
+  category: ServiceCategory;
+  label: string;
+  items: Service[];
+}[] {
+  return (Object.keys(categoryMeta) as ServiceCategory[])
+    .sort((a, b) => categoryMeta[a].order - categoryMeta[b].order)
+    .map((category) => ({
+      category,
+      label: categoryMeta[category].label,
+      items: services.filter((s) => s.category === category),
+    }))
+    .filter((g) => g.items.length > 0);
+}
 
 export function getService(slug: string): Service | undefined {
   return services.find((s) => s.slug === slug);

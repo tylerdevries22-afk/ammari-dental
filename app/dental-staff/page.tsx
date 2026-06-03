@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { StaffStrip } from "@/components/sections/StaffStrip";
 import { CTABanner } from "@/components/sections/CTABanner";
+import { StickyValues } from "@/components/sections/StickyValues";
 import { InfoPage } from "@/components/InfoPage";
 import { metaFor } from "@/lib/metadata";
 
@@ -14,6 +15,7 @@ export default function Page() {
         title="Meet the Doctor & Staff"
         description="Friendly, experienced, and patient-focused — meet the people behind Ammari Dental."
         url="/dental-staff"
+        lead={<StickyValues />}
       >
         <h2>Dr. Raed Ammari, DDS</h2>
         <p>

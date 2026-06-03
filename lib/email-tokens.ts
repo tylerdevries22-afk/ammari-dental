@@ -7,8 +7,8 @@
  * tokens in app/globals.css. When the visual identity changes, update both.
  */
 export const emailColors = {
-  // Hero band: brand teal
-  bandBg: "#1F635E", // mirrors --color-brand-600
+  // Hero band: brand emerald
+  bandBg: "#0C7A43", // mirrors --color-brand-600
   bandText: "#FFFFFF",
 
   // Card surface

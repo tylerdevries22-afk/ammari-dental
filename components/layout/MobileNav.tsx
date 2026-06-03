@@ -32,10 +32,17 @@ const sections: Section[] = [
       { label: "Links", href: "/links" },
     ],
   },
-  { label: "Education", href: "/articles/general" },
+  {
+    label: "Education",
+    items: [
+      { label: "General Dentistry", href: "/articles/general" },
+      { label: "Curated Articles", href: "/articles/baystone_curated_content" },
+      { label: "Educational Videos", href: "/educational-videos" },
+    ],
+  },
   { label: "Blog", href: "/articles/general" },
-  { label: "About Us", href: "/dental-staff" },
-  { label: "Contact Us", href: "/contact" },
+  { label: "About", href: "/dental-staff" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {
