@@ -21,10 +21,11 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { metaFor } from "@/lib/metadata";
 
-// Below-the-fold; defer its react-hook-form + zod chunk past first paint.
+// Below-the-fold; defer the dual-mode booking surface past first paint.
 // Server-rendered placeholder keeps layout stable.
-const AppointmentForm = dynamic(
-  () => import("@/components/sections/AppointmentForm").then((m) => m.AppointmentForm),
+const BookOrRequest = dynamic(
+  () =>
+    import("@/components/booking/BookOrRequest").then((m) => m.BookOrRequest),
   {
     loading: () => (
       <div className="h-[480px] rounded-(--radius-xl) bg-(--color-surface) border border-(--color-brand-100) animate-pulse" />
@@ -79,20 +80,20 @@ export default function HomePage() {
       <SectionDivider variant="arc" fillToken="--color-surface-warm" position="top" />
       <EmergencyBand />
 
-      {/* CONVERT — the primary appointment request. */}
+      {/* CONVERT — book live or request a callback. */}
       <SectionDivider variant="wave" fillToken="--color-surface-warm" />
       <section className="py-24 lg:py-32 bg-(--color-surface-warm)">
         <Container className="grid lg:grid-cols-12 gap-12 items-start">
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-4">
             <SectionHeader
-              eyebrow="Send us a note"
-              title="Appointment Request"
-              description="Request a visit and we'll follow up to confirm your time. For urgent care, please call."
+              eyebrow="Schedule a visit"
+              title="Book your appointment"
+              description="Pick a real opening on Dr. Ammari's schedule, or request a callback if your time isn't listed. For urgent care, please call."
               align="left"
             />
           </div>
-          <div className="lg:col-span-7">
-            <AppointmentForm />
+          <div className="lg:col-span-8">
+            <BookOrRequest defaultMode="book" />
           </div>
         </Container>
       </section>
