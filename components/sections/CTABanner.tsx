@@ -95,7 +95,7 @@ export function CTABanner({
             <SplitText
               as="h2"
               text={title}
-              className="block text-4xl lg:text-6xl font-display tracking-tight text-(--color-on-dark)"
+              className="block text-4xl lg:text-6xl font-display tracking-tight text-(--color-accent-300)!"
             />
             <m.p
               initial={{ opacity: 0, y: 14 }}
@@ -117,7 +117,7 @@ export function CTABanner({
                 <Button
                   href="/appointment"
                   size="lg"
-                  className="bg-white! text-(--color-ink-900)!"
+                  className="bg-(--color-accent)! text-(--color-brand-900)! hover:bg-(--color-accent-300)!"
                 >
                   Book Appointment
                 </Button>
@@ -127,7 +127,7 @@ export function CTABanner({
                   href={`tel:${site.phoneTel}`}
                   variant="ghost"
                   size="lg"
-                  className="text-white! border! border-white/30! hover:bg-white/10!"
+                  className="text-(--color-accent-300)! border! border-(--color-accent)/50! hover:bg-(--color-accent)/10!"
                 >
                   Call {site.phone}
                 </Button>

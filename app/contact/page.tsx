@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/sections/PageHero";
 import { LocationHours } from "@/components/sections/LocationHours";
-import { AppointmentForm } from "@/components/sections/AppointmentForm";
+import { BookOrRequest } from "@/components/booking/BookOrRequest";
 import { metaFor } from "@/lib/metadata";
 
 export const metadata: Metadata = metaFor("/contact");
@@ -13,14 +13,14 @@ export default function Page() {
       <PageHero
         eyebrow="Get in touch"
         title="Contact Us"
-        description="We're here to help — call, email, or send us a message."
+        description="Book a visit live or send us a note — we'll follow up."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
       />
       <section className="pb-24">
         <Container className="grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-7">
-            <h2 className="text-3xl font-display tracking-tight mb-6">Send Us An Email Today</h2>
-            <AppointmentForm />
+            <h2 className="text-3xl font-display tracking-tight mb-6">Schedule or reach out</h2>
+            <BookOrRequest defaultMode="book" />
           </div>
           <aside className="lg:col-span-5 space-y-6">
             <div className="rounded-3xl bg-(--color-brand-700) text-white p-8">
