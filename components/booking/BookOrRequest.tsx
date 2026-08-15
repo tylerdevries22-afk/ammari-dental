@@ -54,6 +54,12 @@ export function BookOrRequest({
         <AnimatePresence mode="wait" initial={false}>
           <m.div
             key={active}
+            // The tablist referenced these ids via aria-controls but nothing
+            // ever rendered them, which axe flags as a critical
+            // aria-valid-attr-value failure on every page carrying the toggle.
+            id={active === "book" ? "booking-picker-panel" : "appointment-form-panel"}
+            role="tabpanel"
+            aria-labelledby={active === "book" ? "booking-tab-book" : "booking-tab-request"}
             initial={motionEnabled ? { opacity: 0, y: 6 } : false}
             animate={{ opacity: 1, y: 0 }}
             exit={motionEnabled ? { opacity: 0, y: -6 } : undefined}
@@ -81,6 +87,7 @@ function ModeToggle({
       className="inline-flex p-1 rounded-(--radius-pill) bg-(--color-surface-muted) border border-(--color-ink-200)"
     >
       <TabButton
+        id="booking-tab-book"
         active={value === "book"}
         onClick={() => onChange("book")}
         controls="booking-picker-panel"
@@ -89,6 +96,7 @@ function ModeToggle({
         Book a time
       </TabButton>
       <TabButton
+        id="booking-tab-request"
         active={value === "request"}
         onClick={() => onChange("request")}
         controls="appointment-form-panel"
@@ -101,12 +109,14 @@ function ModeToggle({
 }
 
 function TabButton({
+  id,
   active,
   onClick,
   controls,
   icon,
   children,
 }: {
+  id: string;
   active: boolean;
   onClick: () => void;
   controls: string;
@@ -116,9 +126,12 @@ function TabButton({
   return (
     <button
       type="button"
+      id={id}
       role="tab"
       aria-selected={active}
-      aria-controls={controls}
+      // Only the selected tab's panel is mounted, so pointing the inactive
+      // tab at an absent id would be a dangling reference.
+      aria-controls={active ? controls : undefined}
       onClick={onClick}
       className={cn(
         "inline-flex items-center gap-1.5 h-9 px-4 rounded-(--radius-pill) text-sm font-semibold tracking-tight transition-colors",

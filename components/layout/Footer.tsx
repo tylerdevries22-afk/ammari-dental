@@ -36,9 +36,11 @@ export function Footer() {
             <Icon name="phone" className="w-4 h-4" />
             {site.phone}
           </a>
+          {/* brand-50 on brand-500 measured 3.6:1 and failed axe color-contrast.
+              brand-600 is 4.93:1; hover darkens to brand-700 (7.38:1). */}
           <Link
             href="/appointment"
-            className="mt-4 inline-flex items-center justify-center h-11 px-5 rounded-full text-sm font-semibold bg-(--color-brand-500) text-(--color-brand-50) hover:bg-(--color-brand-400) transition-colors w-fit"
+            className="mt-4 inline-flex items-center justify-center h-11 px-5 rounded-full text-sm font-semibold bg-(--color-brand-600) text-(--color-brand-50) hover:bg-(--color-brand-700) transition-colors w-fit"
           >
             Book an appointment
           </Link>

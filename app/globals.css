@@ -57,7 +57,9 @@
 
   /* Semantic */
   --color-success: #1F8A5C;
-  --color-warning: #D58A12;
+  /* Darkened from #D58A12, which was only 2.81:1 on white and failed axe
+     color-contrast wherever it was used as text (ReasonStep). Now 4.83:1. */
+  --color-warning: #A36305;
   --color-danger:  #B83A2C;
 
   /* Radii */

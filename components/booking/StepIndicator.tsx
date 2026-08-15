@@ -27,7 +27,10 @@ export function StepIndicator({
                     ? "bg-(--color-brand-600) text-(--color-brand-50)"
                     : state === "done"
                       ? "bg-(--color-brand-100) text-(--color-brand-700)"
-                      : "bg-(--color-surface-muted) text-(--color-ink-500)",
+                      // ink-500 on surface-muted measured 4.39:1 and failed
+                      // axe color-contrast. ink-700 is 9.5:1; upcoming steps
+                      // still read as inactive via the muted background.
+                      : "bg-(--color-surface-muted) text-(--color-ink-700)",
                 )}
                 aria-current={state === "active" ? "step" : undefined}
               >
