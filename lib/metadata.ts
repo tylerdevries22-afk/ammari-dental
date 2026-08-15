@@ -217,5 +217,8 @@ export const pageMeta: Record<string, Metadata> = {
 };
 
 export function metaFor(path: string): Metadata {
-  return pageMeta[path] ?? { title: base };
+  // Every page gets a self-referencing canonical. Previously only the article
+  // detail route set one, leaving the homepage, all 18 service pages and the
+  // conversion pages with no defense against www/trailing-slash/param variants.
+  return { ...(pageMeta[path] ?? { title: base }), alternates: { canonical: path } };
 }

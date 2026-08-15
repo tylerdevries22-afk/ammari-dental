@@ -5,17 +5,30 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Icon } from "@/components/ui/Icon";
 import { fadeUp, stagger, reveal } from "@/lib/motion";
+import { getArticle } from "@/lib/articles";
 
-const articles = [
-  { title: "Brushing & Flossing Basics", slug: "/articles/general/brushing-flossing", topic: "Hygiene" },
-  { title: "Understanding Cavities", slug: "/articles/general/cavities", topic: "Prevention" },
-  { title: "What Is Root Canal Therapy?", slug: "/articles/general/root-canal-therapy", topic: "Procedures" },
-  { title: "Caring for Dental Implants", slug: "/articles/general/dental-implants-care", topic: "Implants" },
-  { title: "Choosing Dentures", slug: "/articles/general/dentures-guide", topic: "Restorative" },
-  { title: "Oral Cancer Awareness", slug: "/articles/general/oral-cancer", topic: "Health" },
-  { title: "Diabetes & Oral Health", slug: "/articles/general/diabetes-oral-health", topic: "Health" },
-  { title: "Whitening: What to Expect", slug: "/articles/general/whitening-expectations", topic: "Cosmetic" },
+/**
+ * Editorial pick for the homepage, resolved against the real article data.
+ *
+ * These were previously hand-written title/slug literals that pointed at
+ * slugs which never existed — all eight tiles 404'd. Looking each one up by
+ * slug means a tile can only render if its article is really there, and the
+ * title/topic always match the library.
+ */
+const FEATURED_SLUGS = [
+  "502374-brushing",
+  "502377-cavities-and-tooth-decay",
+  "502432-root-canal-therapy",
+  "502402-implants",
+  "502386-dentures",
+  "502420-oral-cancer",
+  "502387-diabetes",
+  "502370-bleaching",
 ];
+
+const articles = FEATURED_SLUGS.map((slug) => getArticle("general", slug)).filter(
+  (a): a is NonNullable<typeof a> => Boolean(a),
+);
 
 export function ArticlesGrid() {
   return (

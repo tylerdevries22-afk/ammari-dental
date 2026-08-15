@@ -1,57 +1,50 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { m, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/cn";
+import { appointmentSchema, type AppointmentInput } from "@/lib/appointment";
 
-const schema = z.object({
-  name: z.string().min(2, "Please enter your name"),
-  phone: z.string().min(10, "Please enter a valid phone number"),
-  email: z.string().email("Please enter a valid email"),
-  preferredDate: z.string().optional(),
-  insurance: z.string().optional(),
-  reason: z.string().optional(),
-  notes: z.string().optional(),
-  hipaa: z.literal(true, { message: "Please acknowledge to continue" }),
-  // honeypot
-  website: z.string().max(0).optional(),
-});
-
-type FormData = z.infer<typeof schema>;
+type FormData = AppointmentInput;
 
 export function AppointmentForm({ compact = false }: { compact?: boolean }) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<FormData>({ resolver: zodResolver(appointmentSchema) });
 
   async function onSubmit(data: FormData) {
     setSubmitting(true);
+    setSubmitError(null);
     try {
-      await fetch("/api/appointment", {
+      const res = await fetch("/api/appointment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
+      // fetch only rejects on network failure, so a bad status must be
+      // checked explicitly — otherwise a lost lead looks like a success.
+      if (!res.ok) throw new Error(`appointment responded ${res.status}`);
       setSubmitted(true);
     } catch {
-      // graceful: still show success since template form
-      setSubmitted(true);
+      setSubmitError(
+        `We couldn't submit your request. Please call us at ${site.phone} and we'll get you scheduled.`,
+      );
     } finally {
       setSubmitting(false);
     }
   }
 
   return (
-    <div className={cn("rounded-3xl bg-white shadow-(--shadow-soft-md) border border-(--color-brand-100)", compact ? "p-6" : "p-8 lg:p-12")}>
+    <div className={cn("rounded-3xl bg-(--color-surface) shadow-(--shadow-soft-md) border border-(--color-brand-100)", compact ? "p-6" : "p-8 lg:p-12")}>
       <AnimatePresence mode="wait">
         {submitted ? (
           <m.div
@@ -153,6 +146,15 @@ export function AppointmentForm({ compact = false }: { compact?: boolean }) {
             <Button size="lg" iconEnd={<Icon name="arrow" className="w-4 h-4" />} disabled={submitting}>
               {submitting ? "Sending…" : "Request Appointment"}
             </Button>
+
+            {submitError && (
+              <p
+                role="alert"
+                className="text-sm text-(--color-danger) text-center"
+              >
+                {submitError}
+              </p>
+            )}
 
             <p className="text-xs text-(--color-ink-500) text-center">
               Or call us directly at{" "}

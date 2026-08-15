@@ -87,8 +87,6 @@ export function Header() {
               alt=""
               width={88}
               height={88}
-              priority
-              fetchPriority="high"
               sizes="44px"
               className="w-11 h-11 object-contain"
             />

@@ -52,10 +52,13 @@ export function BeforeAfterSlider({
     if (!enabled || !autoSweep || interacted) return;
     const el = ref.current;
     if (!el) return;
+    // `raf` must live in the effect scope: returning a cleanup from the
+    // IntersectionObserver callback does nothing (IO discards return values),
+    // so the sweep loop previously outlived both the effect and the component.
+    let raf = 0;
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting || interacted) return;
-        let raf = 0;
         const start = performance.now();
         const duration = 1400;
         const tick = (t: number) => {
@@ -73,12 +76,16 @@ export function BeforeAfterSlider({
         };
         raf = requestAnimationFrame(tick);
         io.disconnect();
-        return () => cancelAnimationFrame(raf);
       },
       { threshold: 0.4 },
     );
     io.observe(el);
-    return () => io.disconnect();
+    // Cancelling here is what stops the sweep from yanking the divider out
+    // from under the user's finger: `interacted` flipping re-runs the effect.
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
   }, [enabled, autoSweep, interacted]);
 
   const updateFromClientX = (clientX: number) => {

@@ -3,7 +3,7 @@
 // Strategy: for each carrier, query the carrier's Wikipedia article for any
 // File:* image whose title contains "logo", then call imageinfo to resolve
 // the actual file URL, and download.
-import { writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 

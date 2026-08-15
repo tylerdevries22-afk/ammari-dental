@@ -55,9 +55,12 @@ export function AmbientCursor() {
         dotX = x;
         dotY = y;
         ring.dataset.ready = "1";
-        ring.style.opacity = "1";
-        dot.style.opacity = "1";
       }
+      // Restore unconditionally: this used to sit inside the `ready` guard, so
+      // once the pointer left the window (onLeave sets opacity 0) the cursor
+      // never came back until a full reload.
+      ring.style.opacity = "1";
+      dot.style.opacity = "1";
     };
 
     const onOver = (e: PointerEvent) => {

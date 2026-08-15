@@ -14,7 +14,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const message = (body.message ?? "").trim();
+  // Guard the type before touching it: a non-string `message` (or a `null`
+  // body) previously threw past the try/catch above and returned a bare 500.
+  if (typeof body?.message !== "string") {
+    return NextResponse.json({ error: "Message must be a string" }, { status: 400 });
+  }
+
+  const message = body.message.trim();
   if (!message) {
     return NextResponse.json({ error: "Empty message" }, { status: 400 });
   }

@@ -26,11 +26,12 @@ export const site = {
     { day: "Saturday", closed: true },
     { day: "Sunday", closed: true },
   ],
+  // Consumed individually for map links, and in full by the LocalBusiness
+  // `sameAs`. Placeholder entries (bare facebook.com / yelp.com / linkedin.com
+  // homepages) were removed — asserting those as the practice's own profiles
+  // is an entity-resolution error. Add real profile URLs here when they exist.
   social: {
-    facebook: "https://www.facebook.com/",
-    yelp: "https://www.yelp.com/",
     google: "https://maps.google.com/?q=1344+S+Chambers+Road+Suite+203+Aurora+CO+80017",
-    linkedin: "https://www.linkedin.com/",
   },
   staff: [
     {

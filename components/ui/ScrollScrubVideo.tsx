@@ -18,6 +18,12 @@ type Props = {
    * while the section continues to scroll out. Default 0.65.
    */
   endAt?: number;
+  /**
+   * Preload the poster at high priority. Only set this when the component is
+   * genuinely above the fold — its sole current consumer (AboutSplit) sits
+   * mid-page, where preloading competed with the real LCP image.
+   */
+  priority?: boolean;
 };
 
 /**
@@ -48,6 +54,7 @@ export function ScrollScrubVideo({
    * to clear a single fade-in frame on a 30 fps source without an obvious cut.
    */
   startOffset = 0.08,
+  priority = false,
 }: Props & { startOffset?: number }) {
   const { reduced, scrubFactor } = useMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -168,7 +175,7 @@ export function ScrollScrubVideo({
           src={poster}
           alt={posterAlt}
           fill
-          priority
+          priority={priority}
           sizes="(max-width: 1024px) 90vw, 40vw"
           className="object-cover"
         />
@@ -183,7 +190,7 @@ export function ScrollScrubVideo({
           src={poster}
           alt={posterAlt}
           fill
-          priority
+          priority={priority}
           sizes="(max-width: 1024px) 90vw, 40vw"
           className={cn(
             "object-cover transition-opacity duration-500",

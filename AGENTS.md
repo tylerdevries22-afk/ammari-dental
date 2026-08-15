@@ -36,7 +36,7 @@ All design tokens live in `app/globals.css` inside the `@theme` block. Reference
 ### Hard rules
 
 - **NEVER use Tailwind named colors** (`text-green-600`, `bg-white`, `text-black`, etc.) — every color must reference a `--color-*` token.
-- **NEVER hard-code hex values** in component code. Only exceptions: `lib/email-tokens.ts` (email clients don't support CSS vars) and inline tokens in `app/opengraph-image.tsx` / `app/apple-icon.tsx` (next/og runs server-side and can't read computed styles).
+- **NEVER hard-code hex values** in component code. Only exceptions: `lib/email-tokens.ts` (email clients don't support CSS vars), inline tokens in `app/opengraph-image.tsx` / `app/apple-icon.tsx` (next/og runs server-side and can't read computed styles), and `app/global-error.tsx` (it replaces the root layout, so `globals.css` — and therefore every token — is not loaded).
 - All headings use `--font-display` (Fraunces); body uses `--font-sans` (Inter); credentials/data use `--font-mono`.
 
 ## Motion contract

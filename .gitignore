@@ -32,6 +32,14 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ...but the template must stay committable, or `git add .env.example`
+# silently does nothing and onboarding has no reference.
+!.env.example
+
+# Large source media parked in the repo root. These are NOT build inputs —
+# without this guard a single `git add -A` writes ~43 MB into history.
+/*.mp4
+/*.mov
 
 # vercel
 .vercel
@@ -40,6 +48,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .claude/worktrees/
+.claude/scheduled_tasks.lock
 
 # playwright
 /test-results/

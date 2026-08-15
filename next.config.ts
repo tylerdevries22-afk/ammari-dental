@@ -54,6 +54,17 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        // Patient forms (PDFs). Without this they fall through to max-age=0
+        // and the 2.7 MB health-history form is re-fetched on every visit.
+        source: "/forms/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: `public, max-age=${ONE_YEAR}, immutable`,
+          },
+        ],
+      },
+      {
         // Baseline security headers for HTML responses
         source: "/:path*",
         headers: [

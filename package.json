@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint --max-warnings=0",
     "seo:snapshot": "node scripts/build-seo-snapshot.mjs",
     "seo:diff": "node scripts/diff-sitemap.mjs",
     "test:e2e": "playwright test",
