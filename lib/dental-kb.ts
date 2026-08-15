@@ -90,7 +90,9 @@ export function detectIntent(text: string): Intent {
     return "book";
   if (/(hours?|open|close[ds]?|today|tomorrow|when.*open|what.*time)/i.test(t))
     return "hours";
-  if (/(where|address|location|directions|map|drive|park|near)/i.test(t))
+  // Leading \b only: keeps "parking"/"nearby" matching while stopping the
+  // substring hit that routed "sparkling white teeth" to driving directions.
+  if (/\b(where|address|location|directions|map|drive|park|near)/i.test(t))
     return "location";
   if (/(phone|call|number|reach|contact)/i.test(t)) return "phone";
   if (

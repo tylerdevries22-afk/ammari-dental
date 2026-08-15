@@ -4,6 +4,10 @@
   /* Surface — soft warm canvas */
   --color-bg: #FAFAF7;
   --color-surface: #FFFFFF;
+  /* Text/heading color for content sitting on a dark or brand-gradient panel.
+     Needed because the base h1-h6 rule sets an explicit color, so a heading
+     never inherits `text-white` from a wrapper — it rendered ink-on-ink. */
+  --color-on-dark: #FFFFFF;
   --color-surface-muted: #F1EFEA;
   --color-surface-warm: #F7F2EC;
 

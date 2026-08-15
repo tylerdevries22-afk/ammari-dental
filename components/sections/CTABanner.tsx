@@ -95,7 +95,7 @@ export function CTABanner({
             <SplitText
               as="h2"
               text={title}
-              className="block text-4xl lg:text-6xl font-display tracking-tight"
+              className="block text-4xl lg:text-6xl font-display tracking-tight text-(--color-on-dark)"
             />
             <m.p
               initial={{ opacity: 0, y: 14 }}

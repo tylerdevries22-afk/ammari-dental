@@ -5,7 +5,10 @@ const PAGES = ["/", "/dental-services", "/dental-implants", "/appointment", "/co
 
 for (const path of PAGES) {
   test(`a11y: ${path} has no serious or critical violations`, async ({ page }) => {
-    await page.goto(path);
+    const res = await page.goto(path);
+    // goto() only rejects on network errors, not 4xx/5xx. Without this the
+    // gate happily scans an error page and reports the route as accessible.
+    expect(res?.status(), `${path} did not return 200`).toBe(200);
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
       // Decorative hero scrub video — silent, aria-hidden, no caption needed.

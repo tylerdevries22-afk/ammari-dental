@@ -30,7 +30,7 @@ export function EmergencyBand() {
                 </span>
                 Dental Emergency
               </div>
-              <h2 className="mt-4 text-4xl lg:text-5xl font-display tracking-tight leading-[1.05]">
+              <h2 className="mt-4 text-4xl lg:text-5xl font-display tracking-tight leading-[1.05] text-(--color-on-dark)">
                 Pain, swelling, or a broken tooth?
               </h2>
               <p className="mt-4 text-white/85 max-w-lg">

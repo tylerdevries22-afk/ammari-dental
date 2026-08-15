@@ -16,7 +16,11 @@ export default defineConfig({
   ],
   webServer: {
     command: "npm run start",
-    url: "http://localhost:3000",
+    // Must track baseURL. When this was pinned to :3000 while baseURL honored
+    // BASE_URL, `reuseExistingServer` would adopt whatever already held :3000 —
+    // on a machine running another project there, the suite reported green
+    // against a completely different application.
+    url: process.env.BASE_URL ?? "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },
