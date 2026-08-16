@@ -15,20 +15,26 @@ import { getArticle } from "@/lib/articles";
  * slug means a tile can only render if its article is really there, and the
  * title/topic always match the library.
  */
-const FEATURED_SLUGS = [
-  "502374-brushing",
-  "502377-cavities-and-tooth-decay",
-  "502432-root-canal-therapy",
-  "502402-implants",
-  "502386-dentures",
-  "502420-oral-cancer",
-  "502387-diabetes",
-  "502370-bleaching",
+const FEATURED: { slug: string; label?: string }[] = [
+  { slug: "502374-brushing", label: "Brushing Basics" },
+  { slug: "502377-cavities-and-tooth-decay" },
+  { slug: "502432-root-canal-therapy" },
+  { slug: "502402-implants", label: "Dental Implants" },
+  { slug: "502386-dentures" },
+  { slug: "502420-oral-cancer" },
+  { slug: "502387-diabetes", label: "Diabetes & Oral Health" },
+  { slug: "502370-bleaching", label: "Teeth Whitening" },
 ];
 
-const articles = FEATURED_SLUGS.map((slug) => getArticle("general", slug)).filter(
-  (a): a is NonNullable<typeof a> => Boolean(a),
-);
+/**
+ * `label` only overrides the card's display text where the library's own title
+ * is too terse to stand alone on a homepage tile ("Implants", "Diabetes",
+ * "Bleaching"). The destination always comes from the article record.
+ */
+const articles = FEATURED.map(({ slug, label }) => {
+  const article = getArticle("general", slug);
+  return article ? { ...article, title: label ?? article.title } : null;
+}).filter((a): a is NonNullable<typeof a> => Boolean(a));
 
 export function ArticlesGrid() {
   return (
@@ -49,7 +55,10 @@ export function ArticlesGrid() {
           {articles.map((a) => (
             <m.li key={a.slug} variants={fadeUp}>
               <Link
-                href={a.slug}
+                // `slug` is a bare id ("502374-brushing"), so using it as the
+                // href produced a root-relative link that 404'd. `url` is the
+                // full "/articles/<collection>/<slug>" path.
+                href={a.url}
                 className="group block h-full p-6 rounded-2xl bg-white border border-(--color-brand-100) hover:border-(--color-brand-400) transition-all hover:-translate-y-1 hover:shadow-(--shadow-soft-md)"
               >
                 <div className="text-xs uppercase tracking-widest font-semibold text-(--color-brand-600)">
@@ -58,7 +67,11 @@ export function ArticlesGrid() {
                 <div className="mt-3 font-display text-lg leading-snug text-(--color-ink-900)">
                   {a.title}
                 </div>
-                <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-(--color-brand-700) opacity-0 group-hover:opacity-100 transition-opacity">
+                {/* Touch devices have no hover, so this reserved its space and
+                    never revealed — leaving a visibly empty band at the bottom
+                    of every card on mobile. Shown by default, hover-revealed
+                    from md up where a pointer exists. */}
+                <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-(--color-brand-700) opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                   Read more
                   <Icon name="arrow" className="w-3.5 h-3.5" />
                 </div>

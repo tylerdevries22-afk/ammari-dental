@@ -37,7 +37,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${fraunces.variable}`}
+      // The splash gate below adds `am-splash-seen` to <html> before React
+      // hydrates, so on any repeat load in a session the client className
+      // differs from the server's and React logs a hydration mismatch it
+      // explicitly will not patch up. This is the documented escape hatch for
+      // a pre-hydration script mutating the root element.
+      suppressHydrationWarning
+    >
       <body className="min-h-screen flex flex-col antialiased">
         {/*
           Once-per-session splash gate. Runs before the splash element is
