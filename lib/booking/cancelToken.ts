@@ -1,4 +1,5 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
+import { isNexHealthConfigured } from "./nexhealth";
 
 /**
  * Signed token used in cancel / .ics deep links.
@@ -6,18 +7,33 @@ import { createHmac, timingSafeEqual } from "node:crypto";
  * Format: <base64url(payload)>.<base64url(signature)>
  * Payload: { bookingId: string, exp: number /* unix seconds * / }
  *
- * The signing secret falls back to a deterministic-but-non-secret value when
- * BOOKING_SIGNING_SECRET is missing. That's fine for the mock-only mode the
- * feature ships in; once the real NexHealth flow is enabled the env var
- * MUST be set or every token can be forged.
+ * The signing secret falls back to a committed, non-secret value so the mock
+ * flow works in preview deployments. That fallback is only safe while no real
+ * appointments exist: the literal is in the repo, so anyone could mint a valid
+ * token for any bookingId and cancel another patient's appointment. It
+ * therefore fails closed the moment the real NexHealth backend is active.
  */
 
 const DEFAULT_TTL_SECONDS = 60 * 60 * 24 * 60; // 60 days
 
+const DEV_SECRET = "dev-only-booking-secret-not-for-production-use";
+
+/** Mirrors getBookingClient()'s resolution without importing its module cache. */
+function usingRealBookings(): boolean {
+  if (process.env.BOOKING_MOCK === "1") return false;
+  return isNexHealthConfigured();
+}
+
 function secret(): string {
   const env = process.env.BOOKING_SIGNING_SECRET;
   if (env && env.length >= 16) return env;
-  return "dev-only-booking-secret-not-for-production-use";
+  if (usingRealBookings()) {
+    throw new Error(
+      "BOOKING_SIGNING_SECRET must be set (32+ chars) when the NexHealth booking " +
+        "backend is configured. Without it every cancel/manage token is forgeable.",
+    );
+  }
+  return DEV_SECRET;
 }
 
 function b64url(input: Buffer | string): string {

@@ -23,10 +23,16 @@ export function consumeToken(key: string): {
     bucket = { tokens: CAPACITY, lastRefillMs: now };
     buckets.set(key, bucket);
   } else {
+    // Refill proportionally instead of resetting the whole bucket at the
+    // interval boundary. The wholesale reset allowed double the intended
+    // budget: 10 confirms at T+59:59 and 10 more at T+60:01.
     const elapsed = now - bucket.lastRefillMs;
-    if (elapsed >= REFILL_INTERVAL_MS) {
-      bucket.tokens = CAPACITY;
-      bucket.lastRefillMs = now;
+    const earned = Math.floor((elapsed / REFILL_INTERVAL_MS) * CAPACITY);
+    if (earned > 0) {
+      bucket.tokens = Math.min(CAPACITY, bucket.tokens + earned);
+      // Advance only by the time actually consumed, so the sub-token
+      // remainder carries forward instead of being discarded.
+      bucket.lastRefillMs += Math.ceil((earned / CAPACITY) * REFILL_INTERVAL_MS);
     }
   }
 
@@ -35,7 +41,8 @@ export function consumeToken(key: string): {
     return { allowed: true, retryAfterSeconds: 0 };
   }
 
-  const retryMs = bucket.lastRefillMs + REFILL_INTERVAL_MS - now;
+  // With gradual refill the caller waits for one token, not a full interval.
+  const retryMs = bucket.lastRefillMs + REFILL_INTERVAL_MS / CAPACITY - now;
   return {
     allowed: false,
     retryAfterSeconds: Math.max(1, Math.ceil(retryMs / 1000)),

@@ -3,8 +3,29 @@ import AxeBuilder from "@axe-core/playwright";
 
 const PAGES = ["/", "/dental-services", "/dental-implants", "/appointment", "/contact"];
 
+/**
+ * Skip the intro splash the same way a returning visitor does.
+ *
+ * The splash is a 3.4s opaque overlay that renders on every fresh context, so
+ * whether axe caught it still painted depended on machine speed — an
+ * intermittent color-contrast failure on its decorative wordmark. Seeding the
+ * flag the app itself checks makes the scan deterministic and, more usefully,
+ * scans the page a visitor actually interacts with. The splash is
+ * aria-hidden + role="presentation", so nothing meaningful goes unscanned.
+ */
+async function skipSplash(page: import("@playwright/test").Page) {
+  await page.addInitScript(() => {
+    try {
+      sessionStorage.setItem("am-splash-shown", "1");
+    } catch {
+      /* storage unavailable — splash just plays as normal */
+    }
+  });
+}
+
 for (const path of PAGES) {
   test(`a11y: ${path} has no serious or critical violations`, async ({ page }) => {
+    await skipSplash(page);
     const res = await page.goto(path);
     // goto() only rejects on network errors, not 4xx/5xx. Without this the
     // gate happily scans an error page and reports the route as accessible.
@@ -27,14 +48,17 @@ for (const path of PAGES) {
 }
 
 test("skip link is reachable via keyboard", async ({ page }) => {
+  // Without this the splash can hold focus when Tab fires.
+  await skipSplash(page);
   await page.goto("/");
   await page.keyboard.press("Tab");
   const focused = await page.evaluate(() => document.activeElement?.textContent);
   expect(focused).toMatch(/skip to content/i);
 });
 
-// The booking picker ships behind NEXT_PUBLIC_BOOKING_FLAG. In CI the flag is
-// "off" by default, so /appointment renders the legacy form (covered above).
+// The booking picker ships behind NEXT_PUBLIC_BOOKING_FLAG. CI sets it to
+// "preview" so this actually runs — previously it was never set, so the whole
+// booking surface silently skipped and the gate protected nothing.
 // When the flag is "preview" or "on", the picker becomes scannable and this
 // suite runs the same axe rules against its initial step.
 const pickerEnabled = ["preview", "on"].includes(
@@ -45,6 +69,7 @@ test.describe(pickerEnabled ? "booking picker" : "booking picker (skipped — fl
   test.skip(!pickerEnabled, "Set NEXT_PUBLIC_BOOKING_FLAG=preview to run");
 
   test("a11y: /appointment?booking=1 (reason step)", async ({ page }) => {
+    await skipSplash(page);
     await page.goto("/appointment?booking=1");
     // Wait for the reason cards to mount (initial fetch resolves).
     await page.getByRole("radiogroup", { name: /reason/i }).waitFor();

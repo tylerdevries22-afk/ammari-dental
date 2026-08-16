@@ -4,11 +4,12 @@
  * Three modes resolved from NEXT_PUBLIC_BOOKING_FLAG (public so the picker
  * component can branch isomorphically without a server round-trip):
  *
- *   - "off"     (default)  Legacy AppointmentForm. /api/booking/* routes
+ *   - "off"                Legacy AppointmentForm. /api/booking/* routes
  *                          short-circuit with 404 so they're inert in prod.
- *   - "preview"            Real picker only when ?booking=1 query param is
+ *   - "preview" (default)  Real picker only when ?booking=1 query param is
  *                          present. Lets staff QA in production without
- *                          flipping it on for everyone.
+ *                          flipping it on for everyone. NOTE: /api/booking/*
+ *                          IS live in this mode — only "off" makes it inert.
  *   - "on"                 Real picker for all visitors.
  */
 

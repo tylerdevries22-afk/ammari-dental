@@ -5,9 +5,15 @@ on:
     branches: [main]
   pull_request:
 
+# A superseded push should not keep burning runners.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,6 +29,15 @@ jobs:
   e2e:
     runs-on: ubuntu-latest
     needs: build
+    # Without this a hung browser install ran to the 6h job ceiling. Eight
+    # consecutive runs were cancelled that way, so the a11y gate never once
+    # executed and accessibility regressions shipped to main unnoticed.
+    timeout-minutes: 20
+    env:
+      BASE_URL: http://localhost:3000
+      # The booking picker a11y test skips itself unless the flag is set, so
+      # without this the new booking surface is never scanned in CI.
+      NEXT_PUBLIC_BOOKING_FLAG: preview
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,8 +45,20 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
+      # `--with-deps` shells out to apt-get, which is what hung. The
+      # ubuntu-latest image already carries chromium's shared libraries.
+      - name: Install Playwright chromium
+        run: npx playwright install chromium
+        timeout-minutes: 5
       - run: npm run build
       - run: npm run test:e2e
-        env:
-          BASE_URL: http://localhost:3000
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+          if-no-files-found: ignore
