@@ -5,7 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { FloatingCallButton } from "@/components/layout/FloatingCallButton";
+import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { DentalAgent } from "@/components/agent/DentalAgent";
 import { SplashScreen } from "@/components/SplashScreen";
 import { LocalBusinessSchema } from "@/components/schema/Schema";
@@ -47,7 +47,8 @@ export default function RootLayout({
       // a pre-hydration script mutating the root element.
       suppressHydrationWarning
     >
-      <body className="min-h-screen flex flex-col antialiased">
+      {/* pb-20 keeps the footer clear of the fixed mobile quick-action bar. */}
+      <body className="min-h-screen flex flex-col antialiased pb-20 lg:pb-0">
         {/*
           Once-per-session splash gate. Runs before the splash element is
           parsed, so on repeat loads in the same session it marks <html> and
@@ -65,7 +66,7 @@ export default function RootLayout({
           <Header />
           <main id="main" className="flex-1">{children}</main>
           <Footer />
-          <FloatingCallButton />
+          <MobileBottomNav />
           <DentalAgent />
           {/*
             ClientEnhancements is rendered AFTER Header/main/Footer so the

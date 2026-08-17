@@ -222,7 +222,9 @@ export function DentalAgent() {
   return (
     <>
       {/* Floating launcher */}
-      <div className="fixed z-40 bottom-5 right-5 flex items-center gap-2.5">
+      {/* Hidden below lg — the mobile quick-action bar owns the chat entry
+          point there, and this bubble sat in the same corner. */}
+      <div className="fixed z-40 bottom-5 right-5 hidden lg:flex items-center gap-2.5">
         {/* Invite label — slides in once per session to make the chat obvious */}
         <AnimatePresence>
           {showLabel && !open && (
